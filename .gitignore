@@ -1,0 +1,5 @@
+Build/
+.DS_Store
+Pods/
+TrainingTimer.xcodeproj/project.xcworkspace/xcuserdata/
+TrainingTimer.xcworkspace/xcuserdata/

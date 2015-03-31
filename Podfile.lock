@@ -1,0 +1,24 @@
+PODS:
+  - Masonry (0.6.1)
+  - Reachability (3.2)
+  - TMCache (1.2.3)
+  - XLForm (2.1.0)
+  - YSASIHTTPRequest (2.0.1):
+    - YSASIHTTPRequest/Core (= 2.0.1)
+  - YSASIHTTPRequest/Core (2.0.1):
+    - Reachability
+
+DEPENDENCIES:
+  - Masonry (~> 0.6.1)
+  - TMCache (~> 1.2.3)
+  - XLForm (~> 2.1.0)
+  - YSASIHTTPRequest (~> 2.0.1)
+
+SPEC CHECKSUMS:
+  Masonry: 2cb49fd14d203d2db5ca6bb017135b235dde9980
+  Reachability: 1ef8adf5c4e3d362f96515d4278f68dad3c26930
+  TMCache: 11589ef8c40909114a5e60132711c9a559e01d97
+  XLForm: 7d6855fe88df37b44ea00da80cc0cf3a945cfb1b
+  YSASIHTTPRequest: 955e68bf54457506cd5e7e47d9eeb42dfd530f0f
+
+COCOAPODS: 0.35.0
