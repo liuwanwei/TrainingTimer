@@ -69,11 +69,11 @@ static NSString * const kRootNode = @"rootNode";
 
 - (NSArray *)dataes{
     NSArray * units = @[@{TrainingUnitIndex:@(1),
-                          TrainingUnitTypeKey:@(TrainingUnitTypePreprae),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeWarmUp),
                           TrainingUnitTimeLength:@(120)},
                         
                         @{TrainingUnitIndex:@(2),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeJump),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(60)},
                         
                         @{TrainingUnitIndex:@(3),
@@ -81,7 +81,7 @@ static NSString * const kRootNode = @"rootNode";
                           TrainingUnitTimeLength:@(20)},
                         
                         @{TrainingUnitIndex:@(4),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeJump),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(60)},
                         
                         @{TrainingUnitIndex:@(5),
@@ -89,7 +89,7 @@ static NSString * const kRootNode = @"rootNode";
                           TrainingUnitTimeLength:@(20)},
                         
                         @{TrainingUnitIndex:@(6),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeJump),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(60)},
                         
                         @{TrainingUnitIndex:@(7),
@@ -97,7 +97,7 @@ static NSString * const kRootNode = @"rootNode";
                           TrainingUnitTimeLength:@(20)},
                         
                         @{TrainingUnitIndex:@(8),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeJump),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(60)},
                         
                         @{TrainingUnitIndex:@(9),
@@ -105,7 +105,7 @@ static NSString * const kRootNode = @"rootNode";
                           TrainingUnitTimeLength:@(20)},
                         
                         @{TrainingUnitIndex:@(10),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeJump),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(60)},
                         
                         @{TrainingUnitIndex:@(11),
@@ -113,7 +113,7 @@ static NSString * const kRootNode = @"rootNode";
                           TrainingUnitTimeLength:@(20)},
                         
                         @{TrainingUnitIndex:@(12),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeJump),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(60)}];
     
     return units;
@@ -121,11 +121,11 @@ static NSString * const kRootNode = @"rootNode";
 
 - (NSArray *)tdataes{
     NSArray * units = @[@{TrainingUnitIndex:@(1),
-                          TrainingUnitTypeKey:@(TrainingUnitTypePreprae),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeWarmUp),
                           TrainingUnitTimeLength:@(5)},
                         
                         @{TrainingUnitIndex:@(2),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeJump),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(5)},
                         
                         @{TrainingUnitIndex:@(3),
@@ -133,7 +133,7 @@ static NSString * const kRootNode = @"rootNode";
                           TrainingUnitTimeLength:@(5)},
                         
                         @{TrainingUnitIndex:@(4),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeJump),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(5)},
                         
                         @{TrainingUnitIndex:@(5),
@@ -141,7 +141,7 @@ static NSString * const kRootNode = @"rootNode";
                           TrainingUnitTimeLength:@(5)},
                         
                         @{TrainingUnitIndex:@(6),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeJump),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(60)},
                         
                         @{TrainingUnitIndex:@(7),
@@ -149,7 +149,7 @@ static NSString * const kRootNode = @"rootNode";
                           TrainingUnitTimeLength:@(20)},
                         
                         @{TrainingUnitIndex:@(8),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeJump),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(60)},
                         
                         @{TrainingUnitIndex:@(9),
@@ -157,7 +157,7 @@ static NSString * const kRootNode = @"rootNode";
                           TrainingUnitTimeLength:@(20)},
                         
                         @{TrainingUnitIndex:@(10),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeJump),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(60)},
                         
                         @{TrainingUnitIndex:@(11),
@@ -165,7 +165,7 @@ static NSString * const kRootNode = @"rootNode";
                           TrainingUnitTimeLength:@(20)},
                         
                         @{TrainingUnitIndex:@(12),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeJump),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(60)}];
     
     return units;

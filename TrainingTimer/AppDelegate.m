@@ -11,6 +11,7 @@
 #import "ViewController.h"
 #import "BDFoundation.h"
 #import "HiitSettingViewController.h"
+#import "StartViewController.h"
 #import "UIColor+TrainingTimer.h"
 
 @interface AppDelegate ()
@@ -32,15 +33,9 @@
     UIViewController * root = self.window.rootViewController;
     if ([root isKindOfClass:[UINavigationController class]]) {
         UINavigationController * nav = (UINavigationController *)root;
-        HiitSettingViewController * hiitVc = [[HiitSettingViewController alloc] init];
-        [nav setViewControllers:@[hiitVc]];
-        
-//        ViewController * vc = nav.viewControllers[0];
-//        NSArray * processes = [[TrainingData defaultInstance] trainingProcesses];
-//        if (processes.count > 0) {
-//            // 暂时使用第一个数据
-//            vc.process = processes[0];
-//        }
+//        HiitSettingViewController * vc = [[HiitSettingViewController alloc] init];
+        StartViewController * vc = [[StartViewController alloc] init];
+        [nav setViewControllers:@[vc]];
     }
     
     return YES;

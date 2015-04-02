@@ -10,7 +10,8 @@
 
 typedef enum{
     TrainingColorSchemaBlue,
-    TrainingColorSchemaOrange
+    TrainingColorSchemaOrange,
+    TrainingColorSchemaLight,
     
 }TrainingColorSchema;
 

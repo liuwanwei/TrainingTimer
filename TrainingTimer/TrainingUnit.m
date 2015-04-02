@@ -26,7 +26,7 @@ NSString * const TrainingUnitIndex      = @"trainingUnitTimeIndex";
 
 - (BOOL)isTrainingUnit{
     TrainingUnitTypeEnum type = (TrainingUnitTypeEnum)[_type integerValue];
-    if (type == TrainingUnitTypeJump) {
+    if (type == TrainingUnitTypeSkipping) {
         return YES;
     }else{
         return NO;
@@ -48,9 +48,9 @@ NSString * const TrainingUnitIndex      = @"trainingUnitTimeIndex";
 
 + (NSString *)descriptionForType:(TrainingUnitTypeEnum)type{
     switch (type) {
-        case TrainingUnitTypePreprae:
+        case TrainingUnitTypeWarmUp:
             return @"热身期";
-        case TrainingUnitTypeJump:
+        case TrainingUnitTypeSkipping:
             return @"跳绳训练";
         case TrainingUnitTypeRest:
             return @"休息期";

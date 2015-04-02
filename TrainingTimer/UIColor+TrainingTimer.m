@@ -12,7 +12,7 @@
 
 static NSString * const kSchemaKey = @"schemaKey";
 
-static TrainingColorSchema sSchema = TrainingColorSchemaOrange;
+static TrainingColorSchema sSchema = TrainingColorSchemaLight;
 
 @implementation UIColor(TrainingTimer)
 
@@ -36,6 +36,8 @@ static TrainingColorSchema sSchema = TrainingColorSchemaOrange;
             return RGB(0x77, 0x6B, 0x5E);
         case TrainingColorSchemaBlue:
             return RGB(0x77, 0x6B, 0x5E);
+        case TrainingColorSchemaLight:
+            return RGB(0xD4, 0xD5, 0xD5);
     }
     
 }
@@ -46,6 +48,7 @@ static TrainingColorSchema sSchema = TrainingColorSchemaOrange;
         case TrainingColorSchemaOrange:
             return RGB(0xEA, 0x60, 0x5D);
             break;
+        case TrainingColorSchemaLight:
         case TrainingColorSchemaBlue:
             return RGB(0x25, 0xAE, 0xFB);
     }
@@ -55,6 +58,7 @@ static TrainingColorSchema sSchema = TrainingColorSchemaOrange;
     switch (sSchema) {
         case TrainingColorSchemaOrange:
             return RGB(0x91, 0xB5, 0xE5);
+        case TrainingColorSchemaLight:
         case TrainingColorSchemaBlue:
             return RGB(0x8C, 0xB6, 0x45);
     }

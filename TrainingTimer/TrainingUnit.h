@@ -14,8 +14,8 @@ extern NSString * const TrainingUnitTimeLength;
 extern NSString * const TrainingUnitIndex;
 
 typedef enum {
-    TrainingUnitTypePreprae = 0,      // 准备
-    TrainingUnitTypeJump,     // 跳绳训练
+    TrainingUnitTypeWarmUp = 0,      // 准备
+    TrainingUnitTypeSkipping,     // 跳绳训练
     TrainingUnitTypeRest,             // 休息
     
 }TrainingUnitTypeEnum;

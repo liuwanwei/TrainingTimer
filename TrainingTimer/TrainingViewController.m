@@ -9,6 +9,7 @@
 #import "TrainingViewController.h"
 #import <Masonry.h>
 #import "UIColor+TrainingTimer.h"
+#import "UIFont+Adapter.h"
 #import "UIImage+Tint.h"
 #import "TrainingProcess.h"
 #import "TrainingUnit.h"
@@ -83,46 +84,6 @@ static NSInteger const UIAlertViewStopTraining = 10081;
     // Dispose of any resources that can be recreated.
 }
 
-+ (UIFont *)findAdaptiveFontWithName:(NSString *)fontName forUILabelSize:(CGSize)labelSize withMinimumSize:(NSInteger)minSize
-{
-    UIFont *tempFont = nil;
-    NSString *testString = @"9";
-    
-    NSInteger tempMin = minSize;
-    NSInteger tempMax = 256;
-    NSInteger mid = 0;
-    NSInteger difference = 0;
-    
-    while (tempMin <= tempMax) {
-        @autoreleasepool {
-            mid = tempMin + (tempMax - tempMin) / 2;
-            tempFont = [UIFont fontWithName:fontName size:mid];
-            
-//            CGSize tempFontSize = [testString sizeWithFont:tempFont];]
-            CGSize tempFontSize = [testString sizeWithAttributes:@{NSFontAttributeName:tempFont}];
-            difference = labelSize.height - tempFontSize.height;
-            
-            if (mid == tempMin || mid == tempMax) {
-                if (difference < 0) {
-                    return [UIFont fontWithName:fontName size:(mid - 1)];
-                }
-                
-                return [UIFont fontWithName:fontName size:mid];
-            }
-            
-            if (difference < 0) {
-                tempMax = mid - 1;
-            } else if (difference > 0) {
-                tempMin = mid + 1;
-            } else {
-                return [UIFont fontWithName:fontName size:mid];
-            }
-        }
-    }
-    
-    return [UIFont fontWithName:fontName size:mid];
-}
-
 #pragma mark - Private functions
 - (void)createSubViews{
     // 关闭按钮
@@ -167,7 +128,7 @@ static NSInteger const UIAlertViewStopTraining = 10081;
         maker.edges.equalTo(_centeredView);
     }];
     CGSize size = _centeredView.frame.size;
-    UIFont * font = [[self class] findAdaptiveFontWithName:@"Times New Roman" forUILabelSize:size withMinimumSize:32];
+    UIFont * font = [UIFont findAdaptiveFontWithName:@"Times New Roman" forUILabelSize:size withMinimumSize:32];
     _centeredLabel.font = font;
     
     // 进度指示器：正方形

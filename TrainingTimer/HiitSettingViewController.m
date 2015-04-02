@@ -91,14 +91,14 @@ static NSString * const kFormRowStart = @"start";
     NSNumber * interval = option.valueData;
     
     // 准备时间单元
-    TrainingUnit * unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypePreprae interval:interval.integerValue];
+    TrainingUnit * unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeWarmUp interval:interval.integerValue];
     [process addUnit:unit];
     
     // 训练时间单元
     option = [self.form formRowWithTag:kFormRowGroupCount].value;
     NSNumber * count = option.valueData;
     for (NSInteger i = 0; i < count.integerValue; i++) {
-        unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeJump interval:60];
+        unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeSkipping interval:60];
         [process addUnit:unit];
         
         unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeRest interval:20];

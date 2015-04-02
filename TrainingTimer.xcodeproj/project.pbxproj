@@ -10,6 +10,9 @@
 		32DC25367D829D5B95A091ED /* libPods-TrainingTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 285CF4291F800A2CD1DA3F9F /* libPods-TrainingTimer.a */; };
 		FBDA39DB1AC952BF00DE81FB /* HiitSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39DA1AC952BF00DE81FB /* HiitSettingViewController.m */; };
 		FBDA39DE1AC996DE00DE81FB /* HeartRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39DD1AC996DE00DE81FB /* HeartRateViewController.m */; };
+		FBDA39E41ACAF17200DE81FB /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39E31ACAF17200DE81FB /* StartViewController.m */; };
+		FBDA39E71ACAFE4700DE81FB /* BigLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39E61ACAFE4700DE81FB /* BigLineView.m */; };
+		FBDA39ED1ACB736B00DE81FB /* UIFont+Adapter.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39EC1ACB736B00DE81FB /* UIFont+Adapter.m */; };
 		FBF0F7361ABD321700EBC44C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F7351ABD321700EBC44C /* main.m */; };
 		FBF0F7391ABD321700EBC44C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F7381ABD321700EBC44C /* AppDelegate.m */; };
 		FBF0F73F1ABD321700EBC44C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBF0F73D1ABD321700EBC44C /* Main.storyboard */; };
@@ -61,6 +64,12 @@
 		FBDA39DA1AC952BF00DE81FB /* HiitSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiitSettingViewController.m; sourceTree = "<group>"; };
 		FBDA39DC1AC996DE00DE81FB /* HeartRateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartRateViewController.h; sourceTree = "<group>"; };
 		FBDA39DD1AC996DE00DE81FB /* HeartRateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartRateViewController.m; sourceTree = "<group>"; };
+		FBDA39E21ACAF17200DE81FB /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
+		FBDA39E31ACAF17200DE81FB /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
+		FBDA39E51ACAFE4700DE81FB /* BigLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigLineView.h; sourceTree = "<group>"; };
+		FBDA39E61ACAFE4700DE81FB /* BigLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigLineView.m; sourceTree = "<group>"; };
+		FBDA39EB1ACB736B00DE81FB /* UIFont+Adapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Adapter.h"; sourceTree = "<group>"; };
+		FBDA39EC1ACB736B00DE81FB /* UIFont+Adapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Adapter.m"; sourceTree = "<group>"; };
 		FBF0F7301ABD321700EBC44C /* 疯狂跳绳.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "疯狂跳绳.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBF0F7341ABD321700EBC44C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBF0F7351ABD321700EBC44C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -192,6 +201,10 @@
 				FBF0F7A41AC0565700EBC44C /* Manager */,
 				FBF0F7371ABD321700EBC44C /* AppDelegate.h */,
 				FBF0F7381ABD321700EBC44C /* AppDelegate.m */,
+				FBDA39E21ACAF17200DE81FB /* StartViewController.h */,
+				FBDA39E31ACAF17200DE81FB /* StartViewController.m */,
+				FBDA39E51ACAFE4700DE81FB /* BigLineView.h */,
+				FBDA39E61ACAFE4700DE81FB /* BigLineView.m */,
 				FBDA39D91AC952BF00DE81FB /* HiitSettingViewController.h */,
 				FBDA39DA1AC952BF00DE81FB /* HiitSettingViewController.m */,
 				FBF0F7A91AC1209500EBC44C /* TrainingViewController.h */,
@@ -303,6 +316,8 @@
 		FBF0F7A31AC0564000EBC44C /* Cagegory */ = {
 			isa = PBXGroup;
 			children = (
+				FBDA39EB1ACB736B00DE81FB /* UIFont+Adapter.h */,
+				FBDA39EC1ACB736B00DE81FB /* UIFont+Adapter.m */,
 				FBF0F7E51AC455A300EBC44C /* UIImage+Tint.h */,
 				FBF0F7E61AC455A300EBC44C /* UIImage+Tint.m */,
 				FBF0F7961ABDA5E900EBC44C /* UIColor+TrainingTimer.h */,
@@ -467,11 +482,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBDA39E41ACAF17200DE81FB /* StartViewController.m in Sources */,
 				FBF0F7851ABD399C00EBC44C /* BaseModel.m in Sources */,
 				FBF0F78F1ABD399C00EBC44C /* UINavigationItem+Additions.m in Sources */,
 				FBF0F7AB1AC1209500EBC44C /* TrainingViewController.m in Sources */,
 				FBF0F75C1ABD336900EBC44C /* TrainingUnit.m in Sources */,
 				FBF0F79C1ABDA7D100EBC44C /* Utils.m in Sources */,
+				FBDA39ED1ACB736B00DE81FB /* UIFont+Adapter.m in Sources */,
 				FBF0F78A1ABD399C00EBC44C /* NSDictionary+QueryStringBuilder.m in Sources */,
 				FBF0F7911ABD399C00EBC44C /* JDJsonDecoder.m in Sources */,
 				FBF0F78E1ABD399C00EBC44C /* UIImageView+Additional.m in Sources */,
@@ -493,6 +510,7 @@
 				FBDA39DB1AC952BF00DE81FB /* HiitSettingViewController.m in Sources */,
 				FBF0F75F1ABD344800EBC44C /* TrainingProcess.m in Sources */,
 				FBF0F7361ABD321700EBC44C /* main.m in Sources */,
+				FBDA39E71ACAFE4700DE81FB /* BigLineView.m in Sources */,
 				FBF0F78D1ABD399C00EBC44C /* UIImage+Resize.m in Sources */,
 				FBF0F7871ABD399C00EBC44C /* BaseResponse.m in Sources */,
 			);
