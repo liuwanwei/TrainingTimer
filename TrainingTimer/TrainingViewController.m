@@ -117,6 +117,10 @@ static NSInteger const UIAlertViewStopTraining = 10081;
     [_centeredButton mas_makeConstraints:^(MASConstraintMaker *maker){
         maker.edges.equalTo(_centeredView);
     }];
+    [_centeredButton setNeedsLayout];
+    [_centeredButton layoutIfNeeded];
+    CGSize size = _centeredButton.bounds.size;
+    _centeredButton.titleLabel.font = [UIFont adaptiveFontWithLength:size.height/4];
     
     // 数字倒计时label，充满中心圆
     _centeredLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -127,7 +131,7 @@ static NSInteger const UIAlertViewStopTraining = 10081;
     [_centeredLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.edges.equalTo(_centeredView);
     }];
-    CGSize size = _centeredView.frame.size;
+    size = _centeredView.frame.size;
     UIFont * font = [UIFont findAdaptiveFontWithName:@"Times New Roman" forUILabelSize:size withMinimumSize:32];
     _centeredLabel.font = font;
     
@@ -164,11 +168,11 @@ static NSInteger const UIAlertViewStopTraining = 10081;
 }
 
 - (void)createDottedViews{
-    const float DottedViewLeftMargin = 50.0f;
+    const float DottedViewLeftMargin = 60.0f;
     const float DottedViewRightMargin = DottedViewLeftMargin;
-    const float DottedViewBottomMargin = 25.0f;
-    const float DottedViewInterval = 5.0f;
-    const float DottedViewHeight = 25.0f;
+//    const float DottedViewBottomMargin = 25.0f;
+    const float DottedViewInterval = 15.0f;
+//    const float DottedViewHeight = 25.0f;
     
     _dottedViews = [NSMutableArray array];
     
@@ -194,8 +198,12 @@ static NSInteger const UIAlertViewStopTraining = 10081;
         [_dottedViews addObject:dottedView];
         [dottedView mas_makeConstraints:^(MASConstraintMaker * maker){
             // 共同位置属性
-            maker.bottom.equalTo(_wSuperView.mas_bottom).with.offset(- DottedViewBottomMargin);
-            maker.height.equalTo(@(DottedViewHeight));
+//            maker.top.equalTo(_centeredView.mas_bottom).offset(5);
+            maker.bottom.equalTo(_wSuperView.mas_bottom).with.offset(-10);
+            
+            CGFloat centeredViewBottom = _centeredView.frame.origin.y + _centeredView.frame.size.height;
+            CGFloat height = _wSuperView.bounds.size.height - centeredViewBottom;
+            maker.height.equalTo(@(height/5));
             
             if (prevView == nil) {
                 // 第一个控件
@@ -441,6 +449,7 @@ static NSInteger const UIAlertViewStopTraining = 10081;
     }
     
     const CGFloat DotJumpHeight = 50.f;
+    
     void (^moveUp)() = ^{
         CGRect newRect = _currentDottedView.frame;
         newRect.origin.y += DotJumpHeight;

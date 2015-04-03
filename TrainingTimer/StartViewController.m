@@ -48,7 +48,7 @@
     // 热身
     unit = [[TrainingUnit alloc] initWithDictionary:@{TrainingUnitTypeKey:@(TrainingUnitTypeWarmUp),
                                                       TrainingUnitTimeLength:@(120)}];
-    _warmUpView = [[BigLineView alloc] initWithMaxLength:TTMaxWarmUpTime];
+    _warmUpView = [[BigLineView alloc] initWithMaxValue:TTMaxWarmUpTime];
     [self.view addSubview:_warmUpView];
     [_warmUpView mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(wSuperView.mas_top);
@@ -59,7 +59,7 @@
     // 跳绳时间
     unit = [[TrainingUnit alloc] initWithDictionary:@{TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                                                       TrainingUnitTimeLength:@(60)}];
-    _skippingView = [[BigLineView alloc] initWithMaxLength:TTMaxSkippingTime];
+    _skippingView = [[BigLineView alloc] initWithMaxValue:TTMaxSkippingTime];
     [self.view addSubview:_skippingView];
     [_skippingView mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(_warmUpView.mas_bottom);
@@ -71,7 +71,7 @@
     // 休息时间
     unit = [[TrainingUnit alloc] initWithDictionary:@{TrainingUnitTypeKey:@(TrainingUnitTypeRest),
                                                       TrainingUnitTimeLength:@(20)}];
-    _restView = [[BigLineView alloc] initWithMaxLength:TTMaxRestTime];
+    _restView = [[BigLineView alloc] initWithMaxValue:TTMaxRestTime];
     [self.view addSubview:_restView];
     [_restView mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(_skippingView.mas_bottom);
@@ -81,7 +81,7 @@
     }];
     
     // 练习几轮
-    _roundView = [[BigLineView alloc] initWithMaxLength:TTMaxRound];
+    _roundView = [[BigLineView alloc] initWithMaxValue:TTMaxRound];
     [self.view addSubview:_roundView];
     [_roundView mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(_restView.mas_bottom);
@@ -105,17 +105,17 @@
     [self.view setNeedsLayout];
     [self.view layoutIfNeeded];
     
-    [_warmUpView setType:@"热身"];
-    [_warmUpView setLength:120 isTime:YES];
+    [_warmUpView setDescription:@"热身"];
+    [_warmUpView setCurrentValue:120 isTime:YES];
     
-    [_skippingView setType:@"跳绳"];
-    [_skippingView setLength:60 isTime:YES];
+    [_skippingView setDescription:@"跳绳"];
+    [_skippingView setCurrentValue:60 isTime:YES];
     
-    [_restView setType:@"休息"];
-    [_restView setLength:20 isTime:YES];
+    [_restView setDescription:@"休息"];
+    [_restView setCurrentValue:20 isTime:YES];
     
-    [_roundView setType:@"组"];
-    [_roundView setLength:4 isTime:NO];
+    [_roundView setDescription:@"组"];
+    [_roundView setCurrentValue:4 isTime:NO];
     
     CGSize size = _startButton.bounds.size;
     size.height /= 3;
@@ -128,16 +128,16 @@
     TrainingProcess * process = [[TrainingProcess alloc] initWithTitle:@""];
     
     // 准备时间单元
-    TrainingUnit * unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeWarmUp interval:_warmUpView.currentLength];
+    TrainingUnit * unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeWarmUp interval:_warmUpView.currentValue];
     [process addUnit:unit];
     
     // 训练时间单元
-    NSInteger round = _roundView.currentLength;
+    NSInteger round = _roundView.currentValue;
     for (NSInteger i = 0; i < round; i++) {
-        unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeSkipping interval:_skippingView.currentLength];
+        unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeSkipping interval:_skippingView.currentValue];
         [process addUnit:unit];
         
-        unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeRest interval:_restView.currentLength];
+        unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeRest interval:_restView.currentValue];
         unit.index = @(i);
         [process addUnit:unit];
     }

@@ -21,19 +21,17 @@ typedef enum{
 @interface BigLineView : UIView
 
 @property (nonatomic, strong) UILabel * typeLabel;
-@property (nonatomic, strong) UILabel * lengthLabel;
+@property (nonatomic, strong) UILabel * valueLabel;
 @property (nonatomic, strong) UIView * bottomLineView;
 
-@property (nonatomic) NSInteger maxLength;
-@property (nonatomic) NSInteger currentLength;
+@property (nonatomic) NSInteger maxValue;
+@property (nonatomic) NSInteger currentValue;
 
-- (instancetype)initWithMaxLength:(TTMaxLength)maxLength;
+- (instancetype)initWithMaxValue:(TTMaxLength)maxLength;
 
-//- (void)setCenterLabelText:(NSString *)text textColor:(UIColor *)color;
+- (void)setDescription:(NSString *)type;
+- (void)setCurrentValue:(NSInteger)length isTime:(BOOL)isTime;
+
 - (void)hideBottomLine;
-
-//- (void)setTypeName:(NSString *)typeName length:(NSInteger)timeLength desc:(NSString *)desc;
-- (void)setLength:(NSInteger)length isTime:(BOOL)isTime;
-- (void)setType:(NSString *)type;
 
 @end

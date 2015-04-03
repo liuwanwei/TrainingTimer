@@ -82,8 +82,12 @@ const NSInteger RushTimeStartSeconds = 10;
     [_voiceSpeaker speech:@"训练全部结束"];
     
     // 恢复自动待机
-    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(enableSystemIdleTime:) userInfo:nil repeats:NO];
 };
+
+- (void)enableSystemIdleTime:(NSTimer *)timer{
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+}
 
 - (void)pause{
     _trainingState = TrainingStatePaused;
@@ -105,6 +109,14 @@ const NSInteger RushTimeStartSeconds = 10;
     // 进入下一个训练单元
     _unitIndex ++;
     _currentUnit = _process.units[_unitIndex];
+    if (_unitIndex == _process.units.count - 1 &&
+        (_currentUnit.type.integerValue == TrainingUnitTypeRest)) {
+        // 最后一个单元是休息的话，直接结束
+        [self stop];
+        return;
+    }
+
+    
     _unitSecondsLeft = [_currentUnit.timeLength integerValue];
     _trainingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(trainingTimeUpdated:) userInfo:nil repeats:YES];
     

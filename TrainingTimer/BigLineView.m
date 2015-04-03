@@ -17,9 +17,9 @@
     UIView * _progressView;
 }
 
-- (instancetype)initWithMaxLength:(TTMaxLength)maxLength{
+- (instancetype)initWithMaxValue:(TTMaxLength)maxLength{
     if (self = [super init]) {
-        _maxLength = maxLength;
+        _maxValue = maxLength;
         [self createSubViews];
     }
     
@@ -33,11 +33,11 @@
     __weak __typeof__(self) superView = self;
     
     // 时间信息
-    _lengthLabel = [[UILabel alloc] init];
-    _lengthLabel.textAlignment = NSTextAlignmentCenter;
-    _lengthLabel.textColor = [UIColor whiteColor];
-    [self addSubview:_lengthLabel];
-    [_lengthLabel mas_makeConstraints:^(MASConstraintMaker * maker){
+    _valueLabel = [[UILabel alloc] init];
+    _valueLabel.textAlignment = NSTextAlignmentCenter;
+    _valueLabel.textColor = [UIColor whiteColor];
+    [self addSubview:_valueLabel];
+    [_valueLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.centerX.equalTo(superView.mas_centerX);
         maker.centerY.equalTo(superView.mas_centerY).offset(-5);
         maker.width.equalTo(superView.mas_width);
@@ -52,7 +52,7 @@
     [self addSubview:_typeLabel];
     [_typeLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.centerX.equalTo(superView.mas_centerX);
-        maker.top.equalTo(_lengthLabel.mas_bottom).offset(3);
+        maker.top.equalTo(_valueLabel.mas_bottom).offset(3);
         maker.width.equalTo(superView.mas_width);
         maker.height.equalTo(superView.mas_height).dividedBy(5);
     }];
@@ -76,42 +76,23 @@
 }
 
 /**
- *  设置正中间文字和颜色。
- *  
- *  文字区域默认并未生成，调用此函数时会自动创建，文字区域大小为总高度的1/3，宽度为总宽度的1/2。
- *  
- *  文字的字体动态计算出来，占满高度。
+ *  设置类型，显示在中心点，文字居中
+ * 
+ *  @param type     类型的描述
  *
- *  @param text     文字内容。
- *  @param color    文字颜色，传入nil时，使用白色文字。
- *
- *  @return void
  */
-//- (void)setCenterLabelText:(NSString *)text textColor:(UIColor *)color{
-//    _centerLabel.textColor = color ? color : [UIColor whiteColor];
-//    _centerLabel.text = text;
-//}
-
-//- (void)setTypeName:(NSString *)typeName length:(NSInteger)timeLength desc:(NSString *)desc{
-//    _currentLength = timeLength;
-//    
-//    _lengthLabel.text = [NSString stringWithFormat:@"%@%@", [Utils colonSeperatedTime:timeLength], desc];
-//    
-//    _typeLabel.text = typeName;
-//}
-
-- (void)setType:(NSString *)type{
+- (void)setDescription:(NSString *)type{
     [self setFontAutoFitSizeForLabel:_typeLabel];
     _typeLabel.text = type;
 }
 
-- (void)setLength:(NSInteger)length isTime:(BOOL)isTime{
-    _currentLength = length;
-    [self setFontAutoFitSizeForLabel:_lengthLabel];
+- (void)setCurrentValue:(NSInteger)length isTime:(BOOL)isTime{
+    _currentValue = length;
+    [self setFontAutoFitSizeForLabel:_valueLabel];
     if (isTime) {
-        _lengthLabel.text = [NSString stringWithFormat:@"%@s", [Utils colonSeperatedTime:length]];
+        _valueLabel.text = [NSString stringWithFormat:@"%@s", [Utils colonSeperatedTime:length]];
     }else{
-        _lengthLabel.text = [@(length) stringValue];
+        _valueLabel.text = [@(length) stringValue];
     }
     
     __weak __typeof__(self) superView = self;
@@ -119,7 +100,7 @@
         maker.leading.equalTo(superView.mas_leading);
         maker.top.equalTo(superView.mas_top);
         maker.height.equalTo(superView.mas_height);
-        maker.right.equalTo(superView.mas_right).multipliedBy((CGFloat)length/_maxLength);
+        maker.right.equalTo(superView.mas_right).multipliedBy((CGFloat)length/_maxValue);
     }];
 }
 
