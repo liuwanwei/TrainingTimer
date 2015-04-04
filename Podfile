@@ -8,6 +8,8 @@ pod 'YSASIHTTPRequest', '~> 2.0.1'
 pod 'TMCache', '~> 1.2.3'
 pod 'XLForm', '~> 2.1.0'
 pod 'Masonry', '~> 0.6.1'
+pod 'DateTools', '~> 1.5.0'
+pod 'GLPubSub', '~> 1.0.0'
 end
 
 target 'TrainingTimerTests' do

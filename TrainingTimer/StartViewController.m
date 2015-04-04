@@ -16,6 +16,7 @@
 #import <Masonry.h>
 #import "TrainingProcess.h"
 #import "TrainingViewController.h"
+#import "RecordsViewController.h"
 
 @implementation StartViewController{
     BigLineView * _warmUpView;
@@ -39,7 +40,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)resetViewFonts{
@@ -168,10 +169,21 @@
 }
 
 - (void)initializeBarButtonItem{
-    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithTitle:@"心率" style:UIBarButtonItemStylePlain target:self action:@selector(showHeartRateSetting:)];
+    UIBarButtonItem * item;
+    
+    item = [[UIBarButtonItem alloc] initWithTitle:@"记录" style:UIBarButtonItemStylePlain target:self action:@selector(showRecords:)];
+    self.navigationItem.leftBarButtonItem = item;
+    
+    item = [[UIBarButtonItem alloc] initWithTitle:@"心率" style:UIBarButtonItemStylePlain target:self action:@selector(showHeartRateSetting:)];
     self.navigationItem.rightBarButtonItem = item;
     
+    // 隐藏默认栈返回按钮中的文字
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
+}
+
+- (void)showRecords:(id)sender{
+    RecordsViewController * vc = [[RecordsViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)showHeartRateSetting:(id)sender{

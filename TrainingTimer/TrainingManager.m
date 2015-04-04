@@ -82,7 +82,7 @@ const NSInteger RushTimeStartSeconds = 10;
     [_voiceSpeaker speech:@"训练全部结束"];
     
     // 恢复自动待机
-    const NSTimeInterval WaitTimeBeforeEnableIdleTime = 5;
+    const NSTimeInterval WaitTimeBeforeEnableIdleTime = 20;
     [NSTimer scheduledTimerWithTimeInterval:WaitTimeBeforeEnableIdleTime
                                      target:self
                                    selector:@selector(enableSystemIdleTime:)

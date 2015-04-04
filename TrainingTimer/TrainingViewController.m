@@ -14,6 +14,8 @@
 #import "TrainingProcess.h"
 #import "TrainingUnit.h"
 #import "TrainingManager.h"
+#import "TrainingRecord.h"
+#import "TrainingData.h"
 
 static NSString * const kDefaultTrainingTimeLeft = @"00:00";
 static NSString * const kStartTrainingText = @"开始训练";
@@ -504,6 +506,9 @@ static NSInteger const UIAlertViewStopTraining = 10081;
 
 - (void)trainingFinishedForProcess:(TrainingProcess *)process{
     NSLog(@"训练全部结束");
+    
+    TrainingRecord * record = [[TrainingRecord alloc] initWithUnits:process.units];
+    [[TrainingData defaultInstance] addRecord:record];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self dismissView:nil];

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		32DC25367D829D5B95A091ED /* libPods-TrainingTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 285CF4291F800A2CD1DA3F9F /* libPods-TrainingTimer.a */; };
+		FB87D6121ACFCAD900BCA5CA /* RecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */; };
+		FB87D6151ACFCAF800BCA5CA /* TrainingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */; };
 		FBDA39DB1AC952BF00DE81FB /* HiitSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39DA1AC952BF00DE81FB /* HiitSettingViewController.m */; };
 		FBDA39DE1AC996DE00DE81FB /* HeartRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39DD1AC996DE00DE81FB /* HeartRateViewController.m */; };
 		FBDA39E41ACAF17200DE81FB /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39E31ACAF17200DE81FB /* StartViewController.m */; };
@@ -40,7 +42,6 @@
 		FBF0F7951ABD6DC600EBC44C /* TrainingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F7941ABD6DC600EBC44C /* TrainingManager.m */; };
 		FBF0F7981ABDA5E900EBC44C /* UIColor+TrainingTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F7971ABDA5E900EBC44C /* UIColor+TrainingTimer.m */; };
 		FBF0F79C1ABDA7D100EBC44C /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F79B1ABDA7D100EBC44C /* Utils.m */; };
-		FBF0F79F1ABDCD6400EBC44C /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF0F79E1ABDCD6400EBC44C /* check@2x.png */; };
 		FBF0F7A21ABDD16600EBC44C /* TrainingVoiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F7A11ABDD16600EBC44C /* TrainingVoiceManager.m */; };
 		FBF0F7AB1AC1209500EBC44C /* TrainingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F7AA1AC1209500EBC44C /* TrainingViewController.m */; };
 		FBF0F7E71AC455A300EBC44C /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F7E61AC455A300EBC44C /* UIImage+Tint.m */; };
@@ -60,6 +61,10 @@
 		285CF4291F800A2CD1DA3F9F /* libPods-TrainingTimer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrainingTimer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A703D4E8E26986819A54972 /* Pods-TrainingTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainingTimer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrainingTimer/Pods-TrainingTimer.debug.xcconfig"; sourceTree = "<group>"; };
 		81379D1C8EF1587F3F414B75 /* Pods-TrainingTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainingTimer.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrainingTimer/Pods-TrainingTimer.release.xcconfig"; sourceTree = "<group>"; };
+		FB87D6101ACFCAD800BCA5CA /* RecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordsViewController.h; sourceTree = "<group>"; };
+		FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordsViewController.m; sourceTree = "<group>"; };
+		FB87D6131ACFCAF800BCA5CA /* TrainingRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingRecord.h; sourceTree = "<group>"; };
+		FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingRecord.m; sourceTree = "<group>"; };
 		FBDA39D91AC952BF00DE81FB /* HiitSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiitSettingViewController.h; sourceTree = "<group>"; };
 		FBDA39DA1AC952BF00DE81FB /* HiitSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiitSettingViewController.m; sourceTree = "<group>"; };
 		FBDA39DC1AC996DE00DE81FB /* HeartRateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartRateViewController.h; sourceTree = "<group>"; };
@@ -125,7 +130,6 @@
 		FBF0F7991ABDA67700EBC44C /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
 		FBF0F79A1ABDA7D100EBC44C /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		FBF0F79B1ABDA7D100EBC44C /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
-		FBF0F79E1ABDCD6400EBC44C /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
 		FBF0F7A01ABDD16600EBC44C /* TrainingVoiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingVoiceManager.h; sourceTree = "<group>"; };
 		FBF0F7A11ABDD16600EBC44C /* TrainingVoiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingVoiceManager.m; sourceTree = "<group>"; };
 		FBF0F7A91AC1209500EBC44C /* TrainingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingViewController.h; sourceTree = "<group>"; };
@@ -170,6 +174,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FB87D60F1ACFC98600BCA5CA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FBF0F7A81AC056B200EBC44C /* Cell */,
+				FBDA39E21ACAF17200DE81FB /* StartViewController.h */,
+				FBDA39E31ACAF17200DE81FB /* StartViewController.m */,
+				FBDA39E51ACAFE4700DE81FB /* BigLineView.h */,
+				FBDA39E61ACAFE4700DE81FB /* BigLineView.m */,
+				FBDA39D91AC952BF00DE81FB /* HiitSettingViewController.h */,
+				FBDA39DA1AC952BF00DE81FB /* HiitSettingViewController.m */,
+				FBF0F7A91AC1209500EBC44C /* TrainingViewController.h */,
+				FBF0F7AA1AC1209500EBC44C /* TrainingViewController.m */,
+				FBDA39DC1AC996DE00DE81FB /* HeartRateViewController.h */,
+				FBDA39DD1AC996DE00DE81FB /* HeartRateViewController.m */,
+				FB87D6101ACFCAD800BCA5CA /* RecordsViewController.h */,
+				FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		FBF0F7271ABD321700EBC44C = {
 			isa = PBXGroup;
 			children = (
@@ -194,23 +218,11 @@
 		FBF0F7321ABD321700EBC44C /* TrainingTimer */ = {
 			isa = PBXGroup;
 			children = (
-				FBF0F7A31AC0564000EBC44C /* Cagegory */,
-				FBF0F79D1ABDCD6400EBC44C /* Images */,
-				FBF0F7A81AC056B200EBC44C /* Cell */,
-				FBF0F7591ABD331B00EBC44C /* Model */,
-				FBF0F7A41AC0565700EBC44C /* Manager */,
+				FBF0F7591ABD331B00EBC44C /* Models */,
+				FBF0F7A41AC0565700EBC44C /* Helpers */,
+				FB87D60F1ACFC98600BCA5CA /* Views */,
 				FBF0F7371ABD321700EBC44C /* AppDelegate.h */,
 				FBF0F7381ABD321700EBC44C /* AppDelegate.m */,
-				FBDA39E21ACAF17200DE81FB /* StartViewController.h */,
-				FBDA39E31ACAF17200DE81FB /* StartViewController.m */,
-				FBDA39E51ACAFE4700DE81FB /* BigLineView.h */,
-				FBDA39E61ACAFE4700DE81FB /* BigLineView.m */,
-				FBDA39D91AC952BF00DE81FB /* HiitSettingViewController.h */,
-				FBDA39DA1AC952BF00DE81FB /* HiitSettingViewController.m */,
-				FBF0F7A91AC1209500EBC44C /* TrainingViewController.h */,
-				FBF0F7AA1AC1209500EBC44C /* TrainingViewController.m */,
-				FBDA39DC1AC996DE00DE81FB /* HeartRateViewController.h */,
-				FBDA39DD1AC996DE00DE81FB /* HeartRateViewController.m */,
 				FBF0F73D1ABD321700EBC44C /* Main.storyboard */,
 				FBF0F7401ABD321700EBC44C /* Images.xcassets */,
 				FBF0F7421ABD321700EBC44C /* LaunchScreen.xib */,
@@ -245,7 +257,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		FBF0F7591ABD331B00EBC44C /* Model */ = {
+		FBF0F7591ABD331B00EBC44C /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				FBF0F75A1ABD336900EBC44C /* TrainingUnit.h */,
@@ -254,8 +266,10 @@
 				FBF0F75E1ABD344800EBC44C /* TrainingProcess.m */,
 				FBF0F7631ABD383000EBC44C /* TrainingData.h */,
 				FBF0F7641ABD383000EBC44C /* TrainingData.m */,
+				FB87D6131ACFCAF800BCA5CA /* TrainingRecord.h */,
+				FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */,
 			);
-			name = Model;
+			name = Models;
 			sourceTree = "<group>";
 		};
 		FBF0F7661ABD399C00EBC44C /* BDFoundation */ = {
@@ -305,14 +319,6 @@
 			path = category;
 			sourceTree = "<group>";
 		};
-		FBF0F79D1ABDCD6400EBC44C /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				FBF0F79E1ABDCD6400EBC44C /* check@2x.png */,
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
 		FBF0F7A31AC0564000EBC44C /* Cagegory */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,15 +332,16 @@
 			name = Cagegory;
 			sourceTree = "<group>";
 		};
-		FBF0F7A41AC0565700EBC44C /* Manager */ = {
+		FBF0F7A41AC0565700EBC44C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				FBF0F7A31AC0564000EBC44C /* Cagegory */,
 				FBF0F7931ABD6DC600EBC44C /* TrainingManager.h */,
 				FBF0F7941ABD6DC600EBC44C /* TrainingManager.m */,
 				FBF0F7A01ABDD16600EBC44C /* TrainingVoiceManager.h */,
 				FBF0F7A11ABDD16600EBC44C /* TrainingVoiceManager.m */,
 			);
-			name = Manager;
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		FBF0F7A81AC056B200EBC44C /* Cell */ = {
@@ -431,7 +438,6 @@
 				FBF0F73F1ABD321700EBC44C /* Main.storyboard in Resources */,
 				FBF0F7441ABD321700EBC44C /* LaunchScreen.xib in Resources */,
 				FBF0F7411ABD321700EBC44C /* Images.xcassets in Resources */,
-				FBF0F79F1ABDCD6400EBC44C /* check@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,10 +491,12 @@
 				FBDA39E41ACAF17200DE81FB /* StartViewController.m in Sources */,
 				FBF0F7851ABD399C00EBC44C /* BaseModel.m in Sources */,
 				FBF0F78F1ABD399C00EBC44C /* UINavigationItem+Additions.m in Sources */,
+				FB87D6121ACFCAD900BCA5CA /* RecordsViewController.m in Sources */,
 				FBF0F7AB1AC1209500EBC44C /* TrainingViewController.m in Sources */,
 				FBF0F75C1ABD336900EBC44C /* TrainingUnit.m in Sources */,
 				FBF0F79C1ABDA7D100EBC44C /* Utils.m in Sources */,
 				FBDA39ED1ACB736B00DE81FB /* UIFont+Adapter.m in Sources */,
+				FB87D6151ACFCAF800BCA5CA /* TrainingRecord.m in Sources */,
 				FBF0F78A1ABD399C00EBC44C /* NSDictionary+QueryStringBuilder.m in Sources */,
 				FBF0F7911ABD399C00EBC44C /* JDJsonDecoder.m in Sources */,
 				FBF0F78E1ABD399C00EBC44C /* UIImageView+Additional.m in Sources */,

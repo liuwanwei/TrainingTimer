@@ -10,12 +10,17 @@
 #import "TrainingUnit.h"
 #import "TrainingProcess.h"
 #import <TMCache.h>
+#import <GLPubSub/NSObject+GLPubSub.h>
 
 NSString * const TrainingProcessChangedNote = @"trainingProcessChanged";
+NSString * const TrainingRecordsChangedNote = @"trainingRecordsChanged";
 
 static NSString * const kRootNode = @"rootNode";
+static NSString * const kRecordsNode = @"recordsNode";
 
-@implementation TrainingData
+@implementation TrainingData{
+    NSMutableArray * _rawRecords;
+}
 
 + (instancetype)defaultInstance{
     static TrainingData * sInstance = nil;
@@ -31,6 +36,15 @@ static NSString * const kRootNode = @"rootNode";
 }
 
 - (void)loadDataes{
+    // 加载历史记录
+    TMDiskCache * diskCache = [TMDiskCache sharedCache];
+    NSArray * objects = (NSArray *)[diskCache objectForKey:kRecordsNode];
+    if (objects) {
+        _rawRecords = [objects mutableCopy];
+    }else{
+        _rawRecords = [NSMutableArray array];
+    }
+    
 //    NSArray * objects = (NSArray *)[[TMDiskCache sharedCache] objectForKey:kRootNode];
 //    if (objects.count != 0) {
 //        _trainingProcesses = [objects mutableCopy];
@@ -52,6 +66,10 @@ static NSString * const kRootNode = @"rootNode";
 
         [self saveTrainingProcess:process];
 //    }
+    
+    // 创建一条测试记录
+    TrainingRecord * record = [[TrainingRecord alloc] initWithUnits:process.units];
+    [self addRecord:record];
 }
 
 - (void)saveTrainingProcess:(TrainingProcess *)process{
@@ -59,12 +77,19 @@ static NSString * const kRootNode = @"rootNode";
         [_trainingProcesses addObject:process];
         
         [[TMDiskCache sharedCache] setObject:_trainingProcesses forKey:kRootNode];
-        [self postChangedNotification];        
+        [self publish:TrainingProcessChangedNote];
     }
 }
 
-- (void)postChangedNotification{
-    [[NSNotificationCenter defaultCenter] postNotificationName:TrainingProcessChangedNote object:self];
+- (void)addRecord:(TrainingRecord *)aRecord{
+    if (aRecord) {
+        [_rawRecords addObject:aRecord];
+        [self publish:TrainingRecordsChangedNote];
+    }
+}
+
+- (NSArray *)records{
+    return [_rawRecords copy];
 }
 
 - (NSArray *)dataes{

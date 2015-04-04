@@ -1,4 +1,6 @@
 PODS:
+  - DateTools (1.5.0)
+  - GLPubSub (1.0.0)
   - Masonry (0.6.1)
   - Reachability (3.2)
   - TMCache (1.2.3)
@@ -9,16 +11,20 @@ PODS:
     - Reachability
 
 DEPENDENCIES:
+  - DateTools (~> 1.5.0)
+  - GLPubSub (~> 1.0.0)
   - Masonry (~> 0.6.1)
   - TMCache (~> 1.2.3)
   - XLForm (~> 2.1.0)
   - YSASIHTTPRequest (~> 2.0.1)
 
 SPEC CHECKSUMS:
-  Masonry: 2cb49fd14d203d2db5ca6bb017135b235dde9980
-  Reachability: 1ef8adf5c4e3d362f96515d4278f68dad3c26930
-  TMCache: 11589ef8c40909114a5e60132711c9a559e01d97
-  XLForm: 7d6855fe88df37b44ea00da80cc0cf3a945cfb1b
-  YSASIHTTPRequest: 955e68bf54457506cd5e7e47d9eeb42dfd530f0f
+  DateTools: b93a2c2017747329c6077c7d7e8a75106e23d0d7
+  GLPubSub: 822d180d9df430ad58ef9b051cd5b0d1e227f35d
+  Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  TMCache: 5f68bc38d741aa8df4c63131b847522783665d81
+  XLForm: ba9e657a360a810ab1f64cc2cd6307fd99a86866
+  YSASIHTTPRequest: 52fe05fcfb0c903329c3b7c6714fbf683d13f81e
 
 COCOAPODS: 0.35.0
