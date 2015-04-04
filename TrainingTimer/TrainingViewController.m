@@ -495,7 +495,7 @@ static NSInteger const UIAlertViewStopTraining = 10081;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self hideProgressView];
         
-        _currentDottedView.backgroundColor = [UIColor lightGrayColor];
+        _currentDottedView.backgroundColor = RGB(0x07, 0x57, 0x89);
         _currentDottedView = nil;
         
         _centeredLabel.text = nil;

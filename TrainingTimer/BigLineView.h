@@ -32,6 +32,8 @@ typedef enum{
 - (void)setDescription:(NSString *)type;
 - (void)setCurrentValue:(NSInteger)length isTime:(BOOL)isTime;
 
+- (void)resetFonts;
+
 - (void)hideBottomLine;
 
 @end

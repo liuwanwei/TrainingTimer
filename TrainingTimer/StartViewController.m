@@ -22,6 +22,7 @@
     BigLineView * _skippingView;
     BigLineView * _restView;
     BigLineView * _roundView;
+    NSMutableArray * _bigLines;
     UIButton * _startButton;
 }
 
@@ -41,7 +42,21 @@
     self.navigationController.navigationBarHidden = YES;
 }
 
+- (void)resetViewFonts{
+    NSEnumerator * enumerator = [_bigLines objectEnumerator];
+    BigLineView * view;
+    while ((view = [enumerator nextObject])) {
+        [view resetFonts];
+    }
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self resetViewFonts];
+}
+
 - (void)initializeSubViews{
+    _bigLines = [NSMutableArray array];
     __weak UIView * wSuperView = self.view;
     TrainingUnit * unit;
     
@@ -55,6 +70,7 @@
         maker.leading.equalTo(wSuperView.mas_leading);
         maker.width.equalTo(wSuperView.mas_width);
     }];
+    [_bigLines addObject:_warmUpView];
     
     // 跳绳时间
     unit = [[TrainingUnit alloc] initWithDictionary:@{TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
@@ -67,6 +83,7 @@
         maker.width.equalTo(wSuperView.mas_width);
         maker.height.equalTo(_warmUpView.mas_height);
     }];
+    [_bigLines addObject:_skippingView];
     
     // 休息时间
     unit = [[TrainingUnit alloc] initWithDictionary:@{TrainingUnitTypeKey:@(TrainingUnitTypeRest),
@@ -79,6 +96,7 @@
         maker.width.equalTo(wSuperView.mas_width);
         maker.height.equalTo(_skippingView.mas_height);
     }];
+    [_bigLines addObject:_restView];
     
     // 练习几轮
     _roundView = [[BigLineView alloc] initWithMaxValue:TTMaxRound];
@@ -89,6 +107,7 @@
         maker.width.equalTo(wSuperView.mas_width);
         maker.height.equalTo(_restView.mas_height);
     }];
+    [_bigLines addObject:_roundView];
     [_roundView hideBottomLine];
     
     _startButton = [[UIButton alloc] init];
