@@ -18,11 +18,12 @@ typedef enum{
 
 @class TrainingUnit;
 
-@interface BigLineView : UIView
+@interface BigLineView : UIView <UIActionSheetDelegate>
 
 @property (nonatomic, strong) UILabel * typeLabel;
 @property (nonatomic, strong) UILabel * valueLabel;
 @property (nonatomic, strong) UIView * bottomLineView;
+@property (nonatomic, strong) NSArray * options;
 
 @property (nonatomic) NSInteger maxValue;
 @property (nonatomic) NSInteger currentValue;

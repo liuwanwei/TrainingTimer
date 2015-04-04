@@ -12,6 +12,7 @@
 #import "Utils.h"
 #import "TrainingUnit.h"
 #import "UIFont+Adapter.h"
+#import <XLForm.h>
 
 @implementation BigLineView{
     UIView * _progressView;
@@ -25,9 +26,41 @@
     if (self = [super init]) {
         _maxValue = maxLength;
         [self createSubViews];
+        
+        UIGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+        [self addGestureRecognizer:gesture];
     }
     
     return self;
+}
+
+- (void)tapped:(UIGestureRecognizer *)recoginizer{
+    UIActionSheet * actionSheet = [[UIActionSheet alloc] init];
+    actionSheet.title = _typeLabel.text;
+
+    NSEnumerator * enumerator = [_options objectEnumerator];
+    XLFormOptionsObject * object;
+    while((object = [enumerator nextObject])){
+        [actionSheet addButtonWithTitle:object.formDisplayText];
+    }
+    
+    [actionSheet addButtonWithTitle:@"取消"];
+    actionSheet.delegate = self;
+    [actionSheet showInView:self.superview];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if (buttonIndex < _options.count) {
+        XLFormOptionsObject * object = _options[buttonIndex];
+        _currentValue = [object.formValue integerValue];
+        
+        __weak __typeof__(self) wself = self;
+        [UIView animateWithDuration:1 animations:^{
+            CGRect frame = _progressView.frame;
+            frame.size.width = ((CGFloat)wself.currentValue / wself.maxValue) * wself.bounds.size.width;
+            _progressView.frame = frame;
+        }];
+    }
 }
 
 - (void)createSubViews{
@@ -40,6 +73,7 @@
     _valueLabel = [[UILabel alloc] init];
     _valueLabel.textAlignment = NSTextAlignmentCenter;
     _valueLabel.textColor = [UIColor whiteColor];
+    _valueLabel.userInteractionEnabled = NO;
     [self addSubview:_valueLabel];
     [_valueLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.centerX.equalTo(superView.mas_centerX);
@@ -53,6 +87,7 @@
     _typeLabel = [[UILabel alloc] init];
     _typeLabel.textAlignment = NSTextAlignmentCenter;
     _typeLabel.textColor = [UIColor whiteColor];
+    _typeLabel.userInteractionEnabled = NO;
     [self addSubview:_typeLabel];
     [_typeLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         const CGFloat verticalGap = 5;
@@ -105,12 +140,16 @@
         _valueLabel.text = [@(length) stringValue];
     }
     
+    [self updateProgressView];
+}
+
+- (void)updateProgressView{
     __weak __typeof__(self) superView = self;
-    [_progressView mas_makeConstraints:^(MASConstraintMaker * maker){
+    [_progressView mas_remakeConstraints:^(MASConstraintMaker * maker){
         maker.leading.equalTo(superView.mas_leading);
         maker.top.equalTo(superView.mas_top);
         maker.height.equalTo(superView.mas_height);
-        maker.right.equalTo(superView.mas_right).multipliedBy((CGFloat)length/_maxValue);
+        maker.right.equalTo(superView.mas_right).multipliedBy((CGFloat)superView.currentValue/_maxValue);
     }];
 }
 

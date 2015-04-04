@@ -17,6 +17,7 @@
 #import "TrainingProcess.h"
 #import "TrainingViewController.h"
 #import "RecordsViewController.h"
+#import <XLForm.h>
 
 @implementation StartViewController{
     BigLineView * _warmUpView;
@@ -65,6 +66,9 @@
     unit = [[TrainingUnit alloc] initWithDictionary:@{TrainingUnitTypeKey:@(TrainingUnitTypeWarmUp),
                                                       TrainingUnitTimeLength:@(120)}];
     _warmUpView = [[BigLineView alloc] initWithMaxValue:TTMaxWarmUpTime];
+    _warmUpView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(60) displayText:@"1分钟"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(120) displayText:@"2分钟"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(180) displayText:@"3分钟"]];
     [self.view addSubview:_warmUpView];
     [_warmUpView mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(wSuperView.mas_top);
@@ -90,6 +94,8 @@
     unit = [[TrainingUnit alloc] initWithDictionary:@{TrainingUnitTypeKey:@(TrainingUnitTypeRest),
                                                       TrainingUnitTimeLength:@(20)}];
     _restView = [[BigLineView alloc] initWithMaxValue:TTMaxRestTime];
+    _restView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(20) displayText:@"20秒"],
+                          [XLFormOptionsObject formOptionsObjectWithValue:@(30) displayText:@"30秒"]];
     [self.view addSubview:_restView];
     [_restView mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(_skippingView.mas_bottom);
@@ -101,6 +107,14 @@
     
     // 练习几轮
     _roundView = [[BigLineView alloc] initWithMaxValue:TTMaxRound];
+    _roundView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"3组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"4组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(5) displayText:@"5组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(6) displayText:@"6组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(7) displayText:@"7组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(8) displayText:@"8组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(9) displayText:@"9组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(10) displayText:@"10组"]];
     [self.view addSubview:_roundView];
     [_roundView mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(_restView.mas_bottom);
