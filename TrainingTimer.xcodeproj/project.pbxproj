@@ -10,6 +10,7 @@
 		32DC25367D829D5B95A091ED /* libPods-TrainingTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 285CF4291F800A2CD1DA3F9F /* libPods-TrainingTimer.a */; };
 		FB87D6121ACFCAD900BCA5CA /* RecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */; };
 		FB87D6151ACFCAF800BCA5CA /* TrainingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */; };
+		FB87D6181ACFE2C800BCA5CA /* TrainingSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6171ACFE2C800BCA5CA /* TrainingSetting.m */; };
 		FBDA39DB1AC952BF00DE81FB /* HiitSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39DA1AC952BF00DE81FB /* HiitSettingViewController.m */; };
 		FBDA39DE1AC996DE00DE81FB /* HeartRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39DD1AC996DE00DE81FB /* HeartRateViewController.m */; };
 		FBDA39E41ACAF17200DE81FB /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39E31ACAF17200DE81FB /* StartViewController.m */; };
@@ -65,6 +66,8 @@
 		FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordsViewController.m; sourceTree = "<group>"; };
 		FB87D6131ACFCAF800BCA5CA /* TrainingRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingRecord.h; sourceTree = "<group>"; };
 		FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingRecord.m; sourceTree = "<group>"; };
+		FB87D6161ACFE2C800BCA5CA /* TrainingSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingSetting.h; sourceTree = "<group>"; };
+		FB87D6171ACFE2C800BCA5CA /* TrainingSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingSetting.m; sourceTree = "<group>"; };
 		FBDA39D91AC952BF00DE81FB /* HiitSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiitSettingViewController.h; sourceTree = "<group>"; };
 		FBDA39DA1AC952BF00DE81FB /* HiitSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiitSettingViewController.m; sourceTree = "<group>"; };
 		FBDA39DC1AC996DE00DE81FB /* HeartRateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartRateViewController.h; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 				FBF0F7641ABD383000EBC44C /* TrainingData.m */,
 				FB87D6131ACFCAF800BCA5CA /* TrainingRecord.h */,
 				FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */,
+				FB87D6161ACFE2C800BCA5CA /* TrainingSetting.h */,
+				FB87D6171ACFE2C800BCA5CA /* TrainingSetting.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -510,6 +515,7 @@
 				FBDA39DE1AC996DE00DE81FB /* HeartRateViewController.m in Sources */,
 				FBF0F7841ABD399C00EBC44C /* AutoCoding.m in Sources */,
 				FBF0F7651ABD383000EBC44C /* TrainingData.m in Sources */,
+				FB87D6181ACFE2C800BCA5CA /* TrainingSetting.m in Sources */,
 				FBF0F7891ABD399C00EBC44C /* NSDate+Formatted.m in Sources */,
 				FBF0F7881ABD399C00EBC44C /* BaseResponseCore.m in Sources */,
 				FBF0F7951ABD6DC600EBC44C /* TrainingManager.m in Sources */,

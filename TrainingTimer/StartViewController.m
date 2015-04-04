@@ -17,6 +17,7 @@
 #import "TrainingProcess.h"
 #import "TrainingViewController.h"
 #import "RecordsViewController.h"
+#import "TrainingSetting.h"
 #import <XLForm.h>
 
 @implementation StartViewController{
@@ -60,11 +61,8 @@
 - (void)initializeSubViews{
     _bigLines = [NSMutableArray array];
     __weak UIView * wSuperView = self.view;
-    TrainingUnit * unit;
     
     // 热身
-    unit = [[TrainingUnit alloc] initWithDictionary:@{TrainingUnitTypeKey:@(TrainingUnitTypeWarmUp),
-                                                      TrainingUnitTimeLength:@(120)}];
     _warmUpView = [[BigLineView alloc] initWithMaxValue:TTMaxWarmUpTime];
     _warmUpView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(60) displayText:@"1分钟"],
                             [XLFormOptionsObject formOptionsObjectWithValue:@(120) displayText:@"2分钟"],
@@ -78,8 +76,6 @@
     [_bigLines addObject:_warmUpView];
     
     // 跳绳时间
-    unit = [[TrainingUnit alloc] initWithDictionary:@{TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                                                      TrainingUnitTimeLength:@(60)}];
     _skippingView = [[BigLineView alloc] initWithMaxValue:TTMaxSkippingTime];
     [self.view addSubview:_skippingView];
     [_skippingView mas_makeConstraints:^(MASConstraintMaker * maker){
@@ -91,8 +87,6 @@
     [_bigLines addObject:_skippingView];
     
     // 休息时间
-    unit = [[TrainingUnit alloc] initWithDictionary:@{TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                                                      TrainingUnitTimeLength:@(20)}];
     _restView = [[BigLineView alloc] initWithMaxValue:TTMaxRestTime];
     _restView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(20) displayText:@"20秒"],
                           [XLFormOptionsObject formOptionsObjectWithValue:@(30) displayText:@"30秒"]];
@@ -139,17 +133,18 @@
     [self.view setNeedsLayout];
     [self.view layoutIfNeeded];
     
+    TrainingSetting * setting = [TrainingSetting sharedInstance];
     [_warmUpView setDescription:@"热身"];
-    [_warmUpView setCurrentValue:120 isTime:YES];
+    [_warmUpView setCurrentValue:setting.warmUpTime.integerValue isTime:YES];
     
     [_skippingView setDescription:@"跳绳"];
-    [_skippingView setCurrentValue:60 isTime:YES];
+    [_skippingView setCurrentValue:setting.skippingTime.integerValue isTime:YES];
     
     [_restView setDescription:@"休息"];
-    [_restView setCurrentValue:20 isTime:YES];
+    [_restView setCurrentValue:setting.restTime.integerValue isTime:YES];
     
     [_roundView setDescription:@"组"];
-    [_roundView setCurrentValue:4 isTime:NO];
+    [_roundView setCurrentValue:setting.rounds.integerValue isTime:NO];
     
     CGSize size = _startButton.bounds.size;
     size.height /= 3;
