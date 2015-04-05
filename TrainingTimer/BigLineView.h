@@ -16,6 +16,13 @@ typedef enum{
     TTMaxLengthNone,
 }TTMaxLength;
 
+@class BigLineView;
+@protocol BigLineViewDelegate <NSObject>
+@optional
+- (void)bigLineView:(BigLineView *)view didChangeWithNewValue:(NSNumber *)theValue;
+@end
+
+
 @class TrainingUnit;
 
 @interface BigLineView : UIView <UIActionSheetDelegate>
@@ -24,6 +31,8 @@ typedef enum{
 @property (nonatomic, strong) UILabel * valueLabel;
 @property (nonatomic, strong) UIView * bottomLineView;
 @property (nonatomic, strong) NSArray * options;
+
+@property (nonatomic, weak) id<BigLineViewDelegate> delegate;
 
 @property (nonatomic) NSInteger maxValue;
 @property (nonatomic) NSInteger currentValue;

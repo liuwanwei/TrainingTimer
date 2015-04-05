@@ -12,10 +12,12 @@
 #import "Utils.h"
 #import "TrainingUnit.h"
 #import "UIFont+Adapter.h"
+#import <libextobjc/EXTScope.h>
 #import <XLForm.h>
 
 @implementation BigLineView{
     UIView * _progressView;
+    BOOL _isTime;
 }
 
 + (BOOL)requiresConstraintBasedLayout{
@@ -27,17 +29,67 @@
         _maxValue = maxLength;
         [self createSubViews];
         
-        UIGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+        UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+        gesture.numberOfTapsRequired = 1;
+        gesture.numberOfTouchesRequired = 1;
         [self addGestureRecognizer:gesture];
     }
     
     return self;
 }
 
-- (void)tapped:(UIGestureRecognizer *)recoginizer{
+- (void)tapped:(UITapGestureRecognizer *)recoginizer{
+//    [self showWithUIActionSheet];
+    if (recoginizer.state == UIGestureRecognizerStateEnded) {
+        CGPoint location = [recoginizer locationInView:self];
+    
+        const CGFloat ViewWidth = self.bounds.size.width;
+        const NSInteger OptionsCount = _options.count;
+        if (OptionsCount <= 0) {
+            return;
+        }
+        
+        XLFormOptionsObject * object;
+        NSInteger position = 0;
+        for (NSInteger i = OptionsCount - 1; i >= 0; i--) {
+            object = _options[i];
+            CGFloat barrier = ([object.formValue floatValue] / _maxValue) * ViewWidth;
+            if (barrier < location.x) {
+                position = i + 1;
+                break;
+            }
+        }
+        
+        // 防止越界
+        position = position >= OptionsCount ? position - 1 : position;
+        
+        _currentValue = [[_options[position] formValue] floatValue];
+        [self updateProgressView];
+        
+        // 通知更新
+        if (_delegate && [_delegate respondsToSelector:@selector(bigLineView:didChangeWithNewValue:)]) {
+            [_delegate performSelector:@selector(bigLineView:didChangeWithNewValue:) withObject:self withObject:@(_currentValue)];
+        }
+    }
+}
+
+- (void)updateProgressView{
+    @weakify(self);
+    [UIView animateWithDuration:1 animations:^{
+        @strongify(self);
+        CGRect frame = _progressView.frame;
+        frame.size.width = ((CGFloat)self.currentValue / self.maxValue) * self.bounds.size.width;
+        _progressView.frame = frame;
+    }];
+    
+    [self updateCurrentValue];
+}
+
+#pragma mark - UIAction sheet style selection handler
+- (void)showWithUIActionSheet{
     UIActionSheet * actionSheet = [[UIActionSheet alloc] init];
     actionSheet.title = _typeLabel.text;
-
+    
     NSEnumerator * enumerator = [_options objectEnumerator];
     XLFormOptionsObject * object;
     while((object = [enumerator nextObject])){
@@ -54,12 +106,7 @@
         XLFormOptionsObject * object = _options[buttonIndex];
         _currentValue = [object.formValue integerValue];
         
-        __weak __typeof__(self) wself = self;
-        [UIView animateWithDuration:1 animations:^{
-            CGRect frame = _progressView.frame;
-            frame.size.width = ((CGFloat)wself.currentValue / wself.maxValue) * wself.bounds.size.width;
-            _progressView.frame = frame;
-        }];
+        [self updateProgressView];
     }
 }
 
@@ -67,7 +114,7 @@
     
     self.backgroundColor = RGB(0xAF, 0xAD, 0xAA);// 背景色
     
-    __weak __typeof__(self) superView = self;
+    @weakify(self);
     
     // 时间，如：02：00
     _valueLabel = [[UILabel alloc] init];
@@ -76,10 +123,11 @@
     _valueLabel.userInteractionEnabled = NO;
     [self addSubview:_valueLabel];
     [_valueLabel mas_makeConstraints:^(MASConstraintMaker * maker){
-        maker.centerX.equalTo(superView.mas_centerX);
-        maker.centerY.equalTo(superView.mas_centerY).offset(-5);
-        maker.width.equalTo(superView.mas_width);
-        maker.height.equalTo(superView.mas_height).dividedBy(3);
+        @strongify(self);
+        maker.centerX.equalTo(self.mas_centerX);
+        maker.centerY.equalTo(self.mas_centerY).offset(-5);
+        maker.width.equalTo(self.mas_width);
+        maker.height.equalTo(self.mas_height).dividedBy(3);
         
     }];
     
@@ -90,11 +138,12 @@
     _typeLabel.userInteractionEnabled = NO;
     [self addSubview:_typeLabel];
     [_typeLabel mas_makeConstraints:^(MASConstraintMaker * maker){
+        @strongify(self);
         const CGFloat verticalGap = 5;
-        maker.centerX.equalTo(superView.mas_centerX);
+        maker.centerX.equalTo(self.mas_centerX);
         maker.top.equalTo(_valueLabel.mas_bottom).offset(verticalGap);
-        maker.width.equalTo(superView.mas_width);
-        maker.bottom.equalTo(superView.mas_bottom).offset(-verticalGap);
+        maker.width.equalTo(self.mas_width);
+        maker.bottom.equalTo(self.mas_bottom).offset(-verticalGap);
     }];
     
     // 底部分隔线
@@ -102,9 +151,10 @@
     _bottomLineView.backgroundColor = [UIColor lightTextColor];
     [self addSubview:_bottomLineView];
     [_bottomLineView mas_makeConstraints:^(MASConstraintMaker * maker){
-        maker.leading.equalTo(superView.mas_leading);
-        maker.bottom.equalTo(superView.mas_bottom);
-        maker.width.equalTo(superView.mas_width);
+        @strongify(self);
+        maker.leading.equalTo(self.mas_leading);
+        maker.bottom.equalTo(self.mas_bottom);
+        maker.width.equalTo(self.mas_width);
         maker.height.equalTo(@(1));
     }];
     
@@ -112,6 +162,14 @@
     _progressView = [[UIView alloc] initWithFrame:CGRectZero];
     _progressView.backgroundColor = RGB(0xD4, 0xD5, 0xD5);
     [self addSubview:_progressView];
+    [_progressView mas_makeConstraints:^(MASConstraintMaker * maker){
+        @strongify(self);
+        maker.left.equalTo(self.mas_leading);
+        maker.top.equalTo(self.mas_top);
+        maker.height.equalTo(self.mas_height);
+        maker.right.equalTo(@(0.1));
+    }];
+
     [self sendSubviewToBack:_progressView];
 }
 
@@ -133,24 +191,29 @@
 
 - (void)setCurrentValue:(NSInteger)length isTime:(BOOL)isTime{
     _currentValue = length;
-    [self setFontAutoFitSizeForLabel:_valueLabel];
-    if (isTime) {
-        _valueLabel.text = [NSString stringWithFormat:@"%@s", [Utils colonSeperatedTime:length]];
-    }else{
-        _valueLabel.text = [@(length) stringValue];
-    }
+    _isTime = isTime;
     
-    [self updateProgressView];
+    [self setFontAutoFitSizeForLabel:_valueLabel];
+    [self updateCurrentValue];
+    
+    @weakify(self);
+    [_progressView mas_remakeConstraints:^(MASConstraintMaker * maker){
+        @strongify(self);
+        maker.leading.equalTo(self.mas_leading);
+        maker.top.equalTo(self.mas_top);
+        maker.height.equalTo(self.mas_height);
+        CGFloat ratio = (CGFloat)_currentValue/_maxValue;
+        maker.right.equalTo(self.mas_right).multipliedBy(ratio);
+    }];
+
 }
 
-- (void)updateProgressView{
-    __weak __typeof__(self) superView = self;
-    [_progressView mas_remakeConstraints:^(MASConstraintMaker * maker){
-        maker.leading.equalTo(superView.mas_leading);
-        maker.top.equalTo(superView.mas_top);
-        maker.height.equalTo(superView.mas_height);
-        maker.right.equalTo(superView.mas_right).multipliedBy((CGFloat)superView.currentValue/_maxValue);
-    }];
+- (void)updateCurrentValue{
+    if (_isTime) {
+        _valueLabel.text = [NSString stringWithFormat:@"%@s", [Utils colonSeperatedTime:_currentValue]];
+    }else{
+        _valueLabel.text = [@(_currentValue) stringValue];
+    }
 }
 
 - (void)setFontAutoFitSizeForLabel:(UILabel *)label{

@@ -20,6 +20,13 @@
 #import "TrainingSetting.h"
 #import <XLForm.h>
 
+typedef enum{
+    BigLineViewWarmUp = 1,
+    BigLineViewSkipping,
+    BigLineViewRest,
+    BigLineViewRound,
+}BigLineViewTag;
+
 @implementation StartViewController{
     BigLineView * _warmUpView;
     BigLineView * _skippingView;
@@ -64,6 +71,7 @@
     
     // 热身
     _warmUpView = [[BigLineView alloc] initWithMaxValue:TTMaxWarmUpTime];
+    _warmUpView.tag = BigLineViewWarmUp;
     _warmUpView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(60) displayText:@"1分钟"],
                             [XLFormOptionsObject formOptionsObjectWithValue:@(120) displayText:@"2分钟"],
                             [XLFormOptionsObject formOptionsObjectWithValue:@(180) displayText:@"3分钟"]];
@@ -77,6 +85,7 @@
     
     // 跳绳时间
     _skippingView = [[BigLineView alloc] initWithMaxValue:TTMaxSkippingTime];
+    _skippingView.tag = BigLineViewSkipping;
     [self.view addSubview:_skippingView];
     [_skippingView mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(_warmUpView.mas_bottom);
@@ -88,7 +97,9 @@
     
     // 休息时间
     _restView = [[BigLineView alloc] initWithMaxValue:TTMaxRestTime];
-    _restView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(20) displayText:@"20秒"],
+    _restView.tag = BigLineViewRest;
+    _restView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(10) displayText:@"10秒"],
+                          [XLFormOptionsObject formOptionsObjectWithValue:@(20) displayText:@"20秒"],
                           [XLFormOptionsObject formOptionsObjectWithValue:@(30) displayText:@"30秒"]];
     [self.view addSubview:_restView];
     [_restView mas_makeConstraints:^(MASConstraintMaker * maker){
@@ -101,7 +112,10 @@
     
     // 练习几轮
     _roundView = [[BigLineView alloc] initWithMaxValue:TTMaxRound];
-    _roundView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"3组"],
+    _roundView.tag = BigLineViewRound;
+    _roundView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"1组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"2组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"3组"],
                            [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"4组"],
                            [XLFormOptionsObject formOptionsObjectWithValue:@(5) displayText:@"5组"],
                            [XLFormOptionsObject formOptionsObjectWithValue:@(6) displayText:@"6组"],
@@ -151,6 +165,10 @@
     _startButton.titleLabel.font = [UIFont findAdaptiveFontWithName:nil forUILabelSize:size withMinimumSize:0];
     [_startButton setTitle:@"GO!" forState:UIControlStateNormal];
     [_startButton addTarget:self action:@selector(startTraining:) forControlEvents:UIControlEventTouchUpInside];
+    
+    for (BigLineView * view in _bigLines) {
+        view.delegate = self;
+    }
 }
 
 - (void)startTraining:(id)sender{
@@ -198,6 +216,24 @@
 - (void)showHeartRateSetting:(id)sender{
     HeartRateViewController * vc = [[HeartRateViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - Big line value changed
+- (void)bigLineView:(BigLineView *)view didChangeWithNewValue:(NSNumber *)theValue{
+    TrainingSetting * setting = [TrainingSetting sharedInstance];
+    switch (view.tag) {
+        case BigLineViewWarmUp:
+            setting.warmUpTime = theValue;
+            break;
+        case BigLineViewSkipping:
+            setting.skippingTime = theValue;
+            break;
+        case BigLineViewRest:
+            setting.restTime = theValue;
+            break;
+        case BigLineViewRound:
+            setting.rounds = theValue;
+    }
 }
 
 

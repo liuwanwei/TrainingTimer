@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BigLineView.h"
 
-@interface StartViewController : UIViewController
+@interface StartViewController : UIViewController<BigLineViewDelegate>
 
 @end

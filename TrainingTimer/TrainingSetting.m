@@ -9,7 +9,7 @@
 #import "TrainingSetting.h"
 #import <TMCache.h>
 
-static NSString * const kKey = @"key";
+static NSString * const kKey = @"trainingSettingKey";
 
 @implementation TrainingSetting
 
@@ -22,15 +22,22 @@ static NSString * const kKey = @"key";
             sInstance = (TrainingSetting *)[cache objectForKey:kKey];
             if (sInstance == nil) {
                 sInstance = [[TrainingSetting alloc] init];
-                sInstance.warmUpTime = @(120);
-                sInstance.skippingTime = @(60);
-                sInstance.restTime = @(20);
-                sInstance.rounds = @(4);
             }
         }
     });
     
     return sInstance;
+}
+
+- (instancetype)init{
+    if (self = [super init]) {
+        _warmUpTime = @(120);
+        _skippingTime = @(60);
+        _restTime = @(20);
+        _rounds = @(4);
+    }
+    
+    return self;
 }
 
 - (void)setWarmUpTime:(NSNumber *)warmUpTime{
