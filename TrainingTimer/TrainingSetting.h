@@ -17,4 +17,6 @@
 
 + (instancetype)sharedInstance;
 
+- (void)syncToDisk;
+
 @end

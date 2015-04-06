@@ -11,6 +11,7 @@ pod 'Masonry', '~> 0.6.1'
 pod 'DateTools', '~> 1.5.0'
 pod 'GLPubSub', '~> 1.0.0'
 pod 'libextobjc', '~> 0.4.1'
+pod 'Colours', '~> 5.6.1'
 end
 
 target 'TrainingTimerTests' do

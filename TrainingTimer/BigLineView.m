@@ -82,7 +82,7 @@
         _progressView.frame = frame;
     }];
     
-    [self updateCurrentValue];
+    [self updateCurrentValueView];
 }
 
 #pragma mark - UIAction sheet style selection handler
@@ -194,7 +194,7 @@
     _isTime = isTime;
     
     [self setFontAutoFitSizeForLabel:_valueLabel];
-    [self updateCurrentValue];
+    [self updateCurrentValueView];
     
     @weakify(self);
     [_progressView mas_remakeConstraints:^(MASConstraintMaker * maker){
@@ -208,7 +208,7 @@
 
 }
 
-- (void)updateCurrentValue{
+- (void)updateCurrentValueView{
     if (_isTime) {
         _valueLabel.text = [NSString stringWithFormat:@"%@s", [Utils colonSeperatedTime:_currentValue]];
     }else{

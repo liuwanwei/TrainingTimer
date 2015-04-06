@@ -1,4 +1,5 @@
 PODS:
+  - Colours (5.6.1)
   - DateTools (1.5.0)
   - GLPubSub (1.0.0)
   - libextobjc (0.4.1):
@@ -46,6 +47,7 @@ PODS:
     - Reachability
 
 DEPENDENCIES:
+  - Colours (~> 5.6.1)
   - DateTools (~> 1.5.0)
   - GLPubSub (~> 1.0.0)
   - libextobjc (~> 0.4.1)
@@ -55,6 +57,7 @@ DEPENDENCIES:
   - YSASIHTTPRequest (~> 2.0.1)
 
 SPEC CHECKSUMS:
+  Colours: cad6964a7c178253356403d206eef600a3dc59c8
   DateTools: b93a2c2017747329c6077c7d7e8a75106e23d0d7
   GLPubSub: 822d180d9df430ad58ef9b051cd5b0d1e227f35d
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471

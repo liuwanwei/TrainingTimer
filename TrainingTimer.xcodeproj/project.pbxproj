@@ -195,7 +195,6 @@
 		FBF0F7271ABD321700EBC44C = {
 			isa = PBXGroup;
 			children = (
-				FBF0F7661ABD399C00EBC44C /* BDFoundation */,
 				FBF0F7321ABD321700EBC44C /* TrainingTimer */,
 				FBF0F74C1ABD321700EBC44C /* TrainingTimerTests */,
 				FBF0F7311ABD321700EBC44C /* Products */,
@@ -295,7 +294,8 @@
 				FBF0F7831ABD399C00EBC44C /* JDJsonDecoder.m */,
 				FBF0F7921ABD3B1B00EBC44C /* BDFoundation.h */,
 			);
-			path = BDFoundation;
+			name = BDFoundation;
+			path = ../BDFoundation;
 			sourceTree = "<group>";
 		};
 		FBF0F7711ABD399C00EBC44C /* category */ = {
@@ -335,6 +335,7 @@
 		FBF0F7A41AC0565700EBC44C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				FBF0F7661ABD399C00EBC44C /* BDFoundation */,
 				FBF0F7A31AC0564000EBC44C /* Cagegory */,
 				FBF0F7931ABD6DC600EBC44C /* TrainingManager.h */,
 				FBF0F7941ABD6DC600EBC44C /* TrainingManager.m */,

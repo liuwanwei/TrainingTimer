@@ -40,27 +40,28 @@ static NSString * const kKey = @"trainingSettingKey";
     return self;
 }
 
-- (void)setWarmUpTime:(NSNumber *)warmUpTime{
-    _warmUpTime = warmUpTime;
-    [self syncToDisk];
-}
-
-- (void)setRestTime:(NSNumber *)restTime{
-    _restTime = restTime;
-    [self syncToDisk];
-}
-
-- (void)setSkippingTime:(NSNumber *)skippingTime{
-    _skippingTime = skippingTime;
-    [self syncToDisk];
-}
-
-- (void)setRounds:(NSNumber *)rounds{
-    _rounds = rounds;
-    [self syncToDisk];
-}
+//- (void)setWarmUpTime:(NSNumber *)warmUpTime{
+//    _warmUpTime = warmUpTime;
+//    [self syncToDisk];
+//}
+//
+//- (void)setRestTime:(NSNumber *)restTime{
+//    _restTime = restTime;
+//    [self syncToDisk];
+//}
+//
+//- (void)setSkippingTime:(NSNumber *)skippingTime{
+//    _skippingTime = skippingTime;
+//    [self syncToDisk];
+//}
+//
+//- (void)setRounds:(NSNumber *)rounds{
+//    _rounds = rounds;
+//    [self syncToDisk];
+//}
 
 - (void)syncToDisk{
+    
     [[TMDiskCache sharedCache] setObject:self forKey:kKey];
 }
 

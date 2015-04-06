@@ -13,6 +13,7 @@
 #import "HiitSettingViewController.h"
 #import "StartViewController.h"
 #import "UIColor+TrainingTimer.h"
+#import "TrainingSetting.h"
 
 @interface AppDelegate ()
 
@@ -25,8 +26,9 @@
     [Utils customizeStatusBarForApplication:application withStyle:UIStatusBarStyleLightContent];
     [Utils customizeNavigationBarForApplication:application withColor:[UIColor barBackgroundColor]];
     
-    // Override point for customization after application launch.
+    // 加载数据
     [[TrainingData defaultInstance] loadDataes];
+    
     [UIColor setSchema:TrainingColorSchemaBlue];
     [UIColor loadSchema];
     

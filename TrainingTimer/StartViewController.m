@@ -234,6 +234,8 @@ typedef enum{
         case BigLineViewRound:
             setting.rounds = theValue;
     }
+    
+    [setting syncToDisk];
 }
 
 
