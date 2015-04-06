@@ -29,7 +29,7 @@
     // 加载数据
     [[TrainingData defaultInstance] loadDataes];
     
-    [UIColor setSchema:TrainingColorSchemaBlue];
+    [UIColor setSchema:TrainingColorSchemaPink];
     [UIColor loadSchema];
     
     UIViewController * root = self.window.rootViewController;

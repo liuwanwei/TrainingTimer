@@ -50,7 +50,7 @@ static NSInteger const UIAlertViewStopTraining = 10081;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor trainingBackground];
+    self.view.backgroundColor = [UIColor mainColor];
     _wSuperView = self.view;
     
     [self createSubViews];
@@ -113,7 +113,7 @@ static NSInteger const UIAlertViewStopTraining = 10081;
     // 进度控制按钮
     _centeredButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _centeredButton.titleLabel.font = [UIFont fontWithName:@"Menlo-Bold" size:30.0f];
-    [_centeredButton setTitleColor:[UIColor trainingBackground] forState:UIControlStateNormal];
+    [_centeredButton setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
     [_centeredButton addTarget:self action:@selector(pauseTraining:) forControlEvents:UIControlEventTouchUpInside];
     [_wSuperView addSubview:_centeredButton];
     [_centeredButton mas_makeConstraints:^(MASConstraintMaker *maker){
@@ -127,7 +127,7 @@ static NSInteger const UIAlertViewStopTraining = 10081;
     // 数字倒计时label，充满中心圆
     _centeredLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _centeredLabel.backgroundColor = [UIColor clearColor];
-    _centeredLabel.textColor = [UIColor trainingBackground];
+    _centeredLabel.textColor = [UIColor mainColor];
     _centeredLabel.textAlignment = NSTextAlignmentCenter;
     [_wSuperView addSubview:_centeredLabel];
     [_centeredLabel mas_makeConstraints:^(MASConstraintMaker * maker){
@@ -318,7 +318,7 @@ static NSInteger const UIAlertViewStopTraining = 10081;
         [_trainingManager pause];
         [_centeredButton setTitle:nil forState:UIControlStateNormal];
         UIImage * image = [UIImage imageNamed:@"play2"];
-        image = [image imageWithTintColor:[UIColor barBackgroundColor]];// TODO: vv王巍的代码没起到效果
+//        image = [image imageWithTintColor:[UIColor barBackgroundColor]];// TODO: vv王巍的代码没起到效果
         [_centeredButton setImageEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
         [_centeredButton setImage:image forState:UIControlStateNormal];
     }else{

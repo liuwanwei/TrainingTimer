@@ -142,7 +142,7 @@ typedef enum{
         maker.height.equalTo(_roundView.mas_height);
         maker.bottom.equalTo(wSuperView.mas_bottom);
     }];
-    _startButton.backgroundColor = RGB(0xEB, 0x6E, 0x12);
+    _startButton.backgroundColor = [UIColor mainColor];
     
     [self.view setNeedsLayout];
     [self.view layoutIfNeeded];
@@ -166,6 +166,7 @@ typedef enum{
     [_startButton setTitle:@"GO!" forState:UIControlStateNormal];
     [_startButton addTarget:self action:@selector(startTraining:) forControlEvents:UIControlEventTouchUpInside];
     
+    // 处理每个子View的delegate事件
     for (BigLineView * view in _bigLines) {
         view.delegate = self;
     }

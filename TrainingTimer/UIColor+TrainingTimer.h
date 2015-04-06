@@ -11,7 +11,7 @@
 typedef enum{
     TrainingColorSchemaBlue,
     TrainingColorSchemaOrange,
-    TrainingColorSchemaLight,
+    TrainingColorSchemaPink,
     
 }TrainingColorSchema;
 
@@ -21,7 +21,7 @@ typedef enum{
 + (void)setSchema:(TrainingColorSchema)schema;
 
 + (UIColor *)barBackgroundColor;        // 导航栏背景色
-+ (UIColor *)runningIndicatorColor;     // 进度指示条背景色
-+ (UIColor *)trainingBackground;        // 训练界面背景色
+
++ (UIColor *)mainColor;                 // 背景色
 
 @end
