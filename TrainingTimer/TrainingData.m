@@ -71,7 +71,7 @@ static NSString * const kRecordsNode = @"recordsNode";
 
 - (void)addRecord:(TrainingRecord *)aRecord{
     if (aRecord) {
-        [_rawRecords addObject:aRecord];
+        [_rawRecords insertObject:aRecord atIndex:0];
         [[TMDiskCache sharedCache] setObject:_rawRecords forKey:kRecordsNode];
         [self publish:TrainingRecordsChangedNote];
     }
