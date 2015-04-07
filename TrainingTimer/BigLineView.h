@@ -44,6 +44,8 @@ typedef enum{
 
 - (void)resetFonts;
 
+- (void)drawStepLine;
+
 - (void)hideBottomLine;
 
 @end

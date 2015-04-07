@@ -11,6 +11,7 @@
 #import <GLPubSub/NSObject+GLPubSub.h>
 #import "TrainingData.h"
 #import "TrainingRecord.h"
+#import "TrainingRecordCell.h"
 
 @implementation RecordsViewController{
     NSArray * _records;
@@ -24,6 +25,7 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.rowHeight = 80.0f;
     [self.view addSubview:_tableView];
     __weak __typeof__(self) wself = self;
     [_tableView mas_makeConstraints:^(MASConstraintMaker * maker){
@@ -49,16 +51,27 @@
 #pragma mark - Table view delegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString * sIdentifier = @"RecordCell";
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:sIdentifier];
+    TrainingRecordCell * cell = [tableView dequeueReusableCellWithIdentifier:sIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:sIdentifier];
+        cell = [[TrainingRecordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:sIdentifier];
     }
     
-    TrainingRecord * record = _records[indexPath.row];
-    cell.textLabel.text = [record description];
-    cell.detailTextLabel.text = [record date];
-    
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    TrainingRecordCell * recordCell = (TrainingRecordCell *)cell;
+    
+    TrainingRecord * record = _records[indexPath.row];
+//    recordCell.textLabel.text = [record description];
+//    recordCell.detailTextLabel.text = [record date];
+//    [recordCell showNumberOfSkippingString:record.numberOfSkipping.stringValue];
+    recordCell.numberOfSkippingLabel.text = record.numberOfSkipping.stringValue;
+    recordCell.descriptionLabel.text = [record description];
+    recordCell.timeLabel.text = [record date];
+//    [recordCell showNumberOfSkipping:record.numberOfSkipping];
+
 }
 
 @end

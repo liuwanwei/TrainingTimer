@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong, readonly) NSNumber * rounds;        // 训练几组
 @property (nonatomic, strong, readonly) NSNumber * totalTime;     // 训练总时间：秒
+@property (nonatomic, strong) NSNumber * numberOfSkipping;        // 跳了多少个
 
 - (instancetype)initWithUnits:(NSArray *)trainingUnits;
 

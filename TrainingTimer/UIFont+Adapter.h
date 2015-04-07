@@ -5,6 +5,9 @@
 
 + (UIFont *)findAdaptiveFontWithName:(NSString *)fontName forUILabelSize:(CGSize)labelSize withMinimumSize:(NSInteger)minSize;
 
-+ (UIFont *)adaptiveFontWithLength:(CGFloat)length;
++ (UIFont *)adaptiveFontWithHeight:(CGFloat)height;
++ (UIFont *)adaptiveFontForString:(NSString *)string withWidth:(CGFloat)width;
+
+//+ (UIFont *)adaptiveFontForHeight:(BOOL)isHeight withLength:(CGFloat)length;
 
 @end

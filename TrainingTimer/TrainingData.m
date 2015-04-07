@@ -45,31 +45,19 @@ static NSString * const kRecordsNode = @"recordsNode";
         _rawRecords = [NSMutableArray array];
     }
     
-//    NSArray * objects = (NSArray *)[[TMDiskCache sharedCache] objectForKey:kRootNode];
-//    if (objects.count != 0) {
-//        _trainingProcesses = [objects mutableCopy];
-//    }else{
-        _trainingProcesses = [[NSMutableArray alloc] init];
-        // FIXME: 生成一条默认测试数据
-        TrainingProcess * process = [[TrainingProcess alloc] initWithTitle:@"疯狂减脂训练"];
+    _rawRecords = [[_rawRecords sortedArrayUsingComparator:^(id obj1, id obj2){
+        TrainingRecord * record1 = (TrainingRecord *)obj1;
+        TrainingRecord * record2 = (TrainingRecord *)obj2;
         
-        NSArray * units = [self tdataes];
-
-        TrainingUnit * unit;
-        NSEnumerator * enumerator = [units objectEnumerator];
-        id object;
-        while ((object = [enumerator nextObject])) {
-            unit = [[TrainingUnit alloc] initWithDictionary:object];
-            NSLog(@"%@", unit);
-            [process addUnit:unit];
+        NSComparisonResult result = [record1.createDate compare:record2.createDate];
+        if (result == NSOrderedAscending) {
+            return NSOrderedDescending;
+        }else if(result == NSOrderedDescending){
+            return NSOrderedAscending;
+        }else{
+            return result;
         }
-
-        [self saveTrainingProcess:process];
-//    }
-    
-    // 创建一条测试记录
-    TrainingRecord * record = [[TrainingRecord alloc] initWithUnits:process.units];
-    [self addRecord:record];
+    }] mutableCopy];
 }
 
 - (void)saveTrainingProcess:(TrainingProcess *)process{
@@ -84,6 +72,7 @@ static NSString * const kRecordsNode = @"recordsNode";
 - (void)addRecord:(TrainingRecord *)aRecord{
     if (aRecord) {
         [_rawRecords addObject:aRecord];
+        [[TMDiskCache sharedCache] setObject:_rawRecords forKey:kRecordsNode];
         [self publish:TrainingRecordsChangedNote];
     }
 }
@@ -91,110 +80,5 @@ static NSString * const kRecordsNode = @"recordsNode";
 - (NSArray *)records{
     return [_rawRecords copy];
 }
-
-- (NSArray *)dataes{
-    NSArray * units = @[@{TrainingUnitIndex:@(1),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeWarmUp),
-                          TrainingUnitTimeLength:@(120)},
-                        
-                        @{TrainingUnitIndex:@(2),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(60)},
-                        
-                        @{TrainingUnitIndex:@(3),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(20)},
-                        
-                        @{TrainingUnitIndex:@(4),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(60)},
-                        
-                        @{TrainingUnitIndex:@(5),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(20)},
-                        
-                        @{TrainingUnitIndex:@(6),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(60)},
-                        
-                        @{TrainingUnitIndex:@(7),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(20)},
-                        
-                        @{TrainingUnitIndex:@(8),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(60)},
-                        
-                        @{TrainingUnitIndex:@(9),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(20)},
-                        
-                        @{TrainingUnitIndex:@(10),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(60)},
-                        
-                        @{TrainingUnitIndex:@(11),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(20)},
-                        
-                        @{TrainingUnitIndex:@(12),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(60)}];
-    
-    return units;
-}
-
-- (NSArray *)tdataes{
-    NSArray * units = @[@{TrainingUnitIndex:@(1),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeWarmUp),
-                          TrainingUnitTimeLength:@(5)},
-                        
-                        @{TrainingUnitIndex:@(2),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(5)},
-                        
-                        @{TrainingUnitIndex:@(3),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(5)},
-                        
-                        @{TrainingUnitIndex:@(4),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(5)},
-                        
-                        @{TrainingUnitIndex:@(5),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(5)},
-                        
-                        @{TrainingUnitIndex:@(6),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(60)},
-                        
-                        @{TrainingUnitIndex:@(7),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(20)},
-                        
-                        @{TrainingUnitIndex:@(8),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(60)},
-                        
-                        @{TrainingUnitIndex:@(9),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(20)},
-                        
-                        @{TrainingUnitIndex:@(10),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(60)},
-                        
-                        @{TrainingUnitIndex:@(11),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(20)},
-                        
-                        @{TrainingUnitIndex:@(12),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(60)}];
-    
-    return units;
-}
-
 
 @end

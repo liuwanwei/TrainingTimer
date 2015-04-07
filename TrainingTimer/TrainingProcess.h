@@ -21,4 +21,7 @@
 - (void)addUnit:(TrainingUnit *)unit;
 - (void)deleteUnit:(TrainingUnit *)unit;
 
++ (instancetype)trainingProcessFromSetting;
++ (instancetype)testObject;
+
 @end

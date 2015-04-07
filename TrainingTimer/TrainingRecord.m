@@ -39,7 +39,7 @@
 
 - (NSString *)description{
     // 如：完成三组训练，共耗时15分钟
-    NSString * desc = [NSString stringWithFormat:@"完成%@组训练，耗时 ", _rounds];
+    NSString * desc = [NSString stringWithFormat:@"%@组训练，耗时 ", _rounds];
     NSInteger minutes = _totalTime.integerValue / 60;
     NSInteger seconds = _totalTime.integerValue % 60;
     if (minutes > 0) {
@@ -49,6 +49,10 @@
     if (seconds > 0) {
         desc = [desc stringByAppendingFormat:@"%02zd秒", seconds];
     }
+    
+//    if (_numberOfSkipping.integerValue > 0) {
+//        desc = [desc stringByAppendingFormat:@"%@次", _numberOfSkipping];
+//    }
     
     return desc;
 }

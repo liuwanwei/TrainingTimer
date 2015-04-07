@@ -39,7 +39,6 @@
 }
 
 - (void)tapped:(UITapGestureRecognizer *)recoginizer{
-//    [self showWithUIActionSheet];
     if (recoginizer.state == UIGestureRecognizerStateEnded) {
         CGPoint location = [recoginizer locationInView:self];
     
@@ -226,6 +225,30 @@
 
 - (void)hideBottomLine{
     _bottomLineView.hidden = YES;
+}
+
+- (void)drawStepLine{
+    XLFormOptionsObject * option;
+    NSEnumerator * enumerator = [_options objectEnumerator];
+    while ((option = [enumerator nextObject])) {
+        const NSInteger LineHeight = 3;
+        NSInteger value = [option.formValue integerValue];
+        CGFloat posX = ((CGFloat)value / _maxValue) * self.bounds.size.width;
+        CGFloat posY = self.bounds.size.height;
+        // TODO: 不知为何设置成height定位不到底部，要设置偏移量，不过横竖屏切换后位置错乱
+        posY -= 14;
+        UIBezierPath * path = [UIBezierPath bezierPath];
+        [path moveToPoint:CGPointMake(posX, posY)];
+        [path addLineToPoint:CGPointMake(posX, posY - LineHeight)];
+        
+        CAShapeLayer * shapeLayer = [CAShapeLayer layer];
+        shapeLayer.path = [path CGPath];
+        shapeLayer.strokeColor = [[UIColor lightTextColor] CGColor]; // TODO: strokeColor和fillColor什么区别
+        shapeLayer.lineWidth = 1.0;
+        shapeLayer.fillColor = [[UIColor clearColor] CGColor];
+        
+        [self.layer addSublayer:shapeLayer];
+    }
 }
 
 @end

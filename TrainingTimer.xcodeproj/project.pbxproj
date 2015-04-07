@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		32DC25367D829D5B95A091ED /* libPods-TrainingTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 285CF4291F800A2CD1DA3F9F /* libPods-TrainingTimer.a */; };
+		FB417A8C1AD40CBF00F4B034 /* TrainingRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB417A8B1AD40CBF00F4B034 /* TrainingRecordCell.m */; };
 		FB87D6121ACFCAD900BCA5CA /* RecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */; };
 		FB87D6151ACFCAF800BCA5CA /* TrainingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */; };
 		FB87D6181ACFE2C800BCA5CA /* TrainingSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6171ACFE2C800BCA5CA /* TrainingSetting.m */; };
@@ -61,6 +62,10 @@
 		285CF4291F800A2CD1DA3F9F /* libPods-TrainingTimer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrainingTimer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A703D4E8E26986819A54972 /* Pods-TrainingTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainingTimer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrainingTimer/Pods-TrainingTimer.debug.xcconfig"; sourceTree = "<group>"; };
 		81379D1C8EF1587F3F414B75 /* Pods-TrainingTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainingTimer.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrainingTimer/Pods-TrainingTimer.release.xcconfig"; sourceTree = "<group>"; };
+		FB417A8A1AD40CBF00F4B034 /* TrainingRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingRecordCell.h; sourceTree = "<group>"; };
+		FB417A8B1AD40CBF00F4B034 /* TrainingRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingRecordCell.m; sourceTree = "<group>"; };
+		FB417A8D1AD435CB00F4B034 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		FB417A8E1AD435CC00F4B034 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		FB87D6101ACFCAD800BCA5CA /* RecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordsViewController.h; sourceTree = "<group>"; };
 		FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordsViewController.m; sourceTree = "<group>"; };
 		FB87D6131ACFCAF800BCA5CA /* TrainingRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingRecord.h; sourceTree = "<group>"; };
@@ -350,6 +355,8 @@
 			children = (
 				FBF0F7601ABD362B00EBC44C /* TrainingUnitCell.h */,
 				FBF0F7611ABD362B00EBC44C /* TrainingUnitCell.m */,
+				FB417A8A1AD40CBF00F4B034 /* TrainingRecordCell.h */,
+				FB417A8B1AD40CBF00F4B034 /* TrainingRecordCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -493,6 +500,7 @@
 				FBF0F7851ABD399C00EBC44C /* BaseModel.m in Sources */,
 				FBF0F78F1ABD399C00EBC44C /* UINavigationItem+Additions.m in Sources */,
 				FB87D6121ACFCAD900BCA5CA /* RecordsViewController.m in Sources */,
+				FB417A8C1AD40CBF00F4B034 /* TrainingRecordCell.m in Sources */,
 				FBF0F7AB1AC1209500EBC44C /* TrainingViewController.m in Sources */,
 				FBF0F75C1ABD336900EBC44C /* TrainingUnit.m in Sources */,
 				FBF0F79C1ABDA7D100EBC44C /* Utils.m in Sources */,
@@ -548,6 +556,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FBF0F73E1ABD321700EBC44C /* Base */,
+				FB417A8D1AD435CB00F4B034 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -556,6 +565,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FBF0F7431ABD321700EBC44C /* Base */,
+				FB417A8E1AD435CC00F4B034 /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";

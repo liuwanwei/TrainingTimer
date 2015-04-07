@@ -168,27 +168,14 @@ typedef enum{
     
     // 处理每个子View的delegate事件
     for (BigLineView * view in _bigLines) {
+        [view drawStepLine];
         view.delegate = self;
     }
 }
 
 - (void)startTraining:(id)sender{
-    TrainingProcess * process = [[TrainingProcess alloc] initWithTitle:@""];
-    
-    // 准备时间单元
-    TrainingUnit * unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeWarmUp interval:_warmUpView.currentValue];
-    [process addUnit:unit];
-    
-    // 训练时间单元
-    NSInteger round = _roundView.currentValue;
-    for (NSInteger i = 0; i < round; i++) {
-        unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeSkipping interval:_skippingView.currentValue];
-        [process addUnit:unit];
-        
-        unit = [TrainingUnit trainingUnitWithType:TrainingUnitTypeRest interval:_restView.currentValue];
-        unit.index = @(i);
-        [process addUnit:unit];
-    }
+//    TrainingProcess * process = [TrainingProcess trainingProcessFromSetting];
+    TrainingProcess * process = [TrainingProcess testObject];
     
     TrainingViewController * trainingVc = [[TrainingViewController alloc] init];
     trainingVc.process = process;

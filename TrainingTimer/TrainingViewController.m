@@ -22,6 +22,7 @@ static NSString * const kStartTrainingText = @"开始训练";
 static NSString * const kStopTrainingText = @"结束训练";
 
 static NSInteger const UIAlertViewStopTraining = 10081;
+static NSInteger const UIAlertViewSkippingCount = 10082;
 
 
 @interface TrainingViewController ()
@@ -94,13 +95,16 @@ static NSInteger const UIAlertViewStopTraining = 10081;
     [_wSuperView addSubview:_closeButton];
     [_closeButton mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.leading.equalTo(_wSuperView.mas_leading);
-        maker.top.equalTo(_wSuperView.mas_top);
+        maker.top.equalTo(_wSuperView.mas_top).offset(5.0f);
         maker.width.equalTo(@(CloseButtonWidth));
         maker.height.equalTo(_closeButton.mas_width);
     }];
     
-    [_closeButton setTitle:@"结束" forState:UIControlStateNormal];
-    [_closeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [_closeButton setTitle:@"结束" forState:UIControlStateNormal];
+//    [_closeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    UIImage * image = [UIImage imageNamed:@"arrow-back"];
+    image = [image imageWithTintColor:[UIColor whiteColor]];
+    [_closeButton setImage:image forState:UIControlStateNormal];
     [_closeButton addTarget:self action:@selector(dismissView:) forControlEvents:UIControlEventTouchUpInside];
     
     // 进度背景：正圆形
@@ -122,7 +126,7 @@ static NSInteger const UIAlertViewStopTraining = 10081;
     [_centeredButton setNeedsLayout];
     [_centeredButton layoutIfNeeded];
     CGSize size = _centeredButton.bounds.size;
-    _centeredButton.titleLabel.font = [UIFont adaptiveFontWithLength:size.height/4];
+    _centeredButton.titleLabel.font = [UIFont adaptiveFontWithHeight:size.height/4];
     
     // 数字倒计时label，充满中心圆
     _centeredLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -261,6 +265,19 @@ static NSInteger const UIAlertViewStopTraining = 10081;
     view.layer.mask = shape;
 }
 
+- (void)addCircleToView:(UIView *)view{
+    CAShapeLayer * circleShape = [CAShapeLayer layer];
+    circleShape.fillColor = [[UIColor mainColor] CGColor];
+    CGPoint center;
+    center.x = view.bounds.size.width/2;
+    center.y = view.bounds.size.height/2;
+    CGFloat radius = center.x > center.y ? center.y : center.x;
+    radius = radius / 2;
+    UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle:(2*M_PI) clockwise:YES];
+    circleShape.path = path.CGPath;
+    [view.layer addSublayer:circleShape];
+}
+
 - (void)remakeConstraintsForCenterView:(UIView *)view remake:(BOOL)remake{
     void (^makerBlock)(MASConstraintMaker *) = ^(MASConstraintMaker * maker){
         maker.center.equalTo(_wSuperView);
@@ -317,8 +334,9 @@ static NSInteger const UIAlertViewStopTraining = 10081;
     if (_trainingManager.trainingState == TrainingStateRunning) {
         [_trainingManager pause];
         [_centeredButton setTitle:nil forState:UIControlStateNormal];
-        UIImage * image = [UIImage imageNamed:@"play2"];
-//        image = [image imageWithTintColor:[UIColor barBackgroundColor]];// TODO: vv王巍的代码没起到效果
+        UIImage * image = [UIImage imageNamed:@"play"];
+        image = [image imageWithTintColor:[UIColor mainColor]];
+        // 三角形图形重心偏左，所以将总体显示位置向右移动一些
         [_centeredButton setImageEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
         [_centeredButton setImage:image forState:UIControlStateNormal];
     }else{
@@ -333,6 +351,19 @@ static NSInteger const UIAlertViewStopTraining = 10081;
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (UIAlertViewStopTraining == alertView.tag && buttonIndex == alertView.firstOtherButtonIndex) {
         [self stopTraining];
+        
+    }else if(UIAlertViewSkippingCount == alertView.tag){
+        TrainingRecord * record = [[TrainingRecord alloc] initWithUnits:_process.units];
+
+        if (alertView.firstOtherButtonIndex == buttonIndex) {
+            // 输入跳绳个数处理
+            UITextField * textField = [alertView textFieldAtIndex:0];
+            record.numberOfSkipping = @(textField.text.integerValue);
+        }
+        
+        [[TrainingData defaultInstance] addRecord:record];
+        
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -497,7 +528,7 @@ static NSInteger const UIAlertViewStopTraining = 10081;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self hideProgressView];
         
-        _currentDottedView.backgroundColor = RGB(0x07, 0x57, 0x89);
+        [self addCircleToView:_currentDottedView];
         _currentDottedView = nil;
         
         _centeredLabel.text = nil;
@@ -507,11 +538,13 @@ static NSInteger const UIAlertViewStopTraining = 10081;
 - (void)trainingFinishedForProcess:(TrainingProcess *)process{
     NSLog(@"训练全部结束");
     
-    TrainingRecord * record = [[TrainingRecord alloc] initWithUnits:process.units];
-    [[TrainingData defaultInstance] addRecord:record];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self dismissView:nil];
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"跳绳个数" message:nil delegate:self cancelButtonTitle:@"没记住" otherButtonTitles:@"确定", nil];
+        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+        alertView.tag = UIAlertViewSkippingCount;
+        UITextField * textField = [alertView textFieldAtIndex:0];
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        [alertView show];
     });
     
 }
