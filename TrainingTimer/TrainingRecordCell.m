@@ -63,6 +63,14 @@
     }];
 }
 
+- (void)setNumberOfSkipping:(NSString *)numberString{
+    if (numberString.length == 0) {
+        _numberOfSkippingLabel.text = @"无";
+    }else{
+        _numberOfSkippingLabel.text = numberString;        
+    }
+}
+
 //- (void)showNumberOfSkippingString:(NSString *)string{
 //    [self.contentView setNeedsLayout];
 //    [self.contentView layoutIfNeeded];

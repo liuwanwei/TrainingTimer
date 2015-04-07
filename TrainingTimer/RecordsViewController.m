@@ -64,13 +64,9 @@
     TrainingRecordCell * recordCell = (TrainingRecordCell *)cell;
     
     TrainingRecord * record = _records[indexPath.row];
-//    recordCell.textLabel.text = [record description];
-//    recordCell.detailTextLabel.text = [record date];
-//    [recordCell showNumberOfSkippingString:record.numberOfSkipping.stringValue];
-    recordCell.numberOfSkippingLabel.text = record.numberOfSkipping.stringValue;
+    [recordCell setNumberOfSkipping:record.numberOfSkipping.stringValue];
     recordCell.descriptionLabel.text = [record description];
     recordCell.timeLabel.text = [record date];
-//    [recordCell showNumberOfSkipping:record.numberOfSkipping];
 
 }
 

@@ -8,6 +8,7 @@
 
 #import "TrainingViewController.h"
 #import <Masonry.h>
+#import <libextobjc/EXTScope.h>
 #import "UIColor+TrainingTimer.h"
 #import "UIFont+Adapter.h"
 #import "UIImage+Tint.h"
@@ -32,6 +33,7 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
 @implementation TrainingViewController{
     TrainingManager * _trainingManager;
     TrainingUnit * _currentTrainingUnit;
+    BOOL _manualStopped;    // 是否手工关闭
 
     UIButton * _closeButton;
     UILabel * _timeLabel;
@@ -99,9 +101,6 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
         maker.width.equalTo(@(CloseButtonWidth));
         maker.height.equalTo(_closeButton.mas_width);
     }];
-    
-//    [_closeButton setTitle:@"结束" forState:UIControlStateNormal];
-//    [_closeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     UIImage * image = [UIImage imageNamed:@"arrow-back"];
     image = [image imageWithTintColor:[UIColor whiteColor]];
     [_closeButton setImage:image forState:UIControlStateNormal];
@@ -350,6 +349,7 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
 #pragma mark - Alert view delegate
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (UIAlertViewStopTraining == alertView.tag && buttonIndex == alertView.firstOtherButtonIndex) {
+        _manualStopped = YES;
         [self stopTraining];
         
     }else if(UIAlertViewSkippingCount == alertView.tag){
@@ -538,8 +538,17 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
 - (void)trainingFinishedForProcess:(TrainingProcess *)process{
     NSLog(@"训练全部结束");
     
+    if (_manualStopped) {
+        @weakify(self);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self);
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+        return;
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"跳绳个数" message:nil delegate:self cancelButtonTitle:@"没记住" otherButtonTitles:@"确定", nil];
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"这次一共跳了几个？" message:nil delegate:self cancelButtonTitle:@"没记住" otherButtonTitles:@"确定", nil];
         alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
         alertView.tag = UIAlertViewSkippingCount;
         UITextField * textField = [alertView textFieldAtIndex:0];

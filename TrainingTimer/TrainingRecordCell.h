@@ -15,7 +15,7 @@
 @property (nonatomic, strong) UILabel * descriptionLabel;
 @property (nonatomic, strong) UILabel * timeLabel;
 
-//- (void)showNumberOfSkippingString:(NSString *)string;
+- (void)setNumberOfSkipping:(NSString *)numberString;
 
 - (void)showNumberOfSkipping:(NSNumber *)numberOfSkipping;
 
