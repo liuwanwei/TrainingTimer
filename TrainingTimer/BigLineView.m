@@ -231,23 +231,27 @@
     XLFormOptionsObject * option;
     NSEnumerator * enumerator = [_options objectEnumerator];
     while ((option = [enumerator nextObject])) {
-        const NSInteger LineHeight = 3;
+        const NSInteger StepLineHeight = 18;
         NSInteger value = [option.formValue integerValue];
         CGFloat posX = ((CGFloat)value / _maxValue) * self.bounds.size.width;
         CGFloat posY = self.bounds.size.height;
         // TODO: 不知为何设置成height定位不到底部，要设置偏移量，不过横竖屏切换后位置错乱
-        posY -= 14;
         UIBezierPath * path = [UIBezierPath bezierPath];
-        [path moveToPoint:CGPointMake(posX, posY)];
-        [path addLineToPoint:CGPointMake(posX, posY - LineHeight)];
+        [path moveToPoint:CGPointMake(posX, posY - StepLineHeight)];
+        [path addLineToPoint:CGPointMake(posX, posY)];
         
         CAShapeLayer * shapeLayer = [CAShapeLayer layer];
+        shapeLayer.anchorPoint = CGPointMake(0.f, 0.f); // TODO: 写一篇笔记来记录这个特性！！
         shapeLayer.path = [path CGPath];
-        shapeLayer.strokeColor = [[UIColor lightTextColor] CGColor]; // TODO: strokeColor和fillColor什么区别
-        shapeLayer.lineWidth = 1.0;
+        shapeLayer.strokeColor = [[UIColor lightTextColor] CGColor];
+        shapeLayer.lineWidth = 2.0;
         shapeLayer.fillColor = [[UIColor clearColor] CGColor];
         
         [self.layer addSublayer:shapeLayer];
+        
+        CGRect frame = shapeLayer.bounds;
+        NSLog(@"%zd", frame.origin.x);
+
     }
 }
 

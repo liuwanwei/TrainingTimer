@@ -19,6 +19,7 @@
 #import "RecordsViewController.h"
 #import "TrainingSetting.h"
 #import <XLForm.h>
+#import "KACircleProgressView.h"
 
 typedef enum{
     BigLineViewWarmUp = 1,
@@ -44,7 +45,7 @@ typedef enum{
     self.view.backgroundColor = [UIColor whiteColor];
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
     
-    self.title = @"HIIT跳绳训练";
+    self.title = @"HIIT跳绳训练";    
 }
 
 - (void)viewWillAppear:(BOOL)animated{

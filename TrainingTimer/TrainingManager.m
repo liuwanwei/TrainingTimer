@@ -10,6 +10,7 @@
 #import "TrainingProcess.h"
 #import "TrainingUnit.h"
 #import "TrainingVoiceManager.h"
+#import "SoundManager.h"
 
 const NSInteger RushTimeStartSeconds = 10;
 
@@ -130,9 +131,13 @@ const NSInteger RushTimeStartSeconds = 10;
         [_delegate performSelector:@selector(trainingBeginForUnit:) withObject:_currentUnit];
     }
     
-    [_voiceSpeaker speech:[NSString stringWithFormat:@"%@ 单元 开始 共 %@",
-                           [_currentUnit description],
-                           [Utils readableTimeFromSeconds:[_currentUnit.timeLength integerValue]]]];
+    if ([_currentUnit isTrainingUnit]) {
+        [[SoundManager defaultManager] playSoundWithFileName:@"female_lets_go_by_KendraYoder"];
+    }else{
+        [_voiceSpeaker speech:[NSString stringWithFormat:@"%@ 开始 共 %@",
+                               [_currentUnit description],
+                               [Utils readableTimeFromSeconds:[_currentUnit.timeLength integerValue]]]];        
+    }
 }
 
 - (void)trainingTimeUpdated:(NSTimer *)timer{

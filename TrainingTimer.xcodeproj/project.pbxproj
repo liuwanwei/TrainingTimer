@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		32DC25367D829D5B95A091ED /* libPods-TrainingTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 285CF4291F800A2CD1DA3F9F /* libPods-TrainingTimer.a */; };
+		FB35DF1F1AD652FB00AF4811 /* female_lets_go_by_KendraYoder.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FB35DF1E1AD652FB00AF4811 /* female_lets_go_by_KendraYoder.mp3 */; };
+		FB35DF221AD653E300AF4811 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB35DF211AD653E300AF4811 /* SoundManager.m */; };
 		FB417A8C1AD40CBF00F4B034 /* TrainingRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB417A8B1AD40CBF00F4B034 /* TrainingRecordCell.m */; };
+		FB7D15641AD579E300373241 /* KACircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7D15631AD579E300373241 /* KACircleProgressView.m */; };
 		FB87D6121ACFCAD900BCA5CA /* RecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */; };
 		FB87D6151ACFCAF800BCA5CA /* TrainingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */; };
 		FB87D6181ACFE2C800BCA5CA /* TrainingSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6171ACFE2C800BCA5CA /* TrainingSetting.m */; };
@@ -62,10 +65,15 @@
 		285CF4291F800A2CD1DA3F9F /* libPods-TrainingTimer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrainingTimer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A703D4E8E26986819A54972 /* Pods-TrainingTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainingTimer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrainingTimer/Pods-TrainingTimer.debug.xcconfig"; sourceTree = "<group>"; };
 		81379D1C8EF1587F3F414B75 /* Pods-TrainingTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainingTimer.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrainingTimer/Pods-TrainingTimer.release.xcconfig"; sourceTree = "<group>"; };
+		FB35DF1E1AD652FB00AF4811 /* female_lets_go_by_KendraYoder.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = female_lets_go_by_KendraYoder.mp3; sourceTree = "<group>"; };
+		FB35DF201AD653E300AF4811 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
+		FB35DF211AD653E300AF4811 /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
 		FB417A8A1AD40CBF00F4B034 /* TrainingRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingRecordCell.h; sourceTree = "<group>"; };
 		FB417A8B1AD40CBF00F4B034 /* TrainingRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingRecordCell.m; sourceTree = "<group>"; };
 		FB417A8D1AD435CB00F4B034 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		FB417A8E1AD435CC00F4B034 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		FB7D15621AD579E300373241 /* KACircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KACircleProgressView.h; sourceTree = "<group>"; };
+		FB7D15631AD579E300373241 /* KACircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KACircleProgressView.m; sourceTree = "<group>"; };
 		FB87D6101ACFCAD800BCA5CA /* RecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordsViewController.h; sourceTree = "<group>"; };
 		FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordsViewController.m; sourceTree = "<group>"; };
 		FB87D6131ACFCAF800BCA5CA /* TrainingRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingRecord.h; sourceTree = "<group>"; };
@@ -179,14 +187,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FB35DF1D1AD652FB00AF4811 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				FB35DF1E1AD652FB00AF4811 /* female_lets_go_by_KendraYoder.mp3 */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		FB7D15651AD580A300373241 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				FBDA39E51ACAFE4700DE81FB /* BigLineView.h */,
+				FBDA39E61ACAFE4700DE81FB /* BigLineView.m */,
+				FB7D15621AD579E300373241 /* KACircleProgressView.h */,
+				FB7D15631AD579E300373241 /* KACircleProgressView.m */,
+			);
+			name = CustomView;
+			sourceTree = "<group>";
+		};
 		FB87D60F1ACFC98600BCA5CA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FB7D15651AD580A300373241 /* CustomView */,
 				FBF0F7A81AC056B200EBC44C /* Cell */,
 				FBDA39E21ACAF17200DE81FB /* StartViewController.h */,
 				FBDA39E31ACAF17200DE81FB /* StartViewController.m */,
-				FBDA39E51ACAFE4700DE81FB /* BigLineView.h */,
-				FBDA39E61ACAFE4700DE81FB /* BigLineView.m */,
 				FBF0F7A91AC1209500EBC44C /* TrainingViewController.h */,
 				FBF0F7AA1AC1209500EBC44C /* TrainingViewController.m */,
 				FBDA39DC1AC996DE00DE81FB /* HeartRateViewController.h */,
@@ -236,6 +262,7 @@
 		FBF0F7331ABD321700EBC44C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FB35DF1D1AD652FB00AF4811 /* Audio */,
 				FBF0F7341ABD321700EBC44C /* Info.plist */,
 				FBF0F7351ABD321700EBC44C /* main.m */,
 			);
@@ -346,6 +373,8 @@
 				FBF0F7941ABD6DC600EBC44C /* TrainingManager.m */,
 				FBF0F7A01ABDD16600EBC44C /* TrainingVoiceManager.h */,
 				FBF0F7A11ABDD16600EBC44C /* TrainingVoiceManager.m */,
+				FB35DF201AD653E300AF4811 /* SoundManager.h */,
+				FB35DF211AD653E300AF4811 /* SoundManager.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -443,6 +472,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB35DF1F1AD652FB00AF4811 /* female_lets_go_by_KendraYoder.mp3 in Resources */,
 				FBF0F73F1ABD321700EBC44C /* Main.storyboard in Resources */,
 				FBF0F7441ABD321700EBC44C /* LaunchScreen.xib in Resources */,
 				FBF0F7411ABD321700EBC44C /* Images.xcassets in Resources */,
@@ -522,12 +552,14 @@
 				FB87D6181ACFE2C800BCA5CA /* TrainingSetting.m in Sources */,
 				FBF0F7891ABD399C00EBC44C /* NSDate+Formatted.m in Sources */,
 				FBF0F7881ABD399C00EBC44C /* BaseResponseCore.m in Sources */,
+				FB7D15641AD579E300373241 /* KACircleProgressView.m in Sources */,
 				FBF0F7951ABD6DC600EBC44C /* TrainingManager.m in Sources */,
 				FBF0F78B1ABD399C00EBC44C /* NSMutableDictionary+SafeSet.m in Sources */,
 				FBF0F78C1ABD399C00EBC44C /* NSString+Additional.m in Sources */,
 				FBF0F75F1ABD344800EBC44C /* TrainingProcess.m in Sources */,
 				FBF0F7361ABD321700EBC44C /* main.m in Sources */,
 				FBDA39E71ACAFE4700DE81FB /* BigLineView.m in Sources */,
+				FB35DF221AD653E300AF4811 /* SoundManager.m in Sources */,
 				FBF0F78D1ABD399C00EBC44C /* UIImage+Resize.m in Sources */,
 				FBF0F7871ABD399C00EBC44C /* BaseResponse.m in Sources */,
 			);
