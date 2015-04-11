@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		32DC25367D829D5B95A091ED /* libPods-TrainingTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 285CF4291F800A2CD1DA3F9F /* libPods-TrainingTimer.a */; };
+		FB2B75D91AD8B3AB00A4BB8B /* DotView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2B75D81AD8B3AB00A4BB8B /* DotView.m */; };
 		FB35DF1F1AD652FB00AF4811 /* female_lets_go_by_KendraYoder.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FB35DF1E1AD652FB00AF4811 /* female_lets_go_by_KendraYoder.mp3 */; };
 		FB35DF221AD653E300AF4811 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB35DF211AD653E300AF4811 /* SoundManager.m */; };
 		FB417A8C1AD40CBF00F4B034 /* TrainingRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB417A8B1AD40CBF00F4B034 /* TrainingRecordCell.m */; };
@@ -65,6 +66,8 @@
 		285CF4291F800A2CD1DA3F9F /* libPods-TrainingTimer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrainingTimer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A703D4E8E26986819A54972 /* Pods-TrainingTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainingTimer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrainingTimer/Pods-TrainingTimer.debug.xcconfig"; sourceTree = "<group>"; };
 		81379D1C8EF1587F3F414B75 /* Pods-TrainingTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrainingTimer.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrainingTimer/Pods-TrainingTimer.release.xcconfig"; sourceTree = "<group>"; };
+		FB2B75D71AD8B3AB00A4BB8B /* DotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DotView.h; sourceTree = "<group>"; };
+		FB2B75D81AD8B3AB00A4BB8B /* DotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DotView.m; sourceTree = "<group>"; };
 		FB35DF1E1AD652FB00AF4811 /* female_lets_go_by_KendraYoder.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = female_lets_go_by_KendraYoder.mp3; sourceTree = "<group>"; };
 		FB35DF201AD653E300AF4811 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		FB35DF211AD653E300AF4811 /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
@@ -200,6 +203,8 @@
 			children = (
 				FBDA39E51ACAFE4700DE81FB /* BigLineView.h */,
 				FBDA39E61ACAFE4700DE81FB /* BigLineView.m */,
+				FB2B75D71AD8B3AB00A4BB8B /* DotView.h */,
+				FB2B75D81AD8B3AB00A4BB8B /* DotView.m */,
 				FB7D15621AD579E300373241 /* KACircleProgressView.h */,
 				FB7D15631AD579E300373241 /* KACircleProgressView.m */,
 			);
@@ -546,6 +551,7 @@
 				FBF0F7391ABD321700EBC44C /* AppDelegate.m in Sources */,
 				FBF0F7901ABD399C00EBC44C /* DomainManager.m in Sources */,
 				FBF0F7A21ABDD16600EBC44C /* TrainingVoiceManager.m in Sources */,
+				FB2B75D91AD8B3AB00A4BB8B /* DotView.m in Sources */,
 				FBDA39DE1AC996DE00DE81FB /* HeartRateViewController.m in Sources */,
 				FBF0F7841ABD399C00EBC44C /* AutoCoding.m in Sources */,
 				FBF0F7651ABD383000EBC44C /* TrainingData.m in Sources */,

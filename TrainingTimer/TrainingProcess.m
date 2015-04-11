@@ -65,11 +65,11 @@
 + (NSArray *)tdataes{
     NSArray * units = @[@{TrainingUnitIndex:@(1),
                           TrainingUnitTypeKey:@(TrainingUnitTypeWarmUp),
-                          TrainingUnitTimeLength:@(2)},
+                          TrainingUnitTimeLength:@(1)},
                         
                         @{TrainingUnitIndex:@(2),
                           TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(2)},
+                          TrainingUnitTimeLength:@(50)},
                         
                         @{TrainingUnitIndex:@(3),
                           TrainingUnitTypeKey:@(TrainingUnitTypeRest),

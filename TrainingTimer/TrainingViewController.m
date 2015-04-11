@@ -17,6 +17,12 @@
 #import "TrainingManager.h"
 #import "TrainingRecord.h"
 #import "TrainingData.h"
+#import "DotView.h"
+//#import <PMTween.h>
+//#import <PMTweenEasing.h>
+//#import <PMTweenEasingCubic.h>
+//#import <PMTweenUnit.h>
+//#import <PMTweenSequence.h>
 
 static NSString * const kDefaultTrainingTimeLeft = @"00:00";
 static NSString * const kStartTrainingText = @"开始训练";
@@ -42,12 +48,13 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     UILabel * _centeredLabel;
     NSMutableArray * _dottedViews;
     UIView * _progressView;
-    UIView * _bottomPlatformView;
     
     UIDynamicAnimator * _animator;
     
-    __weak UIView * _currentDottedView;
+    __weak DotView * _currentDotView;
     __weak UIView * _wSuperView;
+    
+//    PMTweenSequence * _sequence;
 }
 
 - (void)viewDidLoad {
@@ -175,9 +182,8 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
 - (void)createDottedViews{
     const float DottedViewLeftMargin = 60.0f;
     const float DottedViewRightMargin = DottedViewLeftMargin;
-//    const float DottedViewBottomMargin = 25.0f;
     const float DottedViewInterval = 15.0f;
-//    const float DottedViewHeight = 25.0f;
+    const float DotViewBottomMargin = 10;
     
     _dottedViews = [NSMutableArray array];
     
@@ -189,7 +195,7 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     // 设置：每个控件跟它左边控件的边距为固定值：DottedViewInterval
     // 设置：每个控件的宽度互相相等
     id object;
-    UIView * dottedView = nil;
+    DotView * dotView = nil;
     __block UIView * prevView = nil;
     while ((object = [enumerator nextObject]) != nil) {
         TrainingUnit * unit = (TrainingUnit *)object;
@@ -197,18 +203,18 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
             continue;
         }
         
-        dottedView = [[UIView alloc] initWithFrame:CGRectZero];
-        
-        [_wSuperView addSubview:dottedView];
-        [_dottedViews addObject:dottedView];
-        [dottedView mas_makeConstraints:^(MASConstraintMaker * maker){
+        dotView = [[DotView alloc] initWithFrame:CGRectZero];
+        [_wSuperView addSubview:dotView];
+        [_dottedViews addObject:dotView];
+        [dotView mas_makeConstraints:^(MASConstraintMaker * maker){
             // 共同位置属性
-//            maker.top.equalTo(_centeredView.mas_bottom).offset(5);
-            maker.bottom.equalTo(_wSuperView.mas_bottom).with.offset(-10);
-            
             CGFloat centeredViewBottom = _centeredView.frame.origin.y + _centeredView.frame.size.height;
-            CGFloat height = _wSuperView.bounds.size.height - centeredViewBottom;
-            maker.height.equalTo(@(height/5));
+            CGFloat height = (_wSuperView.bounds.size.height - centeredViewBottom);
+            CGFloat topOffset = height * 4 / 5 - DotViewBottomMargin;
+            dotView.originalTopOffset = topOffset;
+            dotView.topConstraint = maker.top.equalTo(_centeredView.mas_bottom).offset(topOffset);
+            
+            maker.bottom.equalTo(_wSuperView.mas_bottom).with.offset(-DotViewBottomMargin);
             
             if (prevView == nil) {
                 // 第一个控件
@@ -220,10 +226,10 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
                 maker.leading.equalTo(prevView.mas_right).with.offset(DottedViewInterval);
             }
             
-            prevView = dottedView;
+            prevView = dotView;
         }];
         
-        dottedView.backgroundColor = [UIColor whiteColor];
+        dotView.backgroundColor = [UIColor whiteColor];
     }
     
     // 最后一个控件
@@ -236,19 +242,12 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     while ((object = [enumerator nextObject]) != nil) {
         [self makeCircleForView:(UIView *)object];
     }
-    
-    // 底部弹跳平台
-    _bottomPlatformView = [[UIView alloc] initWithFrame:CGRectZero];
-    [_wSuperView addSubview:_bottomPlatformView];
-    _bottomPlatformView.backgroundColor = [UIColor clearColor];
-    [_bottomPlatformView mas_makeConstraints:^(MASConstraintMaker * maker){
-        maker.leading.equalTo(_wSuperView.mas_leading);
-        maker.top.equalTo(prevView.mas_bottom);
-        maker.width.equalTo(_wSuperView.mas_width);
-        maker.bottom.equalTo(_wSuperView.mas_bottom);
-    }];
 }
 
+/** 将 UIView 变成一个圆形，直径等于长和宽中较小的那个
+ *
+ *  @param view     目标 view
+ */
 - (void)makeCircleForView:(UIView *)view{
     [view setNeedsLayout];
     [view layoutIfNeeded];
@@ -261,10 +260,15 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     CGFloat radius = center.x > center.y ? center.y : center.x;
     UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle:(2*M_PI) clockwise:YES];
     shape.path = path.CGPath;
-    view.layer.mask = shape;
+    view.layer.mask = shape;    // 重点在这里
 }
 
-- (void)addCircleToView:(UIView *)view{
+/** 向 UIView 中添加一个同心圆
+ *
+ *  @param view     目标 view
+ *
+ */
+- (void)addConcentricCircleToView:(UIView *)view{
     CAShapeLayer * circleShape = [CAShapeLayer layer];
     circleShape.fillColor = [[UIColor mainColor] CGColor];
     CGPoint center;
@@ -394,13 +398,22 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     }
     NSLog(@"%@", @(index));
     if (index != -1 && found) {
-        _currentDottedView = _dottedViews[index];
+        _currentDotView = _dottedViews[index];
+        
     }else{
-        _currentDottedView = nil;
+        _currentDotView = nil;
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [_centeredButton setTitle:[unit description]  forState:UIControlStateNormal];
+        
+        if (_currentDotView) {
+//            PMTweenEasingBlock easing = [PMTweenEasingCubic easingInOut];
+//            PMTweenUnit * tween1 = [[PMTweenUnit alloc] initWithObject:_currentDottedView propertyKeyPath:@"frame.origin.y" startingValue:_currentDottedView.frame.origin.y endingValue:_currentDottedView.frame.origin.y - 50 duration:0.5 options:PMTweenOptionNone easingBlock:easing];
+//            _sequence = [[PMTweenSequence alloc] initWithSequenceSteps:@[tween1] options:PMTweenOptionReverse| PMTweenOptionRepeat];
+//            _sequence.reversingMode = PMTweenSequenceReversingContiguous;
+//            [_sequence startTween];
+        }
     });
 }
 
@@ -418,7 +431,7 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
         }
         
         [self animationDot];
-        [self animationProgressWithLeftSeconds:leftSeconds-1];
+        [self animationProgressWithLeftSeconds:leftSeconds - 1];
     });
 }
 
@@ -477,45 +490,54 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
 
 // 小球在上升时运动无误，下降时却无法完美实现一直加速
 - (void)animationDot{
-    if (_currentDottedView == nil) {
+    if (_currentDotView == nil) {
         return;
     }
     
-    const CGFloat DotJumpHeight = 50.f;
+    [_currentDotView.layer removeAllAnimations];
     
+    const CGFloat DotJumpHeight = 50.f;
+
+    // 使用下面的方法修改 frame，在 iOS7 下正常，iOS8 下却不正常，正好反过来
+
+//    void (^moveUp)() = ^{
+//        CGRect newRect = _currentDotView.frame;
+//        newRect.origin.y -= DotJumpHeight;
+//        _currentDotView.frame = newRect;
+//    };
+    
+//    void (^moveDown)() = ^{
+//        CGRect newRect = _currentDottedView.frame;
+//        newRect.origin.y += DotJumpHeight;
+//        _currentDottedView.frame = newRect;
+//    };
+    
+    // 下面动态修改 constraint，在iPhone
     void (^moveUp)() = ^{
-        CGRect newRect = _currentDottedView.frame;
-        newRect.origin.y += DotJumpHeight;
-        _currentDottedView.frame = newRect;
+        _currentDotView.topConstraint.offset(_currentDotView.originalTopOffset - DotJumpHeight);
+        [_currentDotView setNeedsUpdateConstraints];
+        [_currentDotView layoutIfNeeded];
     };
     
     void (^moveDown)() = ^{
-        CGRect newRect = _currentDottedView.frame;
-        newRect.origin.y -= DotJumpHeight;
-        _currentDottedView.frame = newRect;
-    };
-    
-    void (^moveDownFinish)(BOOL) = ^(BOOL finished){
-        if (finished) {
-            // TODO: 播放滴答声
-        }
+        _currentDotView.topConstraint.offset(_currentDotView.originalTopOffset);
+        [_currentDotView setNeedsUpdateConstraints];
+        [_currentDotView layoutIfNeeded];
     };
     
     void (^moveUpFinish)(BOOL) = ^(BOOL finished){
         if (finished) {
-            [UIView transitionWithView:_currentDottedView
+            [UIView transitionWithView:_wSuperView
                               duration:0.49 
-                               options:UIViewAnimationOptionCurveEaseOut
+                               options:UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionAllowAnimatedContent
                             animations:moveDown
-                            completion:moveDownFinish];
+                            completion:nil];
         }
     };
     
-    [_currentDottedView.layer removeAllAnimations];
-    
-    [UIView transitionWithView:_currentDottedView
-                      duration:0.5
-                       options:UIViewAnimationOptionCurveEaseOut
+    [UIView transitionWithView:_wSuperView
+                      duration:.5
+                       options:UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionAllowAnimatedContent
                     animations:moveUp
                     completion:moveUpFinish];
 
@@ -528,8 +550,8 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self hideProgressView];
         
-        [self addCircleToView:_currentDottedView];
-        _currentDottedView = nil;
+        [self addConcentricCircleToView:_currentDotView];
+        _currentDotView = nil;
         
         _centeredLabel.text = nil;
     });
@@ -562,11 +584,6 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     UIView * superView = _progressView.superview;
     CGFloat height = superView.bounds.size.height;
     _progressView.frame = CGRectMake(0, 0, 0, height);
-}
-
-- (void)fullFillProgressView{
-    UIView * superView = _progressView.superview;
-    _progressView.frame = CGRectMake(0, 0, superView.bounds.size.width, superView.bounds.size.height);
 }
 
 @end

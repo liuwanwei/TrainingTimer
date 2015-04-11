@@ -162,6 +162,7 @@ const NSInteger RushTimeStartSeconds = 10;
     }else{
         if (_unitSecondsLeft <= RushTimeStartSeconds) {
             [_voiceSpeaker speech:[@(_unitSecondsLeft) stringValue] withRate:TrainingVoiceRateFast];
+            [[UIDevice currentDevice] playInputClick];// TODO:模拟器下没有声音，再测
         }
 
         // 训练单元时间更新
