@@ -20,7 +20,7 @@
     UIView * _progressView;
     BOOL _isTime;
     
-    NSMutableArray * _scales; // 刻度 layer 对象缓存
+    NSMutableArray * _scaleLayers; // 刻度 layer 对象缓存
 }
 
 + (BOOL)requiresConstraintBasedLayout{
@@ -30,6 +30,8 @@
 - (instancetype)initWithMaxValue:(TTMaxLength)maxLength{
     if (self = [super init]) {
         _maxValue = maxLength;
+        
+        self.backgroundColor = RGB(0xAF, 0xAD, 0xAA);// 背景色
         [self createSubViews];
         
         UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
@@ -41,6 +43,11 @@
     return self;
 }
 
+- (void)drawRect:(CGRect)rect{
+    [self redrawScaleSplitter];
+}
+
+// 点击屏幕修改刻度操作处理函数
 - (void)tapped:(UITapGestureRecognizer *)recoginizer{
     if (recoginizer.state == UIGestureRecognizerStateEnded) {
         CGPoint location = [recoginizer locationInView:self];
@@ -53,11 +60,25 @@
         
         XLFormOptionsObject * object;
         NSInteger position = 0;
-        for (NSInteger i = OptionsCount - 1; i >= 0; i--) {
+        
+        // 最大适配算法，寻找小于点击位置的最大刻度
+//        for (NSInteger i = OptionsCount - 1; i >= 0; i--) {
+//            object = _options[i];
+//
+//            CGFloat bringe = ([object.formValue floatValue] / _maxValue) * ViewWidth;
+//            if (bringe < location.x) {
+//                position = i + 1;
+//                break;
+//            }
+//        }
+        
+        // 最小适配算法：寻找大于点击位置的最小刻度
+        for (NSInteger i = 0; i < OptionsCount; i++) {
             object = _options[i];
-            CGFloat barrier = ([object.formValue floatValue] / _maxValue) * ViewWidth;
-            if (barrier < location.x) {
-                position = i + 1;
+            
+            CGFloat bringe = ([object.formValue floatValue] / _maxValue) * ViewWidth;
+            if (bringe >= location.x) {
+                position = i;
                 break;
             }
         }
@@ -87,34 +108,7 @@
     [self updateCurrentValueView];
 }
 
-#pragma mark - UIAction sheet style selection handler
-- (void)showWithUIActionSheet{
-    UIActionSheet * actionSheet = [[UIActionSheet alloc] init];
-    actionSheet.title = _typeLabel.text;
-    
-    NSEnumerator * enumerator = [_options objectEnumerator];
-    XLFormOptionsObject * object;
-    while((object = [enumerator nextObject])){
-        [actionSheet addButtonWithTitle:object.formDisplayText];
-    }
-    
-    [actionSheet addButtonWithTitle:@"取消"];
-    actionSheet.delegate = self;
-    [actionSheet showInView:self.superview];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    if (buttonIndex < _options.count) {
-        XLFormOptionsObject * object = _options[buttonIndex];
-        _currentValue = [object.formValue integerValue];
-        
-        [self updateProgressView];
-    }
-}
-
 - (void)createSubViews{
-    
-    self.backgroundColor = RGB(0xAF, 0xAD, 0xAA);// 背景色
     
     @weakify(self);
     
@@ -148,13 +142,13 @@
         maker.bottom.equalTo(self.mas_bottom).offset(-verticalGap);
     }];
     
-    // 底部分隔线
+    // 底部长分隔线
     _bottomLineView = [[UIView alloc] init];
     _bottomLineView.backgroundColor = [UIColor lightTextColor];
     [self addSubview:_bottomLineView];
     [_bottomLineView mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
-        maker.leading.equalTo(self.mas_leading);
+        maker.leading.equalTo(self.mas_leading).offset(8.0);
         maker.bottom.equalTo(self.mas_bottom);
         maker.width.equalTo(self.mas_width);
         maker.height.equalTo(@(1));
@@ -179,7 +173,7 @@
     [self setFontAutoFitSizeForLabel:_typeLabel];
     [self setFontAutoFitSizeForLabel:_valueLabel];
     
-    [self drawStepScale];
+    [self redrawScaleSplitter];
 }
 
 /**
@@ -232,40 +226,45 @@
     _bottomLineView.hidden = YES;
 }
 
-- (void)drawStepScale{
+// 重绘刻度
+- (void)redrawScaleSplitter{
     
-    for (CAShapeLayer * layer in _scales) {
+    for (CAShapeLayer * layer in _scaleLayers) {
         [layer removeFromSuperlayer];
     }
-    _scales = [NSMutableArray array];
+    
+    NSLog(@"重绘");
+    _scaleLayers = [NSMutableArray array];
     
     XLFormOptionsObject * option;
     NSEnumerator * enumerator = [_options objectEnumerator];
     while ((option = [enumerator nextObject])) {
         const CGFloat ScaleStrokeHeight = 5.0;
         const CGFloat ScaleStrokeWidth = 2.0;
+        
+        // 通过刻度值计算刻度位置
         NSInteger value = [option.formValue integerValue];
         CGFloat posX = ((CGFloat)value / _maxValue) * self.bounds.size.width;
         CGFloat posY = self.bounds.size.height;
-        // TODO: 不知为何设置成height定位不到底部，要设置偏移量，不过横竖屏切换后位置错乱
+
+        // 画刻度线
         UIBezierPath * path = [UIBezierPath bezierPath];
         [path moveToPoint:CGPointMake(posX, posY - ScaleStrokeHeight)];
         [path addLineToPoint:CGPointMake(posX, posY)];
         
         CAShapeLayer * shapeLayer = [CAShapeLayer layer];
+        NSAssert(shapeLayer != nil, @"shape layer can't be nil");
         shapeLayer.anchorPoint = CGPointMake(0.f, 0.f); // TODO: 写一篇笔记来记录这个特性！！
         shapeLayer.path = [path CGPath];
         shapeLayer.strokeColor = [[UIColor lightTextColor] CGColor];
         shapeLayer.lineWidth = ScaleStrokeWidth;
         shapeLayer.fillColor = [[UIColor clearColor] CGColor];
-        
+       
         [self.layer addSublayer:shapeLayer];
         
-        [_scales addObject:shapeLayer];
+        [_scaleLayers addObject:shapeLayer];
         
-        CGRect frame = shapeLayer.bounds;
-        NSLog(@"%zd", frame.origin.x);
-
+        NSLog(@"scale splitter posx(%.1f) posy(%.1f)", posX, posY);
     }
     
 }

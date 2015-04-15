@@ -49,26 +49,47 @@ typedef enum{
     self.title = @"HIIT跳绳训练";    
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-//    self.navigationController.navigationBarHidden = YES;
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+
+//    [self.view setNeedsLayout];
+//    [self.view layoutIfNeeded];
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // TODO: 这段初始化代码应该放到更合适的地方
+        TrainingSetting * setting = [TrainingSetting sharedInstance];
+        [_warmUpView setDescription:@"热身"];
+        [_warmUpView setCurrentValue:setting.warmUpTime.integerValue isTime:YES];
+        
+        [_skippingView setDescription:@"跳绳"];
+        [_skippingView setCurrentValue:setting.skippingTime.integerValue isTime:YES];
+        
+        [_restView setDescription:@"休息"];
+        [_restView setCurrentValue:setting.restTime.integerValue isTime:YES];
+        
+        [_roundView setDescription:@"组"];
+        [_roundView setCurrentValue:setting.rounds.integerValue isTime:NO];
+        
+        [self updateStartButtonFont];
+        [_startButton setTitle:@"GO!" forState:UIControlStateNormal];
+        [_startButton addTarget:self action:@selector(startTraining:) forControlEvents:UIControlEventTouchUpInside];
+    });
 }
 
-- (void)resetLineViewFonts{
-    NSEnumerator * enumerator = [_bigLines objectEnumerator];
+- (void)resetLineViewDimention{
     BigLineView * view;
+    NSEnumerator * enumerator = [_bigLines objectEnumerator];
     while ((view = [enumerator nextObject])) {
         [view resetContentSize];
     }
-    
-    [self updateStartButtonFont];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    [self resetLineViewFonts];
     
-    
+    [self resetLineViewDimention];
+    [self updateStartButtonFont];
 }
 
 - (void)initializeSubViews{
@@ -119,9 +140,7 @@ typedef enum{
     // 练习几轮
     _roundView = [[BigLineView alloc] initWithMaxValue:TTMaxRound];
     _roundView.tag = BigLineViewRound;
-    _roundView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"1组"],
-                           [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"2组"],
-                           [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"3组"],
+    _roundView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"3组"],
                            [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"4组"],
                            [XLFormOptionsObject formOptionsObjectWithValue:@(5) displayText:@"5组"],
                            [XLFormOptionsObject formOptionsObjectWithValue:@(6) displayText:@"6组"],
@@ -150,29 +169,8 @@ typedef enum{
     }];
     _startButton.backgroundColor = [UIColor mainColor];
     
-    [self.view setNeedsLayout];
-    [self.view layoutIfNeeded];
-    
-    TrainingSetting * setting = [TrainingSetting sharedInstance];
-    [_warmUpView setDescription:@"热身"];
-    [_warmUpView setCurrentValue:setting.warmUpTime.integerValue isTime:YES];
-    
-    [_skippingView setDescription:@"跳绳"];
-    [_skippingView setCurrentValue:setting.skippingTime.integerValue isTime:YES];
-    
-    [_restView setDescription:@"休息"];
-    [_restView setCurrentValue:setting.restTime.integerValue isTime:YES];
-    
-    [_roundView setDescription:@"组"];
-    [_roundView setCurrentValue:setting.rounds.integerValue isTime:NO];
-    
-    [self updateStartButtonFont];
-    [_startButton setTitle:@"GO!" forState:UIControlStateNormal];
-    [_startButton addTarget:self action:@selector(startTraining:) forControlEvents:UIControlEventTouchUpInside];    
-    
     // 处理每个子View的delegate事件
     for (BigLineView * view in _bigLines) {
-        [view drawStepScale];
         view.delegate = self;
     }
 }

@@ -25,7 +25,7 @@ typedef enum{
 
 @class TrainingUnit;
 
-@interface BigLineView : UIView <UIActionSheetDelegate>
+@interface BigLineView : UIView
 
 @property (nonatomic, strong) UILabel * typeLabel;
 @property (nonatomic, strong) UILabel * valueLabel;
@@ -44,7 +44,7 @@ typedef enum{
 
 - (void)resetContentSize;
 
-- (void)drawStepScale;
+- (void)redrawScaleSplitter;
 
 - (void)hideBottomLine;
 
