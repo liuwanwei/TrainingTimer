@@ -19,7 +19,8 @@
 #import "RecordsViewController.h"
 #import "TrainingSetting.h"
 #import <XLForm.h>
-#import "KACircleProgressView.h"
+//#import "KACircleProgressView.h"
+#import <FBShimmeringView.h>
 
 typedef enum{
     BigLineViewWarmUp = 1,
@@ -53,17 +54,21 @@ typedef enum{
 //    self.navigationController.navigationBarHidden = YES;
 }
 
-- (void)resetViewFonts{
+- (void)resetLineViewFonts{
     NSEnumerator * enumerator = [_bigLines objectEnumerator];
     BigLineView * view;
     while ((view = [enumerator nextObject])) {
-        [view resetFonts];
+        [view resetContentSize];
     }
+    
+    [self updateStartButtonFont];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    [self resetViewFonts];
+    [self resetLineViewFonts];
+    
+    
 }
 
 - (void)initializeSubViews{
@@ -161,22 +166,26 @@ typedef enum{
     [_roundView setDescription:@"组"];
     [_roundView setCurrentValue:setting.rounds.integerValue isTime:NO];
     
-    CGSize size = _startButton.bounds.size;
-    size.height /= 3;
-    _startButton.titleLabel.font = [UIFont findAdaptiveFontWithName:nil forUILabelSize:size withMinimumSize:0];
+    [self updateStartButtonFont];
     [_startButton setTitle:@"GO!" forState:UIControlStateNormal];
-    [_startButton addTarget:self action:@selector(startTraining:) forControlEvents:UIControlEventTouchUpInside];
+    [_startButton addTarget:self action:@selector(startTraining:) forControlEvents:UIControlEventTouchUpInside];    
     
     // 处理每个子View的delegate事件
     for (BigLineView * view in _bigLines) {
-        [view drawStepLine];
+        [view drawStepScale];
         view.delegate = self;
     }
 }
 
+- (void)updateStartButtonFont{
+    CGSize size = _startButton.bounds.size;
+    size.height /= 2;
+    _startButton.titleLabel.font = [UIFont findAdaptiveFontWithName:nil forUILabelSize:size withMinimumSize:0];
+}
+
 - (void)startTraining:(id)sender{
-//    TrainingProcess * process = [TrainingProcess trainingProcessFromSetting];
-    TrainingProcess * process = [TrainingProcess testObject];
+    TrainingProcess * process = [TrainingProcess trainingProcessFromSetting];
+//    TrainingProcess * process = [TrainingProcess testObject];
     
     TrainingViewController * trainingVc = [[TrainingViewController alloc] init];
     trainingVc.process = process;

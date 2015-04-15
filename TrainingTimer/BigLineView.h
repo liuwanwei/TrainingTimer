@@ -42,9 +42,9 @@ typedef enum{
 - (void)setDescription:(NSString *)type;
 - (void)setCurrentValue:(NSInteger)length isTime:(BOOL)isTime;
 
-- (void)resetFonts;
+- (void)resetContentSize;
 
-- (void)drawStepLine;
+- (void)drawStepScale;
 
 - (void)hideBottomLine;
 

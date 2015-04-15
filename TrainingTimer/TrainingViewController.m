@@ -18,11 +18,7 @@
 #import "TrainingRecord.h"
 #import "TrainingData.h"
 #import "DotView.h"
-//#import <PMTween.h>
-//#import <PMTweenEasing.h>
-//#import <PMTweenEasingCubic.h>
-//#import <PMTweenUnit.h>
-//#import <PMTweenSequence.h>
+#import <FBShimmeringView.h>
 
 static NSString * const kDefaultTrainingTimeLeft = @"00:00";
 static NSString * const kStartTrainingText = @"开始训练";
@@ -49,12 +45,13 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     NSMutableArray * _dottedViews;
     UIView * _progressView;
     
+    FBShimmeringView * _shimmeringView;
+    
     UIDynamicAnimator * _animator;
     
     __weak DotView * _currentDotView;
     __weak UIView * _wSuperView;
     
-//    PMTweenSequence * _sequence;
 }
 
 - (void)viewDidLoad {
@@ -155,20 +152,35 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     [self hideProgressView];
     
     // 剩余时间
-    const float TimeLabelWidth = 120.0f;
     _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _timeLabel.font = [UIFont systemFontOfSize:30.0f];
     [_wSuperView addSubview:_timeLabel];
     [_timeLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(_wSuperView.mas_top);
         maker.bottom.equalTo(_centeredView.mas_top);
-        maker.width.equalTo(@(TimeLabelWidth));
+        maker.width.equalTo(_wSuperView.mas_width);
         maker.centerX.equalTo(_wSuperView.mas_centerX);
     }];
+    [_timeLabel setNeedsLayout];
+    [_timeLabel layoutIfNeeded];
+    size = _timeLabel.frame.size;
+    size.height /= 2;
+    font = [UIFont findAdaptiveFontWithName:nil forUILabelSize:size withMinimumSize:32];
+    _timeLabel.font = font;
     _timeLabel.textColor = [UIColor whiteColor];
     _timeLabel.textAlignment = NSTextAlignmentCenter;
     _timeLabel.text = @"00:00";
 
+    FBShimmeringView * shimmeringView = [[FBShimmeringView alloc] initWithFrame:CGRectZero];
+    shimmeringView.shimmering = NO;
+    shimmeringView.shimmeringBeginFadeDuration = 0.1;
+    shimmeringView.shimmeringOpacity = 1.0;
+    shimmeringView.shimmeringSpeed = 105.f;
+    [self.view addSubview:shimmeringView];
+    [shimmeringView mas_makeConstraints:^(MASConstraintMaker * maker){
+        maker.edges.equalTo(_timeLabel);
+    }];
+    shimmeringView.contentView = _timeLabel;
+    _shimmeringView = shimmeringView;
     
     // 创建单元按钮
     [self createDottedViews];
@@ -406,14 +418,6 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [_centeredButton setTitle:[unit description]  forState:UIControlStateNormal];
-        
-        if (_currentDotView) {
-//            PMTweenEasingBlock easing = [PMTweenEasingCubic easingInOut];
-//            PMTweenUnit * tween1 = [[PMTweenUnit alloc] initWithObject:_currentDottedView propertyKeyPath:@"frame.origin.y" startingValue:_currentDottedView.frame.origin.y endingValue:_currentDottedView.frame.origin.y - 50 duration:0.5 options:PMTweenOptionNone easingBlock:easing];
-//            _sequence = [[PMTweenSequence alloc] initWithSequenceSteps:@[tween1] options:PMTweenOptionReverse| PMTweenOptionRepeat];
-//            _sequence.reversingMode = PMTweenSequenceReversingContiguous;
-//            [_sequence startTween];
-        }
     });
 }
 
@@ -428,6 +432,8 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
             // 最后十秒中间显示倒计时
             [_centeredButton setTitle:nil forState:UIControlStateNormal];
             _centeredLabel.text = [NSString stringWithFormat:@"%@", @(leftSeconds)];
+            
+            _shimmeringView.shimmering = YES;
         }
         
         [self animationDot];
@@ -546,6 +552,7 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
 - (void)trainingFinishedForUnit:(TrainingUnit *)unit{
     NSLog(@"%@结束", unit);
     _currentTrainingUnit = nil;
+    _shimmeringView.shimmering = NO;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self hideProgressView];

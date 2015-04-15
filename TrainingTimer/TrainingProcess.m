@@ -69,15 +69,15 @@
                         
                         @{TrainingUnitIndex:@(2),
                           TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(50)},
+                          TrainingUnitTimeLength:@(12)},
                         
                         @{TrainingUnitIndex:@(3),
                           TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(2)},
+                          TrainingUnitTimeLength:@(12)},
                         
                         @{TrainingUnitIndex:@(4),
                           TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(2)},
+                          TrainingUnitTimeLength:@(12)},
                         
                         @{TrainingUnitIndex:@(5),
                           TrainingUnitTypeKey:@(TrainingUnitTypeRest),

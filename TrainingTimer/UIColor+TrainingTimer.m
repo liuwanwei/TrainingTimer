@@ -9,6 +9,7 @@
 #import "UIColor+TrainingTimer.h"
 #import "BDFoundation.h"
 #import <TMCache.h>
+#import <Colours.h>
 
 static NSString * const kSchemaKey = @"schemaKey";
 
@@ -31,7 +32,8 @@ static TrainingColorSchema sSchema = TrainingColorSchemaPink;
 }
 
 + (UIColor *)barBackgroundColor{
-    return RGB(0xD4, 0xD5, 0xD5);
+    return [[self class] mainColor];
+//    return RGB(0xD4, 0xD5, 0xD5);
 }
 
 + (UIColor *)mainColor{
@@ -41,7 +43,8 @@ static TrainingColorSchema sSchema = TrainingColorSchemaPink;
         case TrainingColorSchemaPink:
             return RGB(0xEA, 0x60, 0x5D);
         case TrainingColorSchemaBlue:
-            return RGB(0x8C, 0xB6, 0x45);
+            // From Colours Pod: https://github.com/bennyguitar/Colours
+            return [UIColor skyBlueColor];
     }
 }
 

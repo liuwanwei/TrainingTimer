@@ -23,14 +23,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [UIColor loadSchema];
+    [UIColor setSchema:TrainingColorSchemaBlue];
+    
     [Utils customizeStatusBarForApplication:application withStyle:UIStatusBarStyleLightContent];
     [Utils customizeNavigationBarForApplication:application withColor:[UIColor barBackgroundColor]];
     
     // 加载数据
     [[TrainingData defaultInstance] loadDataes];
-    
-    [UIColor setSchema:TrainingColorSchemaPink];
-    [UIColor loadSchema];
     
     UIViewController * root = self.window.rootViewController;
     if ([root isKindOfClass:[UINavigationController class]]) {

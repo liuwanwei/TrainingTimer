@@ -14,10 +14,13 @@
 #import "UIFont+Adapter.h"
 #import <libextobjc/EXTScope.h>
 #import <XLForm.h>
+#import <FBShimmeringView.h>
 
 @implementation BigLineView{
     UIView * _progressView;
     BOOL _isTime;
+    
+    NSMutableArray * _scales; // 刻度 layer 对象缓存
 }
 
 + (BOOL)requiresConstraintBasedLayout{
@@ -129,7 +132,7 @@
         maker.height.equalTo(self.mas_height).dividedBy(3);
         
     }];
-    
+        
     // 类型，如：热身
     _typeLabel = [[UILabel alloc] init];
     _typeLabel.textAlignment = NSTextAlignmentCenter;
@@ -172,9 +175,11 @@
     [self sendSubviewToBack:_progressView];
 }
 
-- (void)resetFonts{
+- (void)resetContentSize{
     [self setFontAutoFitSizeForLabel:_typeLabel];
     [self setFontAutoFitSizeForLabel:_valueLabel];
+    
+    [self drawStepScale];
 }
 
 /**
@@ -227,32 +232,42 @@
     _bottomLineView.hidden = YES;
 }
 
-- (void)drawStepLine{
+- (void)drawStepScale{
+    
+    for (CAShapeLayer * layer in _scales) {
+        [layer removeFromSuperlayer];
+    }
+    _scales = [NSMutableArray array];
+    
     XLFormOptionsObject * option;
     NSEnumerator * enumerator = [_options objectEnumerator];
     while ((option = [enumerator nextObject])) {
-        const NSInteger StepLineHeight = 18;
+        const CGFloat ScaleStrokeHeight = 5.0;
+        const CGFloat ScaleStrokeWidth = 2.0;
         NSInteger value = [option.formValue integerValue];
         CGFloat posX = ((CGFloat)value / _maxValue) * self.bounds.size.width;
         CGFloat posY = self.bounds.size.height;
         // TODO: 不知为何设置成height定位不到底部，要设置偏移量，不过横竖屏切换后位置错乱
         UIBezierPath * path = [UIBezierPath bezierPath];
-        [path moveToPoint:CGPointMake(posX, posY - StepLineHeight)];
+        [path moveToPoint:CGPointMake(posX, posY - ScaleStrokeHeight)];
         [path addLineToPoint:CGPointMake(posX, posY)];
         
         CAShapeLayer * shapeLayer = [CAShapeLayer layer];
         shapeLayer.anchorPoint = CGPointMake(0.f, 0.f); // TODO: 写一篇笔记来记录这个特性！！
         shapeLayer.path = [path CGPath];
         shapeLayer.strokeColor = [[UIColor lightTextColor] CGColor];
-        shapeLayer.lineWidth = 2.0;
+        shapeLayer.lineWidth = ScaleStrokeWidth;
         shapeLayer.fillColor = [[UIColor clearColor] CGColor];
         
         [self.layer addSublayer:shapeLayer];
+        
+        [_scales addObject:shapeLayer];
         
         CGRect frame = shapeLayer.bounds;
         NSLog(@"%zd", frame.origin.x);
 
     }
+    
 }
 
 @end
