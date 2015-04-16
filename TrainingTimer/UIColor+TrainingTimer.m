@@ -13,7 +13,7 @@
 
 static NSString * const kSchemaKey = @"schemaKey";
 
-static TrainingColorSchema sSchema = TrainingColorSchemaPink;
+static TrainingColorSchema sSchema = TrainingColorSchemaBlue;
 
 @implementation UIColor(TrainingTimer)
 

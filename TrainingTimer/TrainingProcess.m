@@ -69,7 +69,7 @@
                         
                         @{TrainingUnitIndex:@(2),
                           TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(12)},
+                          TrainingUnitTimeLength:@(120)},
                         
                         @{TrainingUnitIndex:@(3),
                           TrainingUnitTypeKey:@(TrainingUnitTypeRest),

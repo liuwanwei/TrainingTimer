@@ -11,7 +11,11 @@
 
 @interface DotView : UIView
 
-@property (nonatomic, strong) MASConstraint * topConstraint;
-@property (nonatomic) CGFloat originalTopOffset;
+@property (nonatomic, strong) MASConstraint * bottomConstraint;
+@property (nonatomic) CGFloat originalBottomOffset;
+
+@property (nonatomic, strong) MASConstraint * heightConstraint;
+
+- (void)makeCircle;
 
 @end

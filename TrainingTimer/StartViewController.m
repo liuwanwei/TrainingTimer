@@ -21,6 +21,8 @@
 #import <XLForm.h>
 //#import "KACircleProgressView.h"
 #import <FBShimmeringView.h>
+#import <GLPubSub/NSObject+GLPubSub.h>
+#import <libextobjc/EXTScope.h>
 
 typedef enum{
     BigLineViewWarmUp = 1,
@@ -46,15 +48,22 @@ typedef enum{
     self.view.backgroundColor = [UIColor whiteColor];
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
     
-    self.title = @"HIIT跳绳训练";    
+    self.title = @"HIIT跳绳训练";
+//    
+//    @weakify(self);
+//    // TODO: 能收到这个消息，但这是个 will 消息，收到时还没有旋转，所以代码不起作用
+//    [self subscribe:UIApplicationWillChangeStatusBarOrientationNotification handler:^(GLEvent * event){
+//        @strongify(self);
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self resetLineViewDimention];
+//            [self updateStartButtonFont];
+//        });
+//    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 
-//    [self.view setNeedsLayout];
-//    [self.view layoutIfNeeded];
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         // TODO: 这段初始化代码应该放到更合适的地方
@@ -85,8 +94,8 @@ typedef enum{
     }
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
     
     [self resetLineViewDimention];
     [self updateStartButtonFont];
@@ -182,8 +191,8 @@ typedef enum{
 }
 
 - (void)startTraining:(id)sender{
-    TrainingProcess * process = [TrainingProcess trainingProcessFromSetting];
-//    TrainingProcess * process = [TrainingProcess testObject];
+//    TrainingProcess * process = [TrainingProcess trainingProcessFromSetting];
+    TrainingProcess * process = [TrainingProcess testObject];
     
     TrainingViewController * trainingVc = [[TrainingViewController alloc] init];
     trainingVc.process = process;

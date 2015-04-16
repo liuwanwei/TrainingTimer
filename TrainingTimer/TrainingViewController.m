@@ -27,6 +27,9 @@ static NSString * const kStopTrainingText = @"结束训练";
 static NSInteger const UIAlertViewStopTraining = 10081;
 static NSInteger const UIAlertViewSkippingCount = 10082;
 
+static float const DotViewBottomMargin = 10;
+static NSInteger const DotViewDiameterDividedValue = 15;
+
 
 @interface TrainingViewController ()
 
@@ -45,13 +48,14 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     NSMutableArray * _dottedViews;
     UIView * _progressView;
     
+    MASConstraint * _progressViewWidthConstraint;
+    
     FBShimmeringView * _shimmeringView;
     
     UIDynamicAnimator * _animator;
     
     __weak DotView * _currentDotView;
     __weak UIView * _wSuperView;
-    
 }
 
 - (void)viewDidLoad {
@@ -110,14 +114,14 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     [_closeButton setImage:image forState:UIControlStateNormal];
     [_closeButton addTarget:self action:@selector(dismissView:) forControlEvents:UIControlEventTouchUpInside];
     
-    // 进度背景：正圆形
+    // 中心背景：正圆形
     _centeredView = [[UIView alloc] initWithFrame:CGRectZero];
     _centeredView.backgroundColor = [UIColor whiteColor];
     [_wSuperView addSubview:_centeredView];
     [self remakeConstraintsForCenterView:_centeredView remake:NO];
     [self makeCircleForView:_centeredView];
     
-    // 进度控制按钮
+    // 中心进度控制按钮
     _centeredButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _centeredButton.titleLabel.font = [UIFont fontWithName:@"Menlo-Bold" size:30.0f];
     [_centeredButton setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
@@ -149,6 +153,12 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     _progressView.backgroundColor = [UIColor darkGrayColor];
     _progressView.alpha = 0.4;
     [_wSuperView addSubview:_progressView];
+    [_progressView mas_makeConstraints:^(MASConstraintMaker * maker){
+        maker.leading.equalTo(_wSuperView.mas_leading);
+        maker.top.equalTo(_wSuperView.mas_top);
+        maker.bottom.equalTo(_wSuperView.mas_bottom);
+        _progressViewWidthConstraint = maker.width.equalTo(@(CGFLOAT_MIN));
+    }];
     [self hideProgressView];
     
     // 剩余时间
@@ -192,14 +202,10 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
 }
 
 - (void)createDottedViews{
-    const float DottedViewLeftMargin = 60.0f;
-    const float DottedViewRightMargin = DottedViewLeftMargin;
-    const float DottedViewInterval = 15.0f;
-    const float DotViewBottomMargin = 10;
+    const float HorizontalMargin = 60.0f;
+    const float HorizontalInterval = 15.0f;
     
     _dottedViews = [NSMutableArray array];
-    
-    NSEnumerator * enumerator = [_process.units objectEnumerator];
     
     // 用等宽方法实现均匀放置任意个控件，方法如下：
     // 设置：第一个控件跟父容器左边距为固定值：DottedViewLeftMargin
@@ -209,6 +215,7 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     id object;
     DotView * dotView = nil;
     __block UIView * prevView = nil;
+    NSEnumerator * enumerator = [_process.units objectEnumerator];
     while ((object = [enumerator nextObject]) != nil) {
         TrainingUnit * unit = (TrainingUnit *)object;
         if (![unit isTrainingUnit]) {
@@ -216,44 +223,51 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
         }
         
         dotView = [[DotView alloc] initWithFrame:CGRectZero];
+        dotView.backgroundColor = [UIColor whiteColor];
         [_wSuperView addSubview:dotView];
         [_dottedViews addObject:dotView];
+        
         [dotView mas_makeConstraints:^(MASConstraintMaker * maker){
             // 共同位置属性
-            CGFloat centeredViewBottom = _centeredView.frame.origin.y + _centeredView.frame.size.height;
-            CGFloat height = (_wSuperView.bounds.size.height - centeredViewBottom);
-            CGFloat topOffset = height * 4 / 5 - DotViewBottomMargin;
-            dotView.originalTopOffset = topOffset;
-            dotView.topConstraint = maker.top.equalTo(_centeredView.mas_bottom).offset(topOffset);
+            dotView.heightConstraint = maker.height.equalTo(_wSuperView.mas_height).dividedBy(DotViewDiameterDividedValue);
             
-            maker.bottom.equalTo(_wSuperView.mas_bottom).with.offset(-DotViewBottomMargin);
+            dotView.originalBottomOffset = - DotViewBottomMargin;
+            dotView.bottomConstraint = maker.bottom.equalTo(_wSuperView.mas_bottom).with.offset( - DotViewBottomMargin);
             
             if (prevView == nil) {
                 // 第一个控件
-                maker.leading.equalTo(_wSuperView.mas_leading).with.offset(DottedViewLeftMargin);
+                maker.leading.equalTo(_wSuperView.mas_leading).with.offset(HorizontalMargin);
                 
             }else{
                 // 中间控件
                 maker.width.equalTo(prevView.mas_width);
-                maker.leading.equalTo(prevView.mas_right).with.offset(DottedViewInterval);
+                maker.leading.equalTo(prevView.mas_right).with.offset(HorizontalInterval);
             }
             
             prevView = dotView;
         }];
-        
-        dotView.backgroundColor = [UIColor whiteColor];
     }
     
     // 最后一个控件
     [prevView mas_makeConstraints:^(MASConstraintMaker * maker){
-        maker.trailing.equalTo(_wSuperView.mas_trailing).with.offset(- DottedViewRightMargin);
+        maker.trailing.equalTo(_wSuperView.mas_trailing).with.offset(- HorizontalMargin);
     }];
     
     // 显示区域改为圆形
-    enumerator = [_dottedViews objectEnumerator];
-    while ((object = [enumerator nextObject]) != nil) {
-        [self makeCircleForView:(UIView *)object];
+    [self resetDotViewLayerMasks];
+}
+
+- (void)resetDotViewLayerMasks{
+    DotView * dotView;
+    NSEnumerator * enumerator = [_dottedViews objectEnumerator];
+    while ((dotView = [enumerator nextObject]) != nil) {
+        [dotView makeCircle];
     }
+}
+
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    [self resetDotViewLayerMasks];
 }
 
 /** 将 UIView 变成一个圆形，直径等于长和宽中较小的那个
@@ -441,49 +455,20 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     });
 }
 
-// 使用UIDynamic库的小球弹起实现方法，不再使用
-// 小球会逐渐下落，但并不会落到地面。另外，小球在运动中会颤抖，无解。
-- (void)beginJumpWithDot:(UIView *)dottedView{
-    if (_animator != nil) {
-        [_animator removeAllBehaviors];
-    }
-
-    _animator = [[UIDynamicAnimator alloc] initWithReferenceView:_wSuperView];
-    
-    CGRect frame = dottedView.frame;
-    frame.origin.y -= 100;
-    dottedView.frame = frame;
-    
-    // 添加重力
-    UIGravityBehavior * gravity = [[UIGravityBehavior alloc] initWithItems:@[dottedView]];
-    
-    // 添加碰撞
-    UICollisionBehavior * collision = [[UICollisionBehavior alloc] initWithItems:@[dottedView]];
-    collision.translatesReferenceBoundsIntoBoundary = YES;
-    
-    // 物体属性行为
-    UIDynamicItemBehavior * item = [[UIDynamicItemBehavior alloc] initWithItems:@[dottedView]];
-    item.elasticity = 1.0;  // 弹力系数，0~1，1最弹
-    item.allowsRotation = NO;
-    
-    [_animator addBehavior:gravity];
-    [_animator addBehavior:collision];
-    [_animator addBehavior:item];
-}
-
 - (void)animationProgressWithLeftSeconds:(NSInteger)seconds{
     if (seconds < 0) {
         seconds = 0;
     }
-    
+
+    CGFloat width = _wSuperView.bounds.size.width;
+    NSInteger totalSeconds = _currentTrainingUnit.timeLength.integerValue;
+    width *= (CGFloat)(totalSeconds - seconds) / totalSeconds;
+
     // 展示当前时间进度
     void (^animation)() = ^(){
-        CGFloat width = _wSuperView.bounds.size.width;
-        NSInteger totalSeconds = _currentTrainingUnit.timeLength.integerValue;
-        width *= (CGFloat)(totalSeconds - seconds) / totalSeconds;
-        CGRect newFrame = _progressView.frame;
-        newFrame.size.width = width;
-        _progressView.frame = newFrame;
+        _progressViewWidthConstraint.sizeOffset(CGSizeMake(width, 0));
+        [_progressView setNeedsLayout];
+        [_progressView layoutIfNeeded];
     };
     
     [UIView transitionWithView:_progressView
@@ -503,30 +488,16 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
     [_currentDotView.layer removeAllAnimations];
     
     const CGFloat DotJumpHeight = 50.f;
-
-    // 使用下面的方法修改 frame，在 iOS7 下正常，iOS8 下却不正常，正好反过来
-
-//    void (^moveUp)() = ^{
-//        CGRect newRect = _currentDotView.frame;
-//        newRect.origin.y -= DotJumpHeight;
-//        _currentDotView.frame = newRect;
-//    };
-    
-//    void (^moveDown)() = ^{
-//        CGRect newRect = _currentDottedView.frame;
-//        newRect.origin.y += DotJumpHeight;
-//        _currentDottedView.frame = newRect;
-//    };
     
     // 下面动态修改 constraint，在iPhone
     void (^moveUp)() = ^{
-        _currentDotView.topConstraint.offset(_currentDotView.originalTopOffset - DotJumpHeight);
+        _currentDotView.bottomConstraint.offset(_currentDotView.originalBottomOffset - DotJumpHeight);
         [_currentDotView setNeedsUpdateConstraints];
         [_currentDotView layoutIfNeeded];
     };
     
     void (^moveDown)() = ^{
-        _currentDotView.topConstraint.offset(_currentDotView.originalTopOffset);
+        _currentDotView.bottomConstraint.offset(_currentDotView.originalBottomOffset);
         [_currentDotView setNeedsUpdateConstraints];
         [_currentDotView layoutIfNeeded];
     };
@@ -588,9 +559,10 @@ static NSInteger const UIAlertViewSkippingCount = 10082;
 }
 
 - (void)hideProgressView{
-    UIView * superView = _progressView.superview;
-    CGFloat height = superView.bounds.size.height;
-    _progressView.frame = CGRectMake(0, 0, 0, height);
+//    UIView * superView = _progressView.superview;
+//    CGFloat height = superView.bounds.size.height;
+//    _progressView.frame = CGRectMake(0, 0, 0, height);
+    _progressViewWidthConstraint.sizeOffset(CGSizeMake(CGFLOAT_MIN, 0));
 }
 
 @end
