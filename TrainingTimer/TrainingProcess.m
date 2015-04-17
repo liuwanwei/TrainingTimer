@@ -22,6 +22,10 @@
 }
 
 + (instancetype)trainingProcessFromSetting{
+    if (TrainingDebug) {
+        return [[self class] testObject];
+    }
+    
     TrainingProcess * process = [[TrainingProcess alloc] initWithTitle:@""];
     TrainingSetting * setting = [TrainingSetting sharedInstance];
     
@@ -46,47 +50,6 @@
     return process;
 }
 
-+ (instancetype)testObject{
-    TrainingProcess * process = [[TrainingProcess alloc] initWithTitle:@"测试"];
-    NSArray * units = [[self class] tdataes];
-    
-    TrainingUnit * unit;
-    NSEnumerator * enumerator = [units objectEnumerator];
-    id object;
-    while ((object = [enumerator nextObject])) {
-        unit = [[TrainingUnit alloc] initWithDictionary:object];
-        NSLog(@"%@", unit);
-        [process addUnit:unit];
-    }
-
-    return process;
-}
-
-+ (NSArray *)tdataes{
-    NSArray * units = @[@{TrainingUnitIndex:@(1),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeWarmUp),
-                          TrainingUnitTimeLength:@(1)},
-                        
-                        @{TrainingUnitIndex:@(2),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(120)},
-                        
-                        @{TrainingUnitIndex:@(3),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(12)},
-                        
-                        @{TrainingUnitIndex:@(4),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(12)},
-                        
-                        @{TrainingUnitIndex:@(5),
-                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(2)},
-                        ];
-    
-    return units;
-}
-
 - (NSString *)description{
     return _title;
 }
@@ -106,5 +69,50 @@
         [_units removeObject:unit];
     }
 }
+
+static bool TrainingDebug = true;
+
++ (NSArray *)tdataes{
+    NSArray * units = @[@{TrainingUnitIndex:@(1),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeWarmUp),
+                          TrainingUnitTimeLength:@(1)},
+                        
+                        @{TrainingUnitIndex:@(2),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
+                          TrainingUnitTimeLength:@(2)},
+                        
+                        @{TrainingUnitIndex:@(3),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
+                          TrainingUnitTimeLength:@(12)},
+                        
+                        @{TrainingUnitIndex:@(4),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
+                          TrainingUnitTimeLength:@(12)},
+                        
+                        @{TrainingUnitIndex:@(5),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
+                          TrainingUnitTimeLength:@(2)},
+                        ];
+    
+    return units;
+}
+
+
++ (instancetype)testObject{
+    TrainingProcess * process = [[TrainingProcess alloc] initWithTitle:@"测试"];
+    NSArray * units = [[self class] tdataes];
+    
+    TrainingUnit * unit;
+    NSEnumerator * enumerator = [units objectEnumerator];
+    id object;
+    while ((object = [enumerator nextObject])) {
+        unit = [[TrainingUnit alloc] initWithDictionary:object];
+        NSLog(@"%@", unit);
+        [process addUnit:unit];
+    }
+    
+    return process;
+}
+
 
 @end

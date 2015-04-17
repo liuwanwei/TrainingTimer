@@ -191,8 +191,7 @@ typedef enum{
 }
 
 - (void)startTraining:(id)sender{
-//    TrainingProcess * process = [TrainingProcess trainingProcessFromSetting];
-    TrainingProcess * process = [TrainingProcess testObject];
+    TrainingProcess * process = [TrainingProcess trainingProcessFromSetting];
     
     TrainingViewController * trainingVc = [[TrainingViewController alloc] init];
     trainingVc.process = process;

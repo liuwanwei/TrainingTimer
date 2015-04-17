@@ -12,8 +12,8 @@ pod 'DateTools', '~> 1.5.0'
 pod 'GLPubSub', '~> 1.0.0'
 pod 'libextobjc', '~> 0.4.1'
 pod 'Colours', '~> 5.6.1'
-#pod 'PMTween', '~> 1.2.2'
 pod 'Shimmer', '~> 1.0.2'
+pod 'FontasticIcons', '~> 0.5.0'
 end
 
 target 'TrainingTimerTests' do

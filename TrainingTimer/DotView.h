@@ -18,4 +18,7 @@
 
 - (void)makeCircle;
 
+- (void)addConcentricCircle;
+- (void)resetConcentricCircle;
+
 @end

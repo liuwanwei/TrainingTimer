@@ -133,6 +133,7 @@ const NSInteger RushTimeStartSeconds = 10;
     
     if ([_currentUnit isTrainingUnit]) {
         [[SoundManager defaultManager] playSoundWithFileName:@"female_lets_go_by_KendraYoder"];
+//        [_voiceSpeaker speech:@"Go"];
     }else{
         [_voiceSpeaker speech:[NSString stringWithFormat:@"%@ 开始 共 %@",
                                [_currentUnit description],

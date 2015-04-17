@@ -135,7 +135,7 @@ static NSInteger const DotViewDiameterDividedValue = 15;
     CGSize size = _centeredButton.bounds.size;
     _centeredButton.titleLabel.font = [UIFont adaptiveFontWithHeight:size.height/4];
     
-    // 数字倒计时label，充满中心圆
+    // 10秒数字倒计时label，充满中心圆
     _centeredLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _centeredLabel.backgroundColor = [UIColor clearColor];
     _centeredLabel.textColor = [UIColor mainColor];
@@ -172,10 +172,7 @@ static NSInteger const DotViewDiameterDividedValue = 15;
     }];
     [_timeLabel setNeedsLayout];
     [_timeLabel layoutIfNeeded];
-    size = _timeLabel.frame.size;
-    size.height /= 2;
-    font = [UIFont findAdaptiveFontWithName:nil forUILabelSize:size withMinimumSize:32];
-    _timeLabel.font = font;
+    [self resetLeftTimeLabelFont];
     _timeLabel.textColor = [UIColor whiteColor];
     _timeLabel.textAlignment = NSTextAlignmentCenter;
     _timeLabel.text = @"00:00";
@@ -262,12 +259,16 @@ static NSInteger const DotViewDiameterDividedValue = 15;
     NSEnumerator * enumerator = [_dottedViews objectEnumerator];
     while ((dotView = [enumerator nextObject]) != nil) {
         [dotView makeCircle];
+        [dotView resetConcentricCircle];
     }
 }
 
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
+    
     [self resetDotViewLayerMasks];
+    
+    [self resetLeftTimeLabelFont];
 }
 
 /** 将 UIView 变成一个圆形，直径等于长和宽中较小的那个
@@ -289,23 +290,6 @@ static NSInteger const DotViewDiameterDividedValue = 15;
     view.layer.mask = shape;    // 重点在这里
 }
 
-/** 向 UIView 中添加一个同心圆
- *
- *  @param view     目标 view
- *
- */
-- (void)addConcentricCircleToView:(UIView *)view{
-    CAShapeLayer * circleShape = [CAShapeLayer layer];
-    circleShape.fillColor = [[UIColor mainColor] CGColor];
-    CGPoint center;
-    center.x = view.bounds.size.width/2;
-    center.y = view.bounds.size.height/2;
-    CGFloat radius = center.x > center.y ? center.y : center.x;
-    radius = radius / 2;
-    UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle:(2*M_PI) clockwise:YES];
-    circleShape.path = path.CGPath;
-    [view.layer addSublayer:circleShape];
-}
 
 - (void)remakeConstraintsForCenterView:(UIView *)view remake:(BOOL)remake{
     void (^makerBlock)(MASConstraintMaker *) = ^(MASConstraintMaker * maker){
@@ -398,9 +382,6 @@ static NSInteger const DotViewDiameterDividedValue = 15;
 }
 
 #pragma mark - Training manager delegate
-- (void)trainingBeginForProcess:(TrainingProcess *)process{
-    NSLog(@"%@开始", process);
-}
 
 - (void)trainingBeginForUnit:(TrainingUnit *)unit{
     NSLog(@"%@开始", unit);
@@ -454,6 +435,46 @@ static NSInteger const DotViewDiameterDividedValue = 15;
         [self animationProgressWithLeftSeconds:leftSeconds - 1];
     });
 }
+
+- (void)trainingFinishedForUnit:(TrainingUnit *)unit{
+    NSLog(@"%@结束", unit);
+    _currentTrainingUnit = nil;
+    _shimmeringView.shimmering = NO;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self hideProgressView];
+        
+        [_currentDotView addConcentricCircle];
+        _currentDotView = nil;
+        
+        _centeredLabel.text = nil;
+    });
+}
+
+- (void)trainingFinishedForProcess:(TrainingProcess *)process{
+    NSLog(@"训练全部结束");
+    
+    if (_manualStopped) {
+        @weakify(self);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self);
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+        return;
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"这次一共跳了几个？" message:nil delegate:self cancelButtonTitle:@"没记住" otherButtonTitles:@"确定", nil];
+        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+        alertView.tag = UIAlertViewSkippingCount;
+        UITextField * textField = [alertView textFieldAtIndex:0];
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        [alertView show];
+    });
+    
+}
+
+#pragma mark - Animations
 
 - (void)animationProgressWithLeftSeconds:(NSInteger)seconds{
     if (seconds < 0) {
@@ -520,42 +541,13 @@ static NSInteger const DotViewDiameterDividedValue = 15;
 
 }
 
-- (void)trainingFinishedForUnit:(TrainingUnit *)unit{
-    NSLog(@"%@结束", unit);
-    _currentTrainingUnit = nil;
-    _shimmeringView.shimmering = NO;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self hideProgressView];
-        
-        [self addConcentricCircleToView:_currentDotView];
-        _currentDotView = nil;
-        
-        _centeredLabel.text = nil;
-    });
-}
 
-- (void)trainingFinishedForProcess:(TrainingProcess *)process{
-    NSLog(@"训练全部结束");
-    
-    if (_manualStopped) {
-        @weakify(self);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            @strongify(self);
-            [self.navigationController popViewControllerAnimated:YES];
-        });
-        return;
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"这次一共跳了几个？" message:nil delegate:self cancelButtonTitle:@"没记住" otherButtonTitles:@"确定", nil];
-        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-        alertView.tag = UIAlertViewSkippingCount;
-        UITextField * textField = [alertView textFieldAtIndex:0];
-        textField.keyboardType = UIKeyboardTypeNumberPad;
-        [alertView show];
-    });
-    
+- (void)resetLeftTimeLabelFont{
+    CGSize size;
+    size = _timeLabel.frame.size;
+    size.height /= 2;
+    UIFont * font = [UIFont findAdaptiveFontWithName:nil forUILabelSize:size withMinimumSize:32];
+    _timeLabel.font = font;
 }
 
 - (void)hideProgressView{

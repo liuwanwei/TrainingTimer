@@ -21,14 +21,23 @@ typedef enum {
 @protocol TrainingManagerDeleage <NSObject>
 
 // 训练总体开始
+@optional
 - (void)trainingBeginForProcess:(TrainingProcess *)process;
+
 // 训练单元开始
+@optional
 - (void)trainingBeginForUnit:(TrainingUnit *)unit;
+
 // 训练单元剩余多少秒
+@optional
 - (void)trainingUnit:(TrainingUnit *)unit unitTimeLeft:(NSNumber *)seconds;
+
 // 训练单元结束
+@optional
 - (void)trainingFinishedForUnit:(TrainingUnit *)unit;
+
 // 训练总体结束
+@optional
 - (void)trainingFinishedForProcess:(TrainingProcess *)process;
 
 @end

@@ -7,9 +7,10 @@
 //
 
 #import "DotView.h"
+#import "UIColor+TrainingTimer.h"
 
 @implementation DotView{
-//    CAShapeLayer * _circleLayer;
+    CAShapeLayer * _finishedCircleLayer;
 }
 
 /*
@@ -35,5 +36,34 @@
     self.layer.mask = shape;    // 重点在这里
 }
 
+
+/** 向中心添加一个同心圆，代表训练单元完成
+ *
+ *
+ */
+- (void)addConcentricCircle{
+    CAShapeLayer * circleShape = [CAShapeLayer layer];
+    circleShape.fillColor = [[UIColor mainColor] CGColor];
+    CGPoint center;
+    center.x = self.bounds.size.width/2;
+    center.y = self.bounds.size.height/2;
+    CGFloat radius = center.x > center.y ? center.y : center.x;
+    radius = radius / 2;
+    UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle:(2*M_PI) clockwise:YES];
+    circleShape.path = path.CGPath;
+    [self.layer addSublayer:circleShape];
+    
+    _finishedCircleLayer = circleShape;
+}
+
+/** 重绘完成状态同心圆，一般用在屏幕旋转后
+ *
+ */
+- (void)resetConcentricCircle{
+    if (_finishedCircleLayer) {
+        [_finishedCircleLayer removeFromSuperlayer];
+        [self addConcentricCircle];
+    }
+}
 
 @end
