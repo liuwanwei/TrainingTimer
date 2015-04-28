@@ -25,6 +25,8 @@
 
         self.alpha = 0.0f;
         self.frame = p.frame;
+        self.itemHeight = ITEM_HEIGHT;
+        self.itemFont = [UIFont systemFontOfSize:17.0f];
         
         UIImage *background = [self blurredSnapshot];
         UIImageView *backgroundView = [[UIImageView alloc] initWithImage:background];
@@ -85,11 +87,13 @@
     BlurMenuItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
     cell.title.text = [menuItems objectAtIndex:indexPath.row];
+    cell.title.font = _itemFont;
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(300, ITEM_HEIGHT);
+    const NSInteger ScreenWidth = ([UIScreen mainScreen].bounds.size.width);
+    return CGSizeMake(ScreenWidth, _itemHeight);
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

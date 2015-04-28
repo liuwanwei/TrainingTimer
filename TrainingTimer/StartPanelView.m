@@ -45,7 +45,7 @@
     }];
     [buttonStart setTitle:@"开始训练" forState:UIControlStateNormal];
     [buttonStart setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
-    buttonStart.titleLabel.font = [UIFont systemFontOfSize:36.0];
+    buttonStart.titleLabel.font = [UIFont systemFontOfSize:30.0];
     
     _startButton = buttonStart;
     
@@ -56,7 +56,7 @@
         maker.centerY.equalTo(self.mas_centerY);
         maker.leading.greaterThanOrEqualTo(self.mas_leading).offset(32);
 //        maker.trailing.lessThanOrEqualTo(self->_startButton.mas_leading).offset(-8);
-        maker.width.equalTo(@(64));
+        maker.width.equalTo(@(36));
         maker.height.equalTo(_calendarButton.mas_width);
     }];
     

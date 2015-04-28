@@ -178,6 +178,7 @@ typedef enum{
     _skippingView = [[BigLineView alloc] initWithMaxValue:TTMaxSkippingTime];
     _skippingView.tag = BigLineViewSkipping;
     _skippingView.parentViewController = self;
+    _skippingView.options = nil;
     [self.view addSubview:_skippingView];
     [_skippingView mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(_warmUpView.mas_bottom);

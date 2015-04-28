@@ -30,6 +30,8 @@
 @property(nonatomic, retain) UIView *parent;
 @property(nonatomic, retain) NSArray *menuItems;
 @property(nonatomic, retain) UICollectionView *_collectionView;
+@property(nonatomic) NSInteger itemHeight;
+@property(nonatomic, strong) UIFont * itemFont;
 
 - (id)initWithItems:(NSArray*)items parentView:(UIView *)p delegate:(id<BlurMenuDelegate>)d;
 

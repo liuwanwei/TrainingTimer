@@ -33,6 +33,14 @@
     return YES;
 }
 
+- (void)setOptions:(NSArray *)options{
+    _options = options;
+    
+    if (_options.count <= 0) {
+        _imageViewArrow.hidden = YES;
+    }
+}
+
 - (instancetype)initWithMaxValue:(TTMaxLength)maxLength{
     if (self = [super init]) {
         _maxValue = maxLength;
@@ -68,22 +76,30 @@
 }
 
 - (void)showTappedMenu{
-    NSMutableArray * mutableArray = [@[] mutableCopy];
-    NSEnumerator * enumerator = [_options objectEnumerator];
-    XLFormOptionsObject * option;
-    while ((option = [enumerator nextObject])) {
-        [mutableArray addObject:option.displayText];
+    if (_menu == nil) {
+        NSMutableArray * mutableArray = [@[] mutableCopy];
+        NSEnumerator * enumerator = [_options objectEnumerator];
+        XLFormOptionsObject * option;
+        while ((option = [enumerator nextObject])) {
+            [mutableArray addObject:option.displayText];
+        }
+        
+        NSArray * items = mutableArray;
+        
+        _menu = [[BlurMenu alloc] initWithItems:items parentView:self.parentViewController.view delegate:self];
+        _menu.itemHeight = 80;
+        _menu.itemFont = [UIFont systemFontOfSize:30.0f];
     }
-    
-    NSArray * items = mutableArray;
-    
-    _menu = [[BlurMenu alloc] initWithItems:items parentView:self.parentViewController.view delegate:self];
     
     [_menu show];
 }
 
 // 点击屏幕修改刻度操作处理函数
 - (void)tapped:(UITapGestureRecognizer *)recoginizer{
+    if (_options.count <= 0) {
+        return;
+    }
+    
     BOOL test = YES;
     if (test) {
         return [self showTappedMenu];
@@ -162,7 +178,7 @@
         @strongify(self);
         maker.trailing.equalTo(self.mas_trailing).offset(-16);
         maker.centerY.equalTo(self.mas_centerY);
-        maker.width.equalTo(@56);
+        maker.width.equalTo(@32);
         maker.height.equalTo(_imageViewArrow.mas_width);
     }];
     
@@ -171,7 +187,7 @@
     [self addSubview:_LabelValueUnit];
     _LabelValueUnit.alpha = 0.6;
     _LabelValueUnit.textColor = [UIColor blackColor];
-    _LabelValueUnit.font = [UIFont systemFontOfSize:34.0];
+    _LabelValueUnit.font = [UIFont systemFontOfSize:24.0];
     [_LabelValueUnit mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
         maker.centerY.equalTo(self.mas_centerY);

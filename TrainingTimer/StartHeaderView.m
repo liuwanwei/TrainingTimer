@@ -32,6 +32,7 @@
     
     self.backgroundColor = [UIColor mainColor];
     
+    // 描述文字
     _textViewBrief = [[UITextView alloc] init];
     [self addSubview:_textViewBrief];
     _textViewBrief.font = [UIFont systemFontOfSize:17.0];
@@ -46,9 +47,10 @@
         maker.height.equalTo(self.mas_height).dividedBy(4.0);
     }];
     
+    // 标题——HIIT 训练
     _labelTitle = [[UILabel alloc] init];
     [self addSubview:_labelTitle];
-    _labelTitle.font = [UIFont systemFontOfSize:36];
+    _labelTitle.font = [UIFont systemFontOfSize:30];
     _labelTitle.textColor = [UIColor whiteColor];
     _labelTitle.textAlignment = NSTextAlignmentCenter;
     [_labelTitle mas_makeConstraints:^(MASConstraintMaker * maker){
@@ -61,7 +63,7 @@
     
     _labelTotalTime = [[UILabel alloc] init];
     [self addSubview:_labelTotalTime];
-    _labelTotalTime.font = [UIFont systemFontOfSize:30.0];
+    _labelTotalTime.font = [UIFont systemFontOfSize:26.0];
     _labelTotalTime.textColor = [UIColor whiteColor];
     _labelTotalTime.textAlignment = NSTextAlignmentCenter;
     [_labelTotalTime mas_makeConstraints:^(MASConstraintMaker * maker){
