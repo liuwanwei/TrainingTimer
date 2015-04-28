@@ -24,4 +24,7 @@ typedef enum{
 
 + (UIColor *)mainColor;                 // 背景色
 
++ (UIColor *)lineFgColor;
++ (UIColor *)lineBgColor;
+
 @end

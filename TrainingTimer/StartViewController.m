@@ -19,10 +19,11 @@
 #import "RecordsViewController.h"
 #import "TrainingSetting.h"
 #import <XLForm.h>
-//#import "KACircleProgressView.h"
 #import <FBShimmeringView.h>
 #import <GLPubSub/NSObject+GLPubSub.h>
 #import <libextobjc/EXTScope.h>
+#import "StartHeaderView.h"
+#import "StartPanelView.h"
 
 typedef enum{
     BigLineViewWarmUp = 1,
@@ -32,12 +33,13 @@ typedef enum{
 }BigLineViewTag;
 
 @implementation StartViewController{
+    StartHeaderView * _headerView;
     BigLineView * _warmUpView;
     BigLineView * _skippingView;
     BigLineView * _restView;
     BigLineView * _roundView;
     NSMutableArray * _bigLines;
-    UIButton * _startButton;
+    StartPanelView * _startPanel;
 }
 
 - (void)viewDidLoad{
@@ -49,6 +51,8 @@ typedef enum{
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
     
     self.title = @"HIIT跳绳训练";
+    
+    self.navigationController.navigationBarHidden = YES;
 //    
 //    @weakify(self);
 //    // TODO: 能收到这个消息，但这是个 will 消息，收到时还没有旋转，所以代码不起作用
@@ -61,6 +65,16 @@ typedef enum{
 //    }];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 
@@ -68,21 +82,21 @@ typedef enum{
     dispatch_once(&onceToken, ^{
         // TODO: 这段初始化代码应该放到更合适的地方
         TrainingSetting * setting = [TrainingSetting sharedInstance];
-        [_warmUpView setDescription:@"热身"];
+        [_warmUpView setDescription:@"热身时间"];
         [_warmUpView setCurrentValue:setting.warmUpTime.integerValue isTime:YES];
         
-        [_skippingView setDescription:@"跳绳"];
+        [_skippingView setDescription:@"训练时间"];
         [_skippingView setCurrentValue:setting.skippingTime.integerValue isTime:YES];
         
-        [_restView setDescription:@"休息"];
+        [_restView setDescription:@"休息时间"];
         [_restView setCurrentValue:setting.restTime.integerValue isTime:YES];
         
-        [_roundView setDescription:@"组"];
+        [_roundView setDescription:@"重复几组"];
         [_roundView setCurrentValue:setting.rounds.integerValue isTime:NO];
         
-        [self updateStartButtonFont];
-        [_startButton setTitle:@"GO!" forState:UIControlStateNormal];
-        [_startButton addTarget:self action:@selector(startTraining:) forControlEvents:UIControlEventTouchUpInside];
+        [_startPanel updateStartButtonFont];
+
+
     });
 }
 
@@ -98,22 +112,40 @@ typedef enum{
     [super viewDidLayoutSubviews];
     
     [self resetLineViewDimention];
-    [self updateStartButtonFont];
+    [_startPanel updateStartButtonFont];
 }
 
 - (void)initializeSubViews{
     _bigLines = [NSMutableArray array];
     __weak UIView * wSuperView = self.view;
     
+    @weakify(self);
+    
+    // 头部
+    _headerView = [[StartHeaderView alloc] init];
+    [self.view addSubview:_headerView];
+    [_headerView createSubViews];
+    [_headerView mas_makeConstraints:^(MASConstraintMaker * maker){
+        @strongify(self);
+        maker.leading.equalTo(self.view.mas_leading);
+        maker.top.equalTo(self.view.mas_top);
+        maker.width.equalTo(self.view.mas_width);
+        maker.height.equalTo(self.view.mas_height).dividedBy(3.58);
+    }];
+    _headerView.labelTitle.text = @"HIIT 训练法";
+    _headerView.textViewBrief.text = @"高强度间歇性训练，用来练习心肺功能，冲击速度，减脂效果明显。";
+    _headerView.labelTotalTime.text = @"共需 3 分 25 秒";
+    
     // 热身
     _warmUpView = [[BigLineView alloc] initWithMaxValue:TTMaxWarmUpTime];
     _warmUpView.tag = BigLineViewWarmUp;
-    _warmUpView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(60) displayText:@"1分钟"],
-                            [XLFormOptionsObject formOptionsObjectWithValue:@(120) displayText:@"2分钟"],
-                            [XLFormOptionsObject formOptionsObjectWithValue:@(180) displayText:@"3分钟"]];
+    _warmUpView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(60) displayText:@"1 分钟"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(120) displayText:@"2 分钟"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(180) displayText:@"3 分钟"]];
     [self.view addSubview:_warmUpView];
     [_warmUpView mas_makeConstraints:^(MASConstraintMaker * maker){
-        maker.top.equalTo(wSuperView.mas_top);
+        @strongify(self);
+        maker.top.equalTo(self->_headerView.mas_bottom);
         maker.leading.equalTo(wSuperView.mas_leading);
         maker.width.equalTo(wSuperView.mas_width);
     }];
@@ -134,9 +166,9 @@ typedef enum{
     // 休息时间
     _restView = [[BigLineView alloc] initWithMaxValue:TTMaxRestTime];
     _restView.tag = BigLineViewRest;
-    _restView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(10) displayText:@"10秒"],
-                          [XLFormOptionsObject formOptionsObjectWithValue:@(20) displayText:@"20秒"],
-                          [XLFormOptionsObject formOptionsObjectWithValue:@(30) displayText:@"30秒"]];
+    _restView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(10) displayText:@"10 秒"],
+                          [XLFormOptionsObject formOptionsObjectWithValue:@(20) displayText:@"20 秒"],
+                          [XLFormOptionsObject formOptionsObjectWithValue:@(30) displayText:@"30 秒"]];
     [self.view addSubview:_restView];
     [_restView mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(_skippingView.mas_bottom);
@@ -149,14 +181,14 @@ typedef enum{
     // 练习几轮
     _roundView = [[BigLineView alloc] initWithMaxValue:TTMaxRound];
     _roundView.tag = BigLineViewRound;
-    _roundView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"3组"],
-                           [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"4组"],
-                           [XLFormOptionsObject formOptionsObjectWithValue:@(5) displayText:@"5组"],
-                           [XLFormOptionsObject formOptionsObjectWithValue:@(6) displayText:@"6组"],
-                           [XLFormOptionsObject formOptionsObjectWithValue:@(7) displayText:@"7组"],
-                           [XLFormOptionsObject formOptionsObjectWithValue:@(8) displayText:@"8组"],
-                           [XLFormOptionsObject formOptionsObjectWithValue:@(9) displayText:@"9组"],
-                           [XLFormOptionsObject formOptionsObjectWithValue:@(10) displayText:@"10组"]];
+    _roundView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"3 组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"4 组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(5) displayText:@"5 组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(6) displayText:@"6 组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(7) displayText:@"7 组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(8) displayText:@"8 组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(9) displayText:@"9 组"],
+                           [XLFormOptionsObject formOptionsObjectWithValue:@(10) displayText:@"10 组"]];
     [self.view addSubview:_roundView];
     [_roundView mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(_restView.mas_bottom);
@@ -165,29 +197,25 @@ typedef enum{
         maker.height.equalTo(_restView.mas_height);
     }];
     [_bigLines addObject:_roundView];
-    [_roundView hideBottomLine];
+//     [_roundView hideBottomLine];
     
-    _startButton = [[UIButton alloc] init];
-    [self.view addSubview:_startButton];
-    [_startButton mas_makeConstraints:^(MASConstraintMaker * maker){
+    _startPanel = [[StartPanelView alloc] init];
+    [self.view addSubview:_startPanel];
+    [_startPanel createSubViews];
+    [_startPanel mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(_roundView.mas_bottom);
         maker.leading.equalTo(wSuperView.mas_leading);
         maker.width.equalTo(wSuperView.mas_width);
         maker.height.equalTo(_roundView.mas_height);
         maker.bottom.equalTo(wSuperView.mas_bottom);
     }];
-    _startButton.backgroundColor = [UIColor mainColor];
+    [_startPanel addStartButtonTarget:self selector:@selector(startTraining:)];
+    [_startPanel addCalendarButtonTarget:self selector:@selector(showRecords:)];
     
     // 处理每个子View的delegate事件
     for (BigLineView * view in _bigLines) {
         view.delegate = self;
     }
-}
-
-- (void)updateStartButtonFont{
-    CGSize size = _startButton.bounds.size;
-    size.height /= 2;
-    _startButton.titleLabel.font = [UIFont findAdaptiveFontWithName:nil forUILabelSize:size withMinimumSize:0];
 }
 
 - (void)startTraining:(id)sender{
@@ -196,8 +224,9 @@ typedef enum{
     TrainingViewController * trainingVc = [[TrainingViewController alloc] init];
     trainingVc.process = process;
     [self.navigationController pushViewController:trainingVc animated:YES];
-
+    
 }
+
 
 - (void)initializeBarButtonItem{
     UIBarButtonItem * item;
@@ -211,6 +240,7 @@ typedef enum{
     // 隐藏默认栈返回按钮中的文字
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
 }
+
 
 - (void)showRecords:(id)sender{
     RecordsViewController * vc = [[RecordsViewController alloc] init];

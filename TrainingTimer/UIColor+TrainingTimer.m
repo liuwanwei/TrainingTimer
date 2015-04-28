@@ -48,4 +48,13 @@ static TrainingColorSchema sSchema = TrainingColorSchemaBlue;
     }
 }
 
++ (UIColor *)lineFgColor{
+    return RGB(0xD4, 0xD5, 0xD5);
+//    return RGB(246, 246, 246);
+}
+
++ (UIColor *)lineBgColor{
+    return RGB(0xAF, 0xAD, 0xAA);
+}
+
 @end

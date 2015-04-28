@@ -16,6 +16,8 @@
 		FB87D6121ACFCAD900BCA5CA /* RecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */; };
 		FB87D6151ACFCAF800BCA5CA /* TrainingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */; };
 		FB87D6181ACFE2C800BCA5CA /* TrainingSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6171ACFE2C800BCA5CA /* TrainingSetting.m */; };
+		FBD156CD1AEF12A6004B063F /* StartHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD156CC1AEF12A6004B063F /* StartHeaderView.m */; };
+		FBD156D01AEF2129004B063F /* StartPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD156CF1AEF2129004B063F /* StartPanelView.m */; };
 		FBDA39DE1AC996DE00DE81FB /* HeartRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39DD1AC996DE00DE81FB /* HeartRateViewController.m */; };
 		FBDA39E41ACAF17200DE81FB /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39E31ACAF17200DE81FB /* StartViewController.m */; };
 		FBDA39E71ACAFE4700DE81FB /* BigLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39E61ACAFE4700DE81FB /* BigLineView.m */; };
@@ -83,6 +85,10 @@
 		FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingRecord.m; sourceTree = "<group>"; };
 		FB87D6161ACFE2C800BCA5CA /* TrainingSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingSetting.h; sourceTree = "<group>"; };
 		FB87D6171ACFE2C800BCA5CA /* TrainingSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingSetting.m; sourceTree = "<group>"; };
+		FBD156CB1AEF12A6004B063F /* StartHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartHeaderView.h; sourceTree = "<group>"; };
+		FBD156CC1AEF12A6004B063F /* StartHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartHeaderView.m; sourceTree = "<group>"; };
+		FBD156CE1AEF2129004B063F /* StartPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPanelView.h; sourceTree = "<group>"; };
+		FBD156CF1AEF2129004B063F /* StartPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPanelView.m; sourceTree = "<group>"; };
 		FBDA39DC1AC996DE00DE81FB /* HeartRateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartRateViewController.h; sourceTree = "<group>"; };
 		FBDA39DD1AC996DE00DE81FB /* HeartRateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartRateViewController.m; sourceTree = "<group>"; };
 		FBDA39E21ACAF17200DE81FB /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
@@ -91,7 +97,7 @@
 		FBDA39E61ACAFE4700DE81FB /* BigLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigLineView.m; sourceTree = "<group>"; };
 		FBDA39EB1ACB736B00DE81FB /* UIFont+Adapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Adapter.h"; sourceTree = "<group>"; };
 		FBDA39EC1ACB736B00DE81FB /* UIFont+Adapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Adapter.m"; sourceTree = "<group>"; };
-		FBF0F7301ABD321700EBC44C /* 疯狂跳绳.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "疯狂跳绳.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBF0F7301ABD321700EBC44C /* 极限跳绳.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "极限跳绳.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBF0F7341ABD321700EBC44C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBF0F7351ABD321700EBC44C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FBF0F7371ABD321700EBC44C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -207,6 +213,10 @@
 				FB2B75D81AD8B3AB00A4BB8B /* DotView.m */,
 				FB7D15621AD579E300373241 /* KACircleProgressView.h */,
 				FB7D15631AD579E300373241 /* KACircleProgressView.m */,
+				FBD156CB1AEF12A6004B063F /* StartHeaderView.h */,
+				FBD156CC1AEF12A6004B063F /* StartHeaderView.m */,
+				FBD156CE1AEF2129004B063F /* StartPanelView.h */,
+				FBD156CF1AEF2129004B063F /* StartPanelView.m */,
 			);
 			name = CustomView;
 			sourceTree = "<group>";
@@ -242,7 +252,7 @@
 		FBF0F7311ABD321700EBC44C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FBF0F7301ABD321700EBC44C /* 疯狂跳绳.app */,
+				FBF0F7301ABD321700EBC44C /* 极限跳绳.app */,
 				FBF0F7491ABD321700EBC44C /* TrainingTimerTests.xctest */,
 			);
 			name = Products;
@@ -414,7 +424,7 @@
 			);
 			name = TrainingTimer;
 			productName = TrainingTimer;
-			productReference = FBF0F7301ABD321700EBC44C /* 疯狂跳绳.app */;
+			productReference = FBF0F7301ABD321700EBC44C /* 极限跳绳.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FBF0F7481ABD321700EBC44C /* TrainingTimerTests */ = {
@@ -531,6 +541,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBD156D01AEF2129004B063F /* StartPanelView.m in Sources */,
 				FBDA39E41ACAF17200DE81FB /* StartViewController.m in Sources */,
 				FBF0F7851ABD399C00EBC44C /* BaseModel.m in Sources */,
 				FBF0F78F1ABD399C00EBC44C /* UINavigationItem+Additions.m in Sources */,
@@ -543,6 +554,7 @@
 				FB87D6151ACFCAF800BCA5CA /* TrainingRecord.m in Sources */,
 				FBF0F78A1ABD399C00EBC44C /* NSDictionary+QueryStringBuilder.m in Sources */,
 				FBF0F7911ABD399C00EBC44C /* JDJsonDecoder.m in Sources */,
+				FBD156CD1AEF12A6004B063F /* StartHeaderView.m in Sources */,
 				FBF0F78E1ABD399C00EBC44C /* UIImageView+Additional.m in Sources */,
 				FBF0F7E71AC455A300EBC44C /* UIImage+Tint.m in Sources */,
 				FBF0F7861ABD399C00EBC44C /* BaseOperation.m in Sources */,
@@ -698,8 +710,8 @@
 				INFOPLIST_FILE = TrainingTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_MODULE_NAME = "疯狂跳绳";
-				PRODUCT_NAME = "疯狂跳绳";
+				PRODUCT_MODULE_NAME = "极限跳绳";
+				PRODUCT_NAME = "极限跳绳";
 			};
 			name = Debug;
 		};
@@ -712,8 +724,8 @@
 				INFOPLIST_FILE = TrainingTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_MODULE_NAME = "疯狂跳绳";
-				PRODUCT_NAME = "疯狂跳绳";
+				PRODUCT_MODULE_NAME = "极限跳绳";
+				PRODUCT_NAME = "极限跳绳";
 			};
 			name = Release;
 		};

@@ -95,13 +95,13 @@
     int seconds = (int)interval;
     int hours = seconds / (60 *60);
     if (hours > 0) {
-        timeString = [NSString stringWithFormat:@"%02d:", hours];
+        timeString = [NSString stringWithFormat:@"%02d : ", hours];
         seconds -= hours * (60 * 60);
     }
     
     int minutes = seconds / 60;
     seconds -= minutes * 60;
-    timeString = [NSString stringWithFormat:@"%@%02d:%02d", timeString, minutes, seconds];
+    timeString = [NSString stringWithFormat:@"%@%02d : %02d", timeString, minutes, seconds];
     
     return timeString;
 }

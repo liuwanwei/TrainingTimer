@@ -49,11 +49,11 @@ NSString * const TrainingUnitIndex      = @"trainingUnitTimeIndex";
 + (NSString *)descriptionForType:(TrainingUnitTypeEnum)type{
     switch (type) {
         case TrainingUnitTypeWarmUp:
-            return @"热身期";
+            return @"热身";
         case TrainingUnitTypeSkipping:
             return @"跳绳训练";
         case TrainingUnitTypeRest:
-            return @"休息期";
+            return @"休息";
     }
 }
 

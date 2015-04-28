@@ -15,6 +15,7 @@
 #import <libextobjc/EXTScope.h>
 #import <XLForm.h>
 #import <FBShimmeringView.h>
+#import "UIColor+TrainingTimer.h"
 
 @implementation BigLineView{
     UIView * _progressView;
@@ -31,7 +32,7 @@
     if (self = [super init]) {
         _maxValue = maxLength;
         
-        self.backgroundColor = RGB(0xAF, 0xAD, 0xAA);// 背景色
+        self.backgroundColor = [UIColor lineBgColor];// 背景色
         [self createSubViews];
         
         UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
@@ -98,7 +99,7 @@
 
 - (void)updateProgressView{
     @weakify(self);
-    [UIView animateWithDuration:1 animations:^{
+    [UIView animateWithDuration:.5 animations:^{
         @strongify(self);
         CGRect frame = _progressView.frame;
         frame.size.width = ((CGFloat)self.currentValue / self.maxValue) * self.bounds.size.width;
@@ -115,7 +116,7 @@
     // 时间，如：02：00
     _valueLabel = [[UILabel alloc] init];
     _valueLabel.textAlignment = NSTextAlignmentCenter;
-    _valueLabel.textColor = [UIColor whiteColor];
+    _valueLabel.textColor = RGB(0, 122, 255);
     _valueLabel.userInteractionEnabled = NO;
     [self addSubview:_valueLabel];
     [_valueLabel mas_makeConstraints:^(MASConstraintMaker * maker){
@@ -156,7 +157,7 @@
     
     // 进度条
     _progressView = [[UIView alloc] initWithFrame:CGRectZero];
-    _progressView.backgroundColor = RGB(0xD4, 0xD5, 0xD5);
+    _progressView.backgroundColor = [UIColor lineFgColor];
     [self addSubview:_progressView];
     [_progressView mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
@@ -208,7 +209,7 @@
 
 - (void)updateCurrentValueView{
     if (_isTime) {
-        _valueLabel.text = [NSString stringWithFormat:@"%@s", [Utils colonSeperatedTime:_currentValue]];
+        _valueLabel.text = [NSString stringWithFormat:@"%@ s", [Utils colonSeperatedTime:_currentValue]];
     }else{
         _valueLabel.text = [@(_currentValue) stringValue];
     }
@@ -239,8 +240,8 @@
     XLFormOptionsObject * option;
     NSEnumerator * enumerator = [_options objectEnumerator];
     while ((option = [enumerator nextObject])) {
-        const CGFloat ScaleStrokeHeight = 5.0;
-        const CGFloat ScaleStrokeWidth = 2.0;
+//        const CGFloat ScaleStrokeHeight = 5.0;
+//        const CGFloat ScaleStrokeWidth = 2.0;
         
         // 通过刻度值计算刻度位置
         NSInteger value = [option.formValue integerValue];
@@ -248,17 +249,18 @@
         CGFloat posY = self.bounds.size.height;
 
         // 画刻度线
-        UIBezierPath * path = [UIBezierPath bezierPath];
-        [path moveToPoint:CGPointMake(posX, posY - ScaleStrokeHeight)];
-        [path addLineToPoint:CGPointMake(posX, posY)];
+//        UIBezierPath * path = [UIBezierPath bezierPath];
+//        [path moveToPoint:CGPointMake(posX, posY - ScaleStrokeHeight)];
+//        [path addLineToPoint:CGPointMake(posX, posY)];
+        UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(posX, posY) radius:3 startAngle:0 endAngle:(2*M_PI) clockwise:YES];
         
         CAShapeLayer * shapeLayer = [CAShapeLayer layer];
         NSAssert(shapeLayer != nil, @"shape layer can't be nil");
         shapeLayer.anchorPoint = CGPointMake(0.f, 0.f); // TODO: 写一篇笔记来记录这个特性！！
         shapeLayer.path = [path CGPath];
-        shapeLayer.strokeColor = [[UIColor lightTextColor] CGColor];
-        shapeLayer.lineWidth = ScaleStrokeWidth;
-        shapeLayer.fillColor = [[UIColor clearColor] CGColor];
+//        shapeLayer.strokeColor = [[UIColor mainColor] CGColor];
+//        shapeLayer.lineWidth = ScaleStrokeWidth;
+        shapeLayer.fillColor = [[UIColor whiteColor] CGColor];
        
         [self.layer addSublayer:shapeLayer];
         

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FBF0F72F1ABD321700EBC44C"
-               BuildableName = "&#x75af;&#x72c2;&#x8df3;&#x7ef3;.app"
+               BuildableName = "&#x6781;&#x9650;&#x8df3;&#x7ef3;.app"
                BlueprintName = "TrainingTimer"
                ReferencedContainer = "container:TrainingTimer.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FBF0F72F1ABD321700EBC44C"
-            BuildableName = "&#x75af;&#x72c2;&#x8df3;&#x7ef3;.app"
+            BuildableName = "&#x6781;&#x9650;&#x8df3;&#x7ef3;.app"
             BlueprintName = "TrainingTimer"
             ReferencedContainer = "container:TrainingTimer.xcodeproj">
          </BuildableReference>
@@ -77,7 +77,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FBF0F72F1ABD321700EBC44C"
-            BuildableName = "&#x75af;&#x72c2;&#x8df3;&#x7ef3;.app"
+            BuildableName = "&#x6781;&#x9650;&#x8df3;&#x7ef3;.app"
             BlueprintName = "TrainingTimer"
             ReferencedContainer = "container:TrainingTimer.xcodeproj">
          </BuildableReference>
@@ -96,7 +96,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FBF0F72F1ABD321700EBC44C"
-            BuildableName = "&#x75af;&#x72c2;&#x8df3;&#x7ef3;.app"
+            BuildableName = "&#x6781;&#x9650;&#x8df3;&#x7ef3;.app"
             BlueprintName = "TrainingTimer"
             ReferencedContainer = "container:TrainingTimer.xcodeproj">
          </BuildableReference>
