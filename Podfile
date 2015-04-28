@@ -14,6 +14,7 @@ pod 'libextobjc', '~> 0.4.1'
 pod 'Colours', '~> 5.6.1'
 pod 'Shimmer', '~> 1.0.2'
 pod 'FontasticIcons', '~> 0.5.0'
+pod 'JTCalendar', '~> 1.2.3'
 end
 
 target 'TrainingTimerTests' do

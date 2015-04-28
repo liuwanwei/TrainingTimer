@@ -51,7 +51,7 @@ NSString * const TrainingUnitIndex      = @"trainingUnitTimeIndex";
         case TrainingUnitTypeWarmUp:
             return @"热身";
         case TrainingUnitTypeSkipping:
-            return @"跳绳训练";
+            return @"训练";
         case TrainingUnitTypeRest:
             return @"休息";
     }

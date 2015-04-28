@@ -27,38 +27,43 @@
         self.frame = p.frame;
         self.itemHeight = ITEM_HEIGHT;
         self.itemFont = [UIFont systemFontOfSize:17.0f];
-        
-        UIImage *background = [self blurredSnapshot];
-        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:background];
-        [self addSubview:backgroundView];
-        
-        CGFloat height = [self calculateCollectionViewHeight];
-        
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        [layout setMinimumLineSpacing:ITEM_LINE_SPACING];
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, (self.frame.size.height - height) / 2, self.frame.size.width, height) collectionViewLayout:layout];
-        [_collectionView setDataSource:self];
-        [_collectionView setDelegate:self];
-        [_collectionView registerClass:[BlurMenuItemCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
-        [_collectionView setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:_collectionView];
-        
-        UIButton *close = [UIButton buttonWithType:UIButtonTypeCustom];
-        close.frame = CGRectMake(0, self.frame.size.height - COLLECTION_VIEW_PADDING, self.frame.size.width, COLLECTION_VIEW_PADDING);
-        close.backgroundColor = [UIColor clearColor];
-        [close setTitle:@"Close" forState:UIControlStateNormal];
-        [close setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        close.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:18.0f];
-        [close addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchDown];
-        [self addSubview:close];
-        
+        self.itemTextColor = [UIColor whiteColor];
     }
+    
     return self;
 }
 
+- (void)initSubViews{
+    UIImage *background = [self blurredSnapshot];
+    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:background];
+    [self addSubview:backgroundView];
+    
+    CGFloat height = [self calculateCollectionViewHeight];
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    [layout setMinimumLineSpacing:ITEM_LINE_SPACING];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, (self.frame.size.height - height) / 2, self.frame.size.width, height) collectionViewLayout:layout];
+    [_collectionView setDataSource:self];
+    [_collectionView setDelegate:self];
+    [_collectionView registerClass:[BlurMenuItemCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+    [_collectionView setBackgroundColor:[UIColor clearColor]];
+    [self addSubview:_collectionView];
+    
+    UIButton *close = [UIButton buttonWithType:UIButtonTypeCustom];
+    close.frame = CGRectMake(0, self.frame.size.height - COLLECTION_VIEW_PADDING, self.frame.size.width, COLLECTION_VIEW_PADDING);
+    close.backgroundColor = [UIColor clearColor];
+    [close setTitle:@"Close" forState:UIControlStateNormal];
+    [close setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    close.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:26.0f];
+    [close addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchDown];
+    [self addSubview:close];
+}
+
 - (void)show {
+    [self initSubViews];
+    
     [self.parent addSubview:self];
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         self.alpha = 1.0f;
     } completion:^(BOOL finished) {
         if ([self.delegate respondsToSelector:@selector(menuDidShow)]) {
@@ -88,6 +93,7 @@
     cell.backgroundColor = [UIColor clearColor];
     cell.title.text = [menuItems objectAtIndex:indexPath.row];
     cell.title.font = _itemFont;
+    cell.title.textColor = _itemTextColor;
     return cell;
 }
 
@@ -115,7 +121,7 @@
 
 - (CGFloat)calculateCollectionViewHeight {
     NSInteger totalItem = [self.menuItems count];
-    CGFloat totalHeight = (totalItem * ITEM_HEIGHT) + (totalItem * ITEM_LINE_SPACING);
+    CGFloat totalHeight = (totalItem * _itemHeight) + (totalItem * ITEM_LINE_SPACING);
     CGFloat maxPossible = [self maxPossibleHeight];
     if (totalHeight > maxPossible) {
         return maxPossible;

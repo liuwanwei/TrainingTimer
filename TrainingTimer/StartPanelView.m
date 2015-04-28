@@ -43,8 +43,10 @@
         maker.height.equalTo(self.mas_height).dividedBy(2.0);
         maker.width.equalTo(self.mas_width).dividedBy(1.5);
     }];
+    
+    UIColor * color = RGB(0, 122, 255);
     [buttonStart setTitle:@"开始训练" forState:UIControlStateNormal];
-    [buttonStart setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
+    [buttonStart setTitleColor:color forState:UIControlStateNormal];
     buttonStart.titleLabel.font = [UIFont systemFontOfSize:30.0];
     
     _startButton = buttonStart;

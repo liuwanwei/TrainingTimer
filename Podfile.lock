@@ -3,6 +3,7 @@ PODS:
   - DateTools (1.5.0)
   - FontasticIcons (0.5.0)
   - GLPubSub (1.0.0)
+  - JTCalendar (1.2.3)
   - libextobjc (0.4.1):
     - libextobjc/EXTADT (= 0.4.1)
     - libextobjc/EXTConcreteProtocol (= 0.4.1)
@@ -53,6 +54,7 @@ DEPENDENCIES:
   - DateTools (~> 1.5.0)
   - FontasticIcons (~> 0.5.0)
   - GLPubSub (~> 1.0.0)
+  - JTCalendar (~> 1.2.3)
   - libextobjc (~> 0.4.1)
   - Masonry (~> 0.6.1)
   - Shimmer (~> 1.0.2)
@@ -65,6 +67,7 @@ SPEC CHECKSUMS:
   DateTools: b93a2c2017747329c6077c7d7e8a75106e23d0d7
   FontasticIcons: f20740bf8f1d3565c312f1c3b9806339212b58aa
   GLPubSub: 822d180d9df430ad58ef9b051cd5b0d1e227f35d
+  JTCalendar: 246ea3e338fb97624846ec77cdcde448242c4d5c
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96

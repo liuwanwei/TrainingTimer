@@ -32,6 +32,7 @@
 @property(nonatomic, retain) UICollectionView *_collectionView;
 @property(nonatomic) NSInteger itemHeight;
 @property(nonatomic, strong) UIFont * itemFont;
+@property(nonatomic, strong) UIColor * itemTextColor;
 
 - (id)initWithItems:(NSArray*)items parentView:(UIView *)p delegate:(id<BlurMenuDelegate>)d;
 

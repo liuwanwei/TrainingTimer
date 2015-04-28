@@ -233,7 +233,7 @@ typedef enum{
         maker.top.equalTo(_roundView.mas_bottom);
         maker.leading.equalTo(wSuperView.mas_leading);
         maker.width.equalTo(wSuperView.mas_width);
-        maker.height.equalTo(_roundView.mas_height);
+        maker.height.equalTo(@60);
         maker.bottom.equalTo(wSuperView.mas_bottom);
     }];
     [_startPanel addStartButtonTarget:self selector:@selector(startTraining:)];

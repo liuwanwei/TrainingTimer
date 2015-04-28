@@ -60,7 +60,7 @@
     UIImage * image = [UIImage imageNamed:@"check_mark"];
     image = [image imageWithTintColor:[UIColor whiteColor]];
     UIImageView * imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.frame = CGRectMake(center.x - radius, center.y - radius, radius*2, radius*2);
+    imageView.frame = CGRectMake(center.x - radius/2, center.y - radius/2, radius, radius);
     [self.layer addSublayer:imageView.layer];
     
     _checkmarkLayer = imageView.layer;

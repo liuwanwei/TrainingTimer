@@ -89,6 +89,7 @@
         _menu = [[BlurMenu alloc] initWithItems:items parentView:self.parentViewController.view delegate:self];
         _menu.itemHeight = 80;
         _menu.itemFont = [UIFont systemFontOfSize:30.0f];
+        _menu.itemTextColor = [UIColor mainColor];
     }
     
     [_menu show];
@@ -165,7 +166,7 @@
 }
 
 - (void)createSubViews{
-    self.backgroundColor = [UIColor lineFgColor];// 背景色
+    self.backgroundColor = [UIColor whiteColor];// 背景色
     
     @weakify(self);
     
@@ -215,29 +216,25 @@
         
     }];
     
-    // 类型，如：热身
+    // 类型，如：热身时间
     _typeLabel = [[UILabel alloc] init];
     _typeLabel.textAlignment = NSTextAlignmentLeft;
-    _typeLabel.textColor = [UIColor whiteColor];
+    _typeLabel.textColor = [UIColor blackColor];
+    _typeLabel.font = [UIFont systemFontOfSize:20.0f];
     _typeLabel.userInteractionEnabled = NO;
     [self addSubview:_typeLabel];
     [_typeLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
-//        const CGFloat verticalGap = 5;
-//        maker.centerX.equalTo(self.mas_centerX);
-//        maker.top.equalTo(_valueLabel.mas_bottom).offset(verticalGap);
-//        maker.width.equalTo(self.mas_width);
-//        maker.bottom.equalTo(self.mas_bottom).offset(-verticalGap);
-        maker.leading.equalTo(@16);
+        maker.leading.equalTo(@28);
         maker.centerY.equalTo(self.mas_centerY);
-        maker.height.equalTo(self.mas_height).dividedBy(3.0);
+        maker.height.equalTo(self.mas_height).dividedBy(4.0);
         maker.trailing.equalTo(_valueLabel.mas_leading);
     }];
     
     
     // 底部长分隔线
     _bottomLineView = [[UIView alloc] init];
-    _bottomLineView.backgroundColor = [UIColor lightTextColor];
+    _bottomLineView.backgroundColor = [UIColor lineFgColor];
     [self addSubview:_bottomLineView];
     [_bottomLineView mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
@@ -248,22 +245,22 @@
     }];
     
     // 进度条
-    _progressView = [[UIView alloc] initWithFrame:CGRectZero];
-    _progressView.backgroundColor = [UIColor lineFgColor];
-    [self addSubview:_progressView];
-    [_progressView mas_makeConstraints:^(MASConstraintMaker * maker){
-        @strongify(self);
-        maker.left.equalTo(self.mas_leading);
-        maker.top.equalTo(self.mas_top);
-        maker.height.equalTo(self.mas_height);
-        maker.right.equalTo(@(0.1));
-    }];
-
-    [self sendSubviewToBack:_progressView];
+//    _progressView = [[UIView alloc] initWithFrame:CGRectZero];
+//    _progressView.backgroundColor = [UIColor lineFgColor];
+//    [self addSubview:_progressView];
+//    [_progressView mas_makeConstraints:^(MASConstraintMaker * maker){
+//        @strongify(self);
+//        maker.left.equalTo(self.mas_leading);
+//        maker.top.equalTo(self.mas_top);
+//        maker.height.equalTo(self.mas_height);
+//        maker.right.equalTo(@(0.1));
+//    }];
+//
+//    [self sendSubviewToBack:_progressView];
 }
 
 - (void)resetContentSize{
-    [self setFontAutoFitSizeForLabel:_typeLabel];
+//    [self setFontAutoFitSizeForLabel:_typeLabel];
     [self setFontAutoFitSizeForLabel:_valueLabel];
     
     [self redrawScaleSplitter];
@@ -282,7 +279,7 @@
  *
  */
 - (void)setDescription:(NSString *)type{
-    [self setFontAutoFitSizeForLabel:_typeLabel];
+//    [self setFontAutoFitSizeForLabel:_typeLabel];
     _typeLabel.text = type;
 }
 

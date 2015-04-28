@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <JTCalendar.h>
 
-@interface RecordsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface RecordsViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, JTCalendarDataSource>
 
 @property (nonatomic, strong, readonly) UITableView * tableView;
 
