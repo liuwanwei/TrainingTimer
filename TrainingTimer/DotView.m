@@ -8,9 +8,11 @@
 
 #import "DotView.h"
 #import "UIColor+TrainingTimer.h"
+#import "UIImage+Tint.h"
 
 @implementation DotView{
     CAShapeLayer * _finishedCircleLayer;
+    CALayer * _checkmarkLayer;
 }
 
 /*
@@ -48,12 +50,20 @@
     center.x = self.bounds.size.width/2;
     center.y = self.bounds.size.height/2;
     CGFloat radius = center.x > center.y ? center.y : center.x;
-    radius = radius / 2;
-    UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle:(2*M_PI) clockwise:YES];
+    CGFloat cic_radius = radius - 4;
+    UIBezierPath * path = [UIBezierPath bezierPathWithArcCenter:center radius:cic_radius startAngle:0 endAngle:(2*M_PI) clockwise:YES];
     circleShape.path = path.CGPath;
     [self.layer addSublayer:circleShape];
     
     _finishedCircleLayer = circleShape;
+
+    UIImage * image = [UIImage imageNamed:@"check_mark"];
+    image = [image imageWithTintColor:[UIColor whiteColor]];
+    UIImageView * imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.frame = CGRectMake(center.x - radius, center.y - radius, radius*2, radius*2);
+    [self.layer addSublayer:imageView.layer];
+    
+    _checkmarkLayer = imageView.layer;
 }
 
 /** 重绘完成状态同心圆，一般用在屏幕旋转后
@@ -62,6 +72,7 @@
 - (void)resetConcentricCircle{
     if (_finishedCircleLayer) {
         [_finishedCircleLayer removeFromSuperlayer];
+        [_checkmarkLayer removeFromSuperlayer];
         [self addConcentricCircle];
     }
 }

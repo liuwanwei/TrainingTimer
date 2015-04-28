@@ -16,4 +16,6 @@
 
 - (void)createSubViews;
 
+- (void)updateTotalTime:(NSString *)totalTime;
+
 @end

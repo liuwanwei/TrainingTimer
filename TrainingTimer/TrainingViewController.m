@@ -79,12 +79,11 @@ static NSInteger const DotViewDiameterDividedValue = 15;
     self.navigationController.navigationBarHidden = NO;
 }
 
-- (BOOL)isPortraitForOrientation:(UIInterfaceOrientation)orientation{
-    if (orientation == UIInterfaceOrientationPortrait ||
-        orientation == UIInterfaceOrientationPortraitUpsideDown) {
-        return YES;
+- (NSUInteger)supportedInterfaceOrientations{
+    if (isPad){
+        return UIInterfaceOrientationMaskAll;
     }else{
-        return NO;
+        return UIInterfaceOrientationPortrait;
     }
 }
 
@@ -104,8 +103,8 @@ static NSInteger const DotViewDiameterDividedValue = 15;
     _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_wSuperView addSubview:_closeButton];
     [_closeButton mas_makeConstraints:^(MASConstraintMaker * maker){
-        maker.leading.equalTo(_wSuperView.mas_leading);
-        maker.top.equalTo(_wSuperView.mas_top).offset(5.0f);
+        maker.leading.equalTo(_wSuperView.mas_leading).offset(4);
+        maker.top.equalTo(_wSuperView.mas_top).offset(16.0f);
         maker.width.equalTo(@(CloseButtonWidth));
         maker.height.equalTo(_closeButton.mas_width);
     }];
@@ -145,7 +144,7 @@ static NSInteger const DotViewDiameterDividedValue = 15;
         maker.edges.equalTo(_centeredView);
     }];
     size = _centeredView.frame.size;
-    UIFont * font = [UIFont findAdaptiveFontWithName:@"Times New Roman" forUILabelSize:size withMinimumSize:32];
+    UIFont * font = [UIFont findAdaptiveFontWithName:@"DIN Alternate" forUILabelSize:size withMinimumSize:32];
     _centeredLabel.font = font;
     
     // 进度指示器：正方形
@@ -461,6 +460,8 @@ static NSInteger const DotViewDiameterDividedValue = 15;
             [self.navigationController popViewControllerAnimated:YES];
         });
         return;
+    }else{
+        [_centeredButton setTitle:@"完成" forState:UIControlStateNormal];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{

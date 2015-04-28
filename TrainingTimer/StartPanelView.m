@@ -41,11 +41,11 @@
         @strongify(self);
         maker.center.equalTo(self);
         maker.height.equalTo(self.mas_height).dividedBy(2.0);
-        maker.width.equalTo(self.mas_width).dividedBy(4.0);
+        maker.width.equalTo(self.mas_width).dividedBy(1.5);
     }];
     [buttonStart setTitle:@"开始训练" forState:UIControlStateNormal];
     [buttonStart setTitleColor:[UIColor mainColor] forState:UIControlStateNormal];
-    buttonStart.titleLabel.font = [UIFont systemFontOfSize:46.0];
+    buttonStart.titleLabel.font = [UIFont systemFontOfSize:36.0];
     
     _startButton = buttonStart;
     

@@ -16,10 +16,15 @@
 #import <XLForm.h>
 #import <FBShimmeringView.h>
 #import "UIColor+TrainingTimer.h"
+#import <NSObject+GLPubSub.h>
 
 @implementation BigLineView{
     UIView * _progressView;
+    UIImageView * _imageViewArrow;
+    UILabel * _LabelValueUnit;
     BOOL _isTime;
+    
+    BlurMenu * _menu;
     
     NSMutableArray * _scaleLayers; // 刻度 layer 对象缓存
 }
@@ -32,7 +37,6 @@
     if (self = [super init]) {
         _maxValue = maxLength;
         
-        self.backgroundColor = [UIColor lineBgColor];// 背景色
         [self createSubViews];
         
         UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
@@ -48,8 +52,43 @@
     [self redrawScaleSplitter];
 }
 
+#pragma mark - Blue menu delegate
+- (void)selectedItemAtIndex:(NSInteger)index{
+    XLFormOptionsObject * object = (XLFormOptionsObject *)_options[index];
+    _currentValue =  [object.formValue integerValue];
+    
+    [self updateProgressView];
+    
+    // 通知更新
+    if (_delegate && [_delegate respondsToSelector:@selector(bigLineView:didChangeWithNewValue:)]) {
+        [_delegate performSelector:@selector(bigLineView:didChangeWithNewValue:) withObject:self withObject:@(_currentValue)];
+    }
+    
+    [_menu hide];
+}
+
+- (void)showTappedMenu{
+    NSMutableArray * mutableArray = [@[] mutableCopy];
+    NSEnumerator * enumerator = [_options objectEnumerator];
+    XLFormOptionsObject * option;
+    while ((option = [enumerator nextObject])) {
+        [mutableArray addObject:option.displayText];
+    }
+    
+    NSArray * items = mutableArray;
+    
+    _menu = [[BlurMenu alloc] initWithItems:items parentView:self.parentViewController.view delegate:self];
+    
+    [_menu show];
+}
+
 // 点击屏幕修改刻度操作处理函数
 - (void)tapped:(UITapGestureRecognizer *)recoginizer{
+    BOOL test = YES;
+    if (test) {
+        return [self showTappedMenu];
+    }
+    
     if (recoginizer.state == UIGestureRecognizerStateEnded) {
         CGPoint location = [recoginizer locationInView:self];
     
@@ -110,38 +149,75 @@
 }
 
 - (void)createSubViews{
+    self.backgroundColor = [UIColor lineFgColor];// 背景色
     
     @weakify(self);
+    
+    // 右侧箭头
+    _imageViewArrow = [[UIImageView alloc] init];
+    [self addSubview:_imageViewArrow];
+    [_imageViewArrow setImage:[UIImage imageNamed:@"arrow_right"]];
+    _imageViewArrow.alpha = 0.4;
+    [_imageViewArrow mas_makeConstraints:^(MASConstraintMaker * maker){
+        @strongify(self);
+        maker.trailing.equalTo(self.mas_trailing).offset(-16);
+        maker.centerY.equalTo(self.mas_centerY);
+        maker.width.equalTo(@56);
+        maker.height.equalTo(_imageViewArrow.mas_width);
+    }];
+    
+    // 单位名称
+    _LabelValueUnit = [[UILabel alloc] init];
+    [self addSubview:_LabelValueUnit];
+    _LabelValueUnit.alpha = 0.6;
+    _LabelValueUnit.textColor = [UIColor blackColor];
+    _LabelValueUnit.font = [UIFont systemFontOfSize:34.0];
+    [_LabelValueUnit mas_makeConstraints:^(MASConstraintMaker * maker){
+        @strongify(self);
+        maker.centerY.equalTo(self.mas_centerY);
+        maker.trailing.equalTo(self->_imageViewArrow.mas_leading);
+        maker.height.equalTo(self->_imageViewArrow.mas_height);
+        maker.width.equalTo(@48);
+    }];
     
     // 时间，如：02：00
     _valueLabel = [[UILabel alloc] init];
     _valueLabel.textAlignment = NSTextAlignmentCenter;
-    _valueLabel.textColor = RGB(0, 122, 255);
+    _valueLabel.textColor = [UIColor mainColor];
     _valueLabel.userInteractionEnabled = NO;
+//    UIFont * font = [UIFont fontWithName:@"Lao Sangam MN" size:34.0];
+    UIFont * font = [UIFont fontWithName:@"DIN Alternate" size:34.0];
+    _valueLabel.font = font;
     [self addSubview:_valueLabel];
     [_valueLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
-        maker.centerX.equalTo(self.mas_centerX);
-        maker.centerY.equalTo(self.mas_centerY).offset(-5);
-        maker.width.equalTo(self.mas_width);
-        maker.height.equalTo(self.mas_height).dividedBy(3);
+//        maker.centerX.equalTo(self.mas_centerX);
+        maker.centerY.equalTo(self.mas_centerY);
+        maker.trailing.equalTo(self->_LabelValueUnit.mas_leading);
+        maker.width.equalTo(self.mas_width).dividedBy(4.0);
+        maker.height.equalTo(self.mas_height).dividedBy(2);
         
     }];
-        
+    
     // 类型，如：热身
     _typeLabel = [[UILabel alloc] init];
-    _typeLabel.textAlignment = NSTextAlignmentCenter;
+    _typeLabel.textAlignment = NSTextAlignmentLeft;
     _typeLabel.textColor = [UIColor whiteColor];
     _typeLabel.userInteractionEnabled = NO;
     [self addSubview:_typeLabel];
     [_typeLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
-        const CGFloat verticalGap = 5;
-        maker.centerX.equalTo(self.mas_centerX);
-        maker.top.equalTo(_valueLabel.mas_bottom).offset(verticalGap);
-        maker.width.equalTo(self.mas_width);
-        maker.bottom.equalTo(self.mas_bottom).offset(-verticalGap);
+//        const CGFloat verticalGap = 5;
+//        maker.centerX.equalTo(self.mas_centerX);
+//        maker.top.equalTo(_valueLabel.mas_bottom).offset(verticalGap);
+//        maker.width.equalTo(self.mas_width);
+//        maker.bottom.equalTo(self.mas_bottom).offset(-verticalGap);
+        maker.leading.equalTo(@16);
+        maker.centerY.equalTo(self.mas_centerY);
+        maker.height.equalTo(self.mas_height).dividedBy(3.0);
+        maker.trailing.equalTo(_valueLabel.mas_leading);
     }];
+    
     
     // 底部长分隔线
     _bottomLineView = [[UIView alloc] init];
@@ -177,6 +253,12 @@
     [self redrawScaleSplitter];
 }
 
+- (void)setValueUnit:(NSString *)valueUnit{
+    _valueUnit = valueUnit;
+    
+    _LabelValueUnit.text = _valueUnit;
+}
+
 /**
  *  设置类型，显示在中心点，文字居中
  * 
@@ -195,21 +277,21 @@
     [self setFontAutoFitSizeForLabel:_valueLabel];
     [self updateCurrentValueView];
     
-    @weakify(self);
-    [_progressView mas_remakeConstraints:^(MASConstraintMaker * maker){
-        @strongify(self);
-        maker.leading.equalTo(self.mas_leading);
-        maker.top.equalTo(self.mas_top);
-        maker.height.equalTo(self.mas_height);
-        CGFloat ratio = (CGFloat)_currentValue/_maxValue;
-        maker.right.equalTo(self.mas_right).multipliedBy(ratio);
-    }];
+//    @weakify(self);
+//    [_progressView mas_remakeConstraints:^(MASConstraintMaker * maker){
+//        @strongify(self);
+//        maker.leading.equalTo(self.mas_leading);
+//        maker.top.equalTo(self.mas_top);
+//        maker.height.equalTo(self.mas_height);
+//        CGFloat ratio = (CGFloat)_currentValue/_maxValue;
+//        maker.right.equalTo(self.mas_right).multipliedBy(ratio);
+//    }];
 
 }
 
 - (void)updateCurrentValueView{
     if (_isTime) {
-        _valueLabel.text = [NSString stringWithFormat:@"%@ s", [Utils colonSeperatedTime:_currentValue]];
+        _valueLabel.text = [NSString stringWithFormat:@"%zd", _currentValue];
     }else{
         _valueLabel.text = [@(_currentValue) stringValue];
     }
@@ -229,6 +311,10 @@
 
 // 重绘刻度
 - (void)redrawScaleSplitter{
+    BOOL test = YES;
+    if (test) {
+        return;
+    }
     
     for (CAShapeLayer * layer in _scaleLayers) {
         [layer removeFromSuperlayer];

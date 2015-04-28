@@ -24,6 +24,7 @@
 #import <libextobjc/EXTScope.h>
 #import "StartHeaderView.h"
 #import "StartPanelView.h"
+#import "BDFoundation.h"
 
 typedef enum{
     BigLineViewWarmUp = 1,
@@ -79,25 +80,44 @@ typedef enum{
     [super viewDidAppear:animated];
 
     static dispatch_once_t onceToken;
+    @weakify(self);
     dispatch_once(&onceToken, ^{
         // TODO: 这段初始化代码应该放到更合适的地方
+        @strongify(self);
+        
         TrainingSetting * setting = [TrainingSetting sharedInstance];
         [_warmUpView setDescription:@"热身时间"];
+        [_warmUpView setValueUnit:@"秒"];
         [_warmUpView setCurrentValue:setting.warmUpTime.integerValue isTime:YES];
         
         [_skippingView setDescription:@"训练时间"];
+        [_skippingView setValueUnit:@"秒"];
         [_skippingView setCurrentValue:setting.skippingTime.integerValue isTime:YES];
         
         [_restView setDescription:@"休息时间"];
+        [_restView setValueUnit:@"秒"];
         [_restView setCurrentValue:setting.restTime.integerValue isTime:YES];
         
         [_roundView setDescription:@"重复几组"];
+        [_roundView setValueUnit:@"组"];
         [_roundView setCurrentValue:setting.rounds.integerValue isTime:NO];
         
         [_startPanel updateStartButtonFont];
-
-
+        
+        [self updateTotalTime];
     });
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
+    return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations{
+    if (isPad){
+        return UIInterfaceOrientationMaskAll;
+    }else{
+        return UIInterfaceOrientationPortraitUpsideDown;
+    }
 }
 
 - (void)resetLineViewDimention{
@@ -113,6 +133,8 @@ typedef enum{
     
     [self resetLineViewDimention];
     [_startPanel updateStartButtonFont];
+    
+    [self.view layoutSubviews];
 }
 
 - (void)initializeSubViews{
@@ -139,6 +161,7 @@ typedef enum{
     // 热身
     _warmUpView = [[BigLineView alloc] initWithMaxValue:TTMaxWarmUpTime];
     _warmUpView.tag = BigLineViewWarmUp;
+    _warmUpView.parentViewController = self;
     _warmUpView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(60) displayText:@"1 分钟"],
                             [XLFormOptionsObject formOptionsObjectWithValue:@(120) displayText:@"2 分钟"],
                             [XLFormOptionsObject formOptionsObjectWithValue:@(180) displayText:@"3 分钟"]];
@@ -154,6 +177,7 @@ typedef enum{
     // 跳绳时间
     _skippingView = [[BigLineView alloc] initWithMaxValue:TTMaxSkippingTime];
     _skippingView.tag = BigLineViewSkipping;
+    _skippingView.parentViewController = self;
     [self.view addSubview:_skippingView];
     [_skippingView mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.top.equalTo(_warmUpView.mas_bottom);
@@ -166,6 +190,7 @@ typedef enum{
     // 休息时间
     _restView = [[BigLineView alloc] initWithMaxValue:TTMaxRestTime];
     _restView.tag = BigLineViewRest;
+    _restView.parentViewController = self;
     _restView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(10) displayText:@"10 秒"],
                           [XLFormOptionsObject formOptionsObjectWithValue:@(20) displayText:@"20 秒"],
                           [XLFormOptionsObject formOptionsObjectWithValue:@(30) displayText:@"30 秒"]];
@@ -181,6 +206,7 @@ typedef enum{
     // 练习几轮
     _roundView = [[BigLineView alloc] initWithMaxValue:TTMaxRound];
     _roundView.tag = BigLineViewRound;
+    _roundView.parentViewController = self;
     _roundView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"3 组"],
                            [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"4 组"],
                            [XLFormOptionsObject formOptionsObjectWithValue:@(5) displayText:@"5 组"],
@@ -270,6 +296,25 @@ typedef enum{
     }
     
     [setting syncToDisk];
+    
+    [self updateTotalTime];
+}
+
+- (void)updateTotalTime{
+    TrainingSetting * setting = [TrainingSetting sharedInstance];
+    
+    NSInteger seconds = 0;
+    seconds += [setting.warmUpTime integerValue];
+    for (NSInteger i = 0; i < setting.rounds.integerValue; i++) {
+        seconds += setting.skippingTime.integerValue;
+        seconds += setting.restTime.integerValue;
+    }
+    
+    NSInteger minutes = seconds / 60;
+    seconds %= 60;
+    NSString * totalTime = [NSString stringWithFormat:@"共需 %@ 分 %@ 秒", @(minutes), @(seconds)];
+    
+    [_headerView updateTotalTime:totalTime];
 }
 
 

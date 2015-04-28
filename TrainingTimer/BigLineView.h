@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BlurMenu.h"
 
 typedef enum{
     TTMaxWarmUpTime     = 180,
@@ -25,12 +26,15 @@ typedef enum{
 
 @class TrainingUnit;
 
-@interface BigLineView : UIView
+@interface BigLineView : UIView <BlurMenuDelegate>
 
 @property (nonatomic, strong) UILabel * typeLabel;
 @property (nonatomic, strong) UILabel * valueLabel;
 @property (nonatomic, strong) UIView * bottomLineView;
 @property (nonatomic, strong) NSArray * options;
+@property (nonatomic, copy) NSString * valueUnit;
+
+@property (nonatomic, weak) UIViewController * parentViewController;
 
 @property (nonatomic, weak) id<BigLineViewDelegate> delegate;
 

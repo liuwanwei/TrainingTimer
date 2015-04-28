@@ -18,6 +18,10 @@
 		FB87D6181ACFE2C800BCA5CA /* TrainingSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6171ACFE2C800BCA5CA /* TrainingSetting.m */; };
 		FBD156CD1AEF12A6004B063F /* StartHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD156CC1AEF12A6004B063F /* StartHeaderView.m */; };
 		FBD156D01AEF2129004B063F /* StartPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD156CF1AEF2129004B063F /* StartPanelView.m */; };
+		FBD156D41AEF62CB004B063F /* TTConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD156D31AEF62CB004B063F /* TTConstants.m */; };
+		FBD156DD1AEF8254004B063F /* BlurMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD156D81AEF8254004B063F /* BlurMenu.m */; };
+		FBD156DE1AEF8254004B063F /* BlurMenuItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD156DA1AEF8254004B063F /* BlurMenuItemCell.m */; };
+		FBD156DF1AEF8254004B063F /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD156DC1AEF8254004B063F /* UIImage+ImageEffects.m */; };
 		FBDA39DE1AC996DE00DE81FB /* HeartRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39DD1AC996DE00DE81FB /* HeartRateViewController.m */; };
 		FBDA39E41ACAF17200DE81FB /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39E31ACAF17200DE81FB /* StartViewController.m */; };
 		FBDA39E71ACAFE4700DE81FB /* BigLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39E61ACAFE4700DE81FB /* BigLineView.m */; };
@@ -89,6 +93,14 @@
 		FBD156CC1AEF12A6004B063F /* StartHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartHeaderView.m; sourceTree = "<group>"; };
 		FBD156CE1AEF2129004B063F /* StartPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPanelView.h; sourceTree = "<group>"; };
 		FBD156CF1AEF2129004B063F /* StartPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPanelView.m; sourceTree = "<group>"; };
+		FBD156D21AEF62CB004B063F /* TTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTConstants.h; sourceTree = "<group>"; };
+		FBD156D31AEF62CB004B063F /* TTConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTConstants.m; sourceTree = "<group>"; };
+		FBD156D71AEF8254004B063F /* BlurMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlurMenu.h; sourceTree = "<group>"; };
+		FBD156D81AEF8254004B063F /* BlurMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurMenu.m; sourceTree = "<group>"; };
+		FBD156D91AEF8254004B063F /* BlurMenuItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlurMenuItemCell.h; sourceTree = "<group>"; };
+		FBD156DA1AEF8254004B063F /* BlurMenuItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurMenuItemCell.m; sourceTree = "<group>"; };
+		FBD156DB1AEF8254004B063F /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		FBD156DC1AEF8254004B063F /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		FBDA39DC1AC996DE00DE81FB /* HeartRateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeartRateViewController.h; sourceTree = "<group>"; };
 		FBDA39DD1AC996DE00DE81FB /* HeartRateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartRateViewController.m; sourceTree = "<group>"; };
 		FBDA39E21ACAF17200DE81FB /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
@@ -207,16 +219,16 @@
 		FB7D15651AD580A300373241 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				FBD156CB1AEF12A6004B063F /* StartHeaderView.h */,
+				FBD156CC1AEF12A6004B063F /* StartHeaderView.m */,
 				FBDA39E51ACAFE4700DE81FB /* BigLineView.h */,
 				FBDA39E61ACAFE4700DE81FB /* BigLineView.m */,
+				FBD156CE1AEF2129004B063F /* StartPanelView.h */,
+				FBD156CF1AEF2129004B063F /* StartPanelView.m */,
 				FB2B75D71AD8B3AB00A4BB8B /* DotView.h */,
 				FB2B75D81AD8B3AB00A4BB8B /* DotView.m */,
 				FB7D15621AD579E300373241 /* KACircleProgressView.h */,
 				FB7D15631AD579E300373241 /* KACircleProgressView.m */,
-				FBD156CB1AEF12A6004B063F /* StartHeaderView.h */,
-				FBD156CC1AEF12A6004B063F /* StartHeaderView.m */,
-				FBD156CE1AEF2129004B063F /* StartPanelView.h */,
-				FBD156CF1AEF2129004B063F /* StartPanelView.m */,
 			);
 			name = CustomView;
 			sourceTree = "<group>";
@@ -237,6 +249,27 @@
 			);
 			name = Views;
 			sourceTree = "<group>";
+		};
+		FBD156D51AEF8243004B063F /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				FBD156D61AEF8254004B063F /* BlueMenu */,
+			);
+			name = Libs;
+			sourceTree = "<group>";
+		};
+		FBD156D61AEF8254004B063F /* BlueMenu */ = {
+			isa = PBXGroup;
+			children = (
+				FBD156D71AEF8254004B063F /* BlurMenu.h */,
+				FBD156D81AEF8254004B063F /* BlurMenu.m */,
+				FBD156D91AEF8254004B063F /* BlurMenuItemCell.h */,
+				FBD156DA1AEF8254004B063F /* BlurMenuItemCell.m */,
+				FBD156DB1AEF8254004B063F /* UIImage+ImageEffects.h */,
+				FBD156DC1AEF8254004B063F /* UIImage+ImageEffects.m */,
+			);
+			path = BlueMenu;
+			sourceTree = SOURCE_ROOT;
 		};
 		FBF0F7271ABD321700EBC44C = {
 			isa = PBXGroup;
@@ -261,6 +294,7 @@
 		FBF0F7321ABD321700EBC44C /* TrainingTimer */ = {
 			isa = PBXGroup;
 			children = (
+				FBD156D51AEF8243004B063F /* Libs */,
 				FBF0F7591ABD331B00EBC44C /* Models */,
 				FBF0F7A41AC0565700EBC44C /* Helpers */,
 				FB87D60F1ACFC98600BCA5CA /* Views */,
@@ -390,6 +424,8 @@
 				FBF0F7A11ABDD16600EBC44C /* TrainingVoiceManager.m */,
 				FB35DF201AD653E300AF4811 /* SoundManager.h */,
 				FB35DF211AD653E300AF4811 /* SoundManager.m */,
+				FBD156D21AEF62CB004B063F /* TTConstants.h */,
+				FBD156D31AEF62CB004B063F /* TTConstants.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -543,6 +579,7 @@
 			files = (
 				FBD156D01AEF2129004B063F /* StartPanelView.m in Sources */,
 				FBDA39E41ACAF17200DE81FB /* StartViewController.m in Sources */,
+				FBD156DE1AEF8254004B063F /* BlurMenuItemCell.m in Sources */,
 				FBF0F7851ABD399C00EBC44C /* BaseModel.m in Sources */,
 				FBF0F78F1ABD399C00EBC44C /* UINavigationItem+Additions.m in Sources */,
 				FB87D6121ACFCAD900BCA5CA /* RecordsViewController.m in Sources */,
@@ -554,9 +591,12 @@
 				FB87D6151ACFCAF800BCA5CA /* TrainingRecord.m in Sources */,
 				FBF0F78A1ABD399C00EBC44C /* NSDictionary+QueryStringBuilder.m in Sources */,
 				FBF0F7911ABD399C00EBC44C /* JDJsonDecoder.m in Sources */,
+				FBD156D41AEF62CB004B063F /* TTConstants.m in Sources */,
+				FBD156DF1AEF8254004B063F /* UIImage+ImageEffects.m in Sources */,
 				FBD156CD1AEF12A6004B063F /* StartHeaderView.m in Sources */,
 				FBF0F78E1ABD399C00EBC44C /* UIImageView+Additional.m in Sources */,
 				FBF0F7E71AC455A300EBC44C /* UIImage+Tint.m in Sources */,
+				FBD156DD1AEF8254004B063F /* BlurMenu.m in Sources */,
 				FBF0F7861ABD399C00EBC44C /* BaseOperation.m in Sources */,
 				FBF0F7621ABD362B00EBC44C /* TrainingUnitCell.m in Sources */,
 				FBF0F7981ABDA5E900EBC44C /* UIColor+TrainingTimer.m in Sources */,
