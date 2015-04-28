@@ -265,8 +265,6 @@
         [self.layer addSublayer:shapeLayer];
         
         [_scaleLayers addObject:shapeLayer];
-        
-        NSLog(@"scale splitter posx(%.1f) posy(%.1f)", posX, posY);
     }
     
 }

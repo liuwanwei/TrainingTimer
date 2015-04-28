@@ -53,7 +53,7 @@
         @strongify(self);
         maker.centerX.equalTo(self.mas_centerX);
         maker.width.equalTo(self.mas_width);
-        maker.top.greaterThanOrEqualTo(self.mas_top);
+        maker.top.greaterThanOrEqualTo(self.mas_top).offset(25);
         maker.bottom.lessThanOrEqualTo(_textViewBrief.mas_top);
     }];
     
