@@ -8,10 +8,9 @@
 
 #import "StartViewController.h"
 #import "TrainingUnit.h"
-#import "HeartRateViewController.h"
 #import "UIColor+TrainingTimer.h"
 #import "UIFont+Adapter.h"
-#import "BigLineView.h"
+#import "StartLineView.h"
 #import <objc/runtime.h>
 #import <Masonry.h>
 #import "TrainingProcess.h"
@@ -35,10 +34,10 @@ typedef enum{
 
 @implementation StartViewController{
     StartHeaderView * _headerView;
-    BigLineView * _warmUpView;
-    BigLineView * _skippingView;
-    BigLineView * _restView;
-    BigLineView * _roundView;
+    StartLineView * _warmUpView;
+    StartLineView * _skippingView;
+    StartLineView * _restView;
+    StartLineView * _roundView;
     NSMutableArray * _bigLines;
     StartPanelView * _startPanel;
 }
@@ -121,7 +120,7 @@ typedef enum{
 }
 
 - (void)resetLineViewDimention{
-    BigLineView * view;
+    StartLineView * view;
     NSEnumerator * enumerator = [_bigLines objectEnumerator];
     while ((view = [enumerator nextObject])) {
         [view resetContentSize];
@@ -143,8 +142,8 @@ typedef enum{
     
     @weakify(self);
     
-    // 头部
-    _headerView = [[StartHeaderView alloc] init];
+    // 头部：训练描述
+    _headerView = [[StartHeaderView alloc] initWithViewController:self];
     [self.view addSubview:_headerView];
     [_headerView createSubViews];
     [_headerView mas_makeConstraints:^(MASConstraintMaker * maker){
@@ -154,12 +153,9 @@ typedef enum{
         maker.width.equalTo(self.view.mas_width);
         maker.height.equalTo(self.view.mas_height).dividedBy(3.58);
     }];
-    _headerView.labelTitle.text = @"HIIT 训练法";
-    _headerView.textViewBrief.text = @"高强度间歇性训练，用来练习心肺功能，冲击速度，减脂效果明显。";
-    _headerView.labelTotalTime.text = @"共需 3 分 25 秒";
     
     // 热身
-    _warmUpView = [[BigLineView alloc] initWithMaxValue:TTMaxWarmUpTime];
+    _warmUpView = [[StartLineView alloc] initWithMaxValue:TTMaxWarmUpTime];
     _warmUpView.tag = BigLineViewWarmUp;
     _warmUpView.parentViewController = self;
     _warmUpView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(60) displayText:@"1 分钟"],
@@ -175,7 +171,7 @@ typedef enum{
     [_bigLines addObject:_warmUpView];
     
     // 跳绳时间
-    _skippingView = [[BigLineView alloc] initWithMaxValue:TTMaxSkippingTime];
+    _skippingView = [[StartLineView alloc] initWithMaxValue:TTMaxSkippingTime];
     _skippingView.tag = BigLineViewSkipping;
     _skippingView.parentViewController = self;
     _skippingView.options = nil;
@@ -189,7 +185,7 @@ typedef enum{
     [_bigLines addObject:_skippingView];
     
     // 休息时间
-    _restView = [[BigLineView alloc] initWithMaxValue:TTMaxRestTime];
+    _restView = [[StartLineView alloc] initWithMaxValue:TTMaxRestTime];
     _restView.tag = BigLineViewRest;
     _restView.parentViewController = self;
     _restView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(10) displayText:@"10 秒"],
@@ -205,7 +201,7 @@ typedef enum{
     [_bigLines addObject:_restView];
     
     // 练习几轮
-    _roundView = [[BigLineView alloc] initWithMaxValue:TTMaxRound];
+    _roundView = [[StartLineView alloc] initWithMaxValue:TTMaxRound];
     _roundView.tag = BigLineViewRound;
     _roundView.parentViewController = self;
     _roundView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"3 组"],
@@ -240,7 +236,7 @@ typedef enum{
     [_startPanel addCalendarButtonTarget:self selector:@selector(showRecords:)];
     
     // 处理每个子View的delegate事件
-    for (BigLineView * view in _bigLines) {
+    for (StartLineView * view in _bigLines) {
         view.delegate = self;
     }
 }
@@ -261,9 +257,6 @@ typedef enum{
     item = [[UIBarButtonItem alloc] initWithTitle:@"记录" style:UIBarButtonItemStylePlain target:self action:@selector(showRecords:)];
     self.navigationItem.leftBarButtonItem = item;
     
-    item = [[UIBarButtonItem alloc] initWithTitle:@"心率" style:UIBarButtonItemStylePlain target:self action:@selector(showHeartRateSetting:)];
-    self.navigationItem.rightBarButtonItem = item;
-    
     // 隐藏默认栈返回按钮中的文字
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
 }
@@ -274,13 +267,8 @@ typedef enum{
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)showHeartRateSetting:(id)sender{
-    HeartRateViewController * vc = [[HeartRateViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
 #pragma mark - Big line value changed
-- (void)bigLineView:(BigLineView *)view didChangeWithNewValue:(NSNumber *)theValue{
+- (void)bigLineView:(StartLineView *)view didChangeWithNewValue:(NSNumber *)theValue{
     TrainingSetting * setting = [TrainingSetting sharedInstance];
     switch (view.tag) {
         case BigLineViewWarmUp:

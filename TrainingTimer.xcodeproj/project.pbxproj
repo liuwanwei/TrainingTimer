@@ -24,7 +24,7 @@
 		FBD156DF1AEF8254004B063F /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD156DC1AEF8254004B063F /* UIImage+ImageEffects.m */; };
 		FBDA39DE1AC996DE00DE81FB /* HeartRateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39DD1AC996DE00DE81FB /* HeartRateViewController.m */; };
 		FBDA39E41ACAF17200DE81FB /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39E31ACAF17200DE81FB /* StartViewController.m */; };
-		FBDA39E71ACAFE4700DE81FB /* BigLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39E61ACAFE4700DE81FB /* BigLineView.m */; };
+		FBDA39E71ACAFE4700DE81FB /* StartLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39E61ACAFE4700DE81FB /* StartLineView.m */; };
 		FBDA39ED1ACB736B00DE81FB /* UIFont+Adapter.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDA39EC1ACB736B00DE81FB /* UIFont+Adapter.m */; };
 		FBF0F7361ABD321700EBC44C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F7351ABD321700EBC44C /* main.m */; };
 		FBF0F7391ABD321700EBC44C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F7381ABD321700EBC44C /* AppDelegate.m */; };
@@ -105,8 +105,8 @@
 		FBDA39DD1AC996DE00DE81FB /* HeartRateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeartRateViewController.m; sourceTree = "<group>"; };
 		FBDA39E21ACAF17200DE81FB /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
 		FBDA39E31ACAF17200DE81FB /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
-		FBDA39E51ACAFE4700DE81FB /* BigLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigLineView.h; sourceTree = "<group>"; };
-		FBDA39E61ACAFE4700DE81FB /* BigLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigLineView.m; sourceTree = "<group>"; };
+		FBDA39E51ACAFE4700DE81FB /* StartLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartLineView.h; sourceTree = "<group>"; };
+		FBDA39E61ACAFE4700DE81FB /* StartLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartLineView.m; sourceTree = "<group>"; };
 		FBDA39EB1ACB736B00DE81FB /* UIFont+Adapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Adapter.h"; sourceTree = "<group>"; };
 		FBDA39EC1ACB736B00DE81FB /* UIFont+Adapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Adapter.m"; sourceTree = "<group>"; };
 		FBF0F7301ABD321700EBC44C /* 极限跳绳.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "极限跳绳.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,8 +221,8 @@
 			children = (
 				FBD156CB1AEF12A6004B063F /* StartHeaderView.h */,
 				FBD156CC1AEF12A6004B063F /* StartHeaderView.m */,
-				FBDA39E51ACAFE4700DE81FB /* BigLineView.h */,
-				FBDA39E61ACAFE4700DE81FB /* BigLineView.m */,
+				FBDA39E51ACAFE4700DE81FB /* StartLineView.h */,
+				FBDA39E61ACAFE4700DE81FB /* StartLineView.m */,
 				FBD156CE1AEF2129004B063F /* StartPanelView.h */,
 				FBD156CF1AEF2129004B063F /* StartPanelView.m */,
 				FB2B75D71AD8B3AB00A4BB8B /* DotView.h */,
@@ -616,7 +616,7 @@
 				FBF0F78C1ABD399C00EBC44C /* NSString+Additional.m in Sources */,
 				FBF0F75F1ABD344800EBC44C /* TrainingProcess.m in Sources */,
 				FBF0F7361ABD321700EBC44C /* main.m in Sources */,
-				FBDA39E71ACAFE4700DE81FB /* BigLineView.m in Sources */,
+				FBDA39E71ACAFE4700DE81FB /* StartLineView.m in Sources */,
 				FB35DF221AD653E300AF4811 /* SoundManager.m in Sources */,
 				FBF0F78D1ABD399C00EBC44C /* UIImage+Resize.m in Sources */,
 				FBF0F7871ABD399C00EBC44C /* BaseResponse.m in Sources */,

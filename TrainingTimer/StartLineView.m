@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 buddysoft. All rights reserved.
 //
 
-#import "BigLineView.h"
+#import "StartLineView.h"
 #import <objc/runtime.h>
 #import <Masonry.h>
 #import "Utils.h"
@@ -18,7 +18,7 @@
 #import "UIColor+TrainingTimer.h"
 #import <NSObject+GLPubSub.h>
 
-@implementation BigLineView{
+@implementation StartLineView{
     UIView * _progressView;
     UIImageView * _imageViewArrow;
     UILabel * _LabelValueUnit;

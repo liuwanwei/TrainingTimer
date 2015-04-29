@@ -30,8 +30,7 @@
     CGFloat height = 0;
     CGSize maximumLabelSize = CGSizeMake(width, CGFLOAT_MAX);
     
-    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:font
-                                                                forKey:NSFontAttributeName];
+    NSDictionary *attrsDictionary = @{ NSFontAttributeName: font};
     
     CGRect textRect = [self boundingRectWithSize:maximumLabelSize
                                          options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)

@@ -36,6 +36,7 @@
     @weakify(self);
     
     _calendarMenuView = [[JTCalendarMenuView alloc] init];
+    _calendarMenuView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_calendarMenuView];
     [_calendarMenuView mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
@@ -46,6 +47,7 @@
     }];
     
     _calendarContentView = [[JTCalendarContentView alloc] init];
+    _calendarContentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_calendarContentView];
     [_calendarContentView mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
@@ -60,7 +62,6 @@
     _tableView.dataSource = self;
     _tableView.rowHeight = 80.0f;
     [self.view addSubview:_tableView];
-//    __weak __typeof__(self) wself = self;
     [_tableView mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
         maker.leading.equalTo(self.view.mas_leading);
@@ -68,6 +69,8 @@
         maker.top.equalTo(self->_calendarContentView.mas_bottom);
         maker.bottom.equalTo(self.view.mas_bottom);
     }];
+    UIView * emptyView = [[UIView alloc] initWithFrame:CGRectZero];
+    _tableView.tableFooterView = emptyView;
     
     [self subscribe:TrainingRecordsChangedNote handler:^(GLEvent * event){
         @strongify(self);
@@ -186,6 +189,14 @@
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _records.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (_records.count <= 0) {
+        return @"暂无数据";
+    }else{
+        return @"";
+    }
 }
 
 #pragma mark - Table view delegate

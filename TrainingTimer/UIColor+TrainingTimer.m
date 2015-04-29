@@ -24,6 +24,9 @@ static TrainingColorSchema sSchema = TrainingColorSchemaBlue;
         if (object) {
             sSchema = (TrainingColorSchema)[object integerValue];
         }
+        
+        // Make Pink the default color schema
+        sSchema = TrainingColorSchemaPink;
     });
 }
 

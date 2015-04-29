@@ -17,16 +17,16 @@ typedef enum{
     TTMaxLengthNone,
 }TTMaxLength;
 
-@class BigLineView;
+@class StartLineView;
 @protocol BigLineViewDelegate <NSObject>
 @optional
-- (void)bigLineView:(BigLineView *)view didChangeWithNewValue:(NSNumber *)theValue;
+- (void)bigLineView:(StartLineView *)view didChangeWithNewValue:(NSNumber *)theValue;
 @end
 
 
 @class TrainingUnit;
 
-@interface BigLineView : UIView <BlurMenuDelegate>
+@interface StartLineView : UIView <BlurMenuDelegate>
 
 @property (nonatomic, strong) UILabel * typeLabel;
 @property (nonatomic, strong) UILabel * valueLabel;

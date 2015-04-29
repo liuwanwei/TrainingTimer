@@ -24,7 +24,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [UIColor loadSchema];
-//    [UIColor setSchema:TrainingColorSchemaBlue];
     
     [Utils customizeStatusBarForApplication:application withStyle:UIStatusBarStyleLightContent];
     [Utils customizeNavigationBarForApplication:application withColor:[UIColor barBackgroundColor]];
