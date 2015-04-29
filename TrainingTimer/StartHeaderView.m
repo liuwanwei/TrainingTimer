@@ -87,13 +87,13 @@
     [buttonHeart addTarget:self action:@selector(showHeartRate:) forControlEvents:UIControlEventTouchUpInside];
     UIImage * imageHeart = [UIImage imageNamed:@"heart"];
     imageHeart = [imageHeart imageWithTintColor:[UIColor whiteColor]];
-
     [buttonHeart setImage:imageHeart forState:UIControlStateNormal];
+    buttonHeart.contentMode = UIViewContentModeCenter;
     [buttonHeart mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
-        maker.leading.equalTo(self.mas_leading).offset(16);
+        maker.leading.equalTo(self.mas_leading);
         maker.centerY.equalTo(self->_labelTitle.mas_centerY);
-        maker.width.equalTo(@(24));
+        maker.width.equalTo(@(64));
         maker.height.equalTo(buttonHeart.mas_width);
     }];
     
