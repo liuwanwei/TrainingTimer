@@ -7,6 +7,9 @@
 //
 
 #import "BlurMenu.h"
+#import <Masonry.h>
+#import <EXTScope.h>
+#import <NSObject+GLPubSub.h>
 
 #define COLLECTION_VIEW_PADDING 64
 
@@ -14,7 +17,11 @@
 #define ITEM_LINE_SPACING 10
 
 @implementation BlurMenu
-@synthesize parent, delegate, menuItems, _collectionView;
+@synthesize parent, delegate, menuItems, _collectionView, _closeButton;
+
++ (BOOL)requiresConstraintBasedLayout{
+    return YES;
+}
 
 - (id)initWithItems:(NSArray*)items parentView:(UIView *)p delegate:(id<BlurMenuDelegate>)d {
     self = [super init];
@@ -28,9 +35,45 @@
         self.itemHeight = ITEM_HEIGHT;
         self.itemFont = [UIFont systemFontOfSize:17.0f];
         self.itemTextColor = [UIColor whiteColor];
+        
+        [self subscribe:UIApplicationWillChangeStatusBarOrientationNotification handler:^(GLEvent * event){
+            [self setNeedsUpdateConstraints];
+        }];
     }
     
     return self;
+}
+
+- (void)updateConstraints{
+    
+    [self remakeConstrainits];
+    
+    [super updateConstraints];
+}
+
+- (void)remakeConstrainits{
+    CGFloat height = [self calculateCollectionViewHeight];
+    
+    @weakify(self);
+    
+    [_collectionView mas_remakeConstraints:^(MASConstraintMaker * maker){
+        @strongify(self);
+        maker.leading.equalTo(self.mas_leading);
+        maker.top.equalTo(self.mas_top).offset((self.frame.size.height - height) / 2);
+        maker.width.equalTo(self.mas_width);
+        maker.bottom.equalTo(self.mas_bottom).offset((self.frame.size.height - height) / 2);
+    }];
+    
+    [_closeButton mas_remakeConstraints:^(MASConstraintMaker * maker){
+        @strongify(self);
+        maker.leading.equalTo(self.mas_leading);
+        maker.bottom.equalTo(self.mas_bottom).offset(-COLLECTION_VIEW_PADDING);
+        maker.width.equalTo(self.mas_width);
+        maker.height.equalTo(@(COLLECTION_VIEW_PADDING));
+    }];
+    
+//    [_collectionView setNeedsLayout];
+//    [_collectionView layoutIfNeeded];
 }
 
 - (void)initSubViews{
@@ -38,31 +81,31 @@
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:background];
     [self addSubview:backgroundView];
     
-    CGFloat height = [self calculateCollectionViewHeight];
-    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     [layout setMinimumLineSpacing:ITEM_LINE_SPACING];
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, (self.frame.size.height - height) / 2, self.frame.size.width, height) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     [_collectionView setDataSource:self];
     [_collectionView setDelegate:self];
     [_collectionView registerClass:[BlurMenuItemCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
     [_collectionView setBackgroundColor:[UIColor clearColor]];
     [self addSubview:_collectionView];
     
-    UIButton *close = [UIButton buttonWithType:UIButtonTypeCustom];
-    close.frame = CGRectMake(0, self.frame.size.height - COLLECTION_VIEW_PADDING, self.frame.size.width, COLLECTION_VIEW_PADDING);
-    close.backgroundColor = [UIColor clearColor];
-    [close setTitle:@"Close" forState:UIControlStateNormal];
-    [close setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    close.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:26.0f];
-    [close addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchDown];
-    [self addSubview:close];
+    _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _closeButton.backgroundColor = [UIColor clearColor];
+    [_closeButton setTitle:@"Close" forState:UIControlStateNormal];
+    [_closeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _closeButton.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:26.0f];
+    [_closeButton addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchDown];
+    [self addSubview:_closeButton];
+    
+    [self remakeConstrainits];
 }
+
 
 - (void)show {
     [self initSubViews];
     
-    [self.parent addSubview:self];
+//    [self.parent addSubview:self];
     [UIView animateWithDuration:0.1 animations:^{
         self.alpha = 1.0f;
     } completion:^(BOOL finished) {

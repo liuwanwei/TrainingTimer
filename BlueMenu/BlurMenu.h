@@ -24,12 +24,14 @@
     UIView *parent;
     NSArray *menuItems;
     UICollectionView *_collectionView;
+    UIButton * _closeButton;
 }
 
 @property(nonatomic, retain) id <BlurMenuDelegate> delegate;
 @property(nonatomic, retain) UIView *parent;
 @property(nonatomic, retain) NSArray *menuItems;
 @property(nonatomic, retain) UICollectionView *_collectionView;
+@property (nonatomic, retain) UIButton * _closeButton;
 @property(nonatomic) NSInteger itemHeight;
 @property(nonatomic, strong) UIFont * itemFont;
 @property(nonatomic, strong) UIColor * itemTextColor;
@@ -38,5 +40,7 @@
 
 - (void)show;
 - (void)hide;
+
+- (void)remakeConstrainits;
 
 @end

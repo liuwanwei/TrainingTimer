@@ -79,21 +79,29 @@ static NSString * const TimeFontName= @"Courier"; //@"DIN Alternate";
 }
 
 - (void)showTappedMenu{
-    if (_menu == nil) {
+
+    NSArray * items = nil;
+    if (items == nil) {
         NSMutableArray * mutableArray = [@[] mutableCopy];
         NSEnumerator * enumerator = [_options objectEnumerator];
         XLFormOptionsObject * option;
         while ((option = [enumerator nextObject])) {
             [mutableArray addObject:option.displayText];
         }
-        
-        NSArray * items = mutableArray;
-        
-        _menu = [[BlurMenu alloc] initWithItems:items parentView:self.parentViewController.view delegate:self];
-        _menu.itemHeight = 80;
-        _menu.itemFont = [UIFont systemFontOfSize:30.0f];
-        _menu.itemTextColor = [UIColor mainColor];
+
+        items = mutableArray;
     }
+    
+    _menu = [[BlurMenu alloc] initWithItems:items parentView:self.parentViewController.view delegate:self];
+    [self.parentViewController.view addSubview:_menu];
+    _menu.itemHeight = 80;
+    _menu.itemFont = [UIFont systemFontOfSize:30.0f];
+    _menu.itemTextColor = [UIColor mainColor];
+    @weakify(self);
+    [_menu mas_makeConstraints:^(MASConstraintMaker * maker){
+        @strongify(self);
+        maker.edges.equalTo(self.parentViewController.view);
+    }];
     
     [_menu show];
 }
@@ -264,6 +272,10 @@ static NSString * const TimeFontName= @"Courier"; //@"DIN Alternate";
     [self setFontAutoFitSizeForLabel:_valueLabel];
     
     [self redrawScaleSplitter];
+    
+//    if (_menu && ! _menu.hidden) {
+//        [_menu setNeedsUpdateConstraints];
+//    }
 }
 
 - (void)setValueUnit:(NSString *)valueUnit{
