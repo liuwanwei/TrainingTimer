@@ -13,6 +13,7 @@
 #import "UIColor+TrainingTimer.h"
 #import "UIImage+Tint.h"
 #import "HeartRateViewController.h"
+#import "RecordsViewController.h"
 #import "TTConstants.h"
 #import "BDFoundation.h"
 
@@ -81,7 +82,7 @@
         maker.bottom.equalTo(_textViewBrief.mas_top);
     }];
     
-    // 左侧心形图标按钮
+    // 右侧心形图标按钮
     UIButton * buttonHeart = [UIButton buttonWithType:UIButtonTypeCustom];
     [self addSubview:buttonHeart];
     [buttonHeart addTarget:self action:@selector(showHeartRate:) forControlEvents:UIControlEventTouchUpInside];
@@ -91,10 +92,26 @@
     buttonHeart.contentMode = UIViewContentModeCenter;
     [buttonHeart mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
-        maker.leading.equalTo(self.mas_leading);
+        maker.trailing.equalTo(self.mas_trailing);
         maker.centerY.equalTo(self->_labelTitle.mas_centerY);
         maker.width.equalTo(@(64));
         maker.height.equalTo(buttonHeart.mas_width);
+    }];
+    
+    // 左侧日历按钮
+    UIButton * buttonCalendar = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self addSubview:buttonCalendar];
+    [buttonCalendar addTarget:self action:@selector(showCalendar:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage * imageCalendar = [UIImage imageNamed:@"calendar"];
+    imageCalendar = [imageCalendar imageWithTintColor:[UIColor whiteColor]];
+    [buttonCalendar setImage:imageCalendar forState:UIControlStateNormal];
+    buttonCalendar.contentMode = UIViewContentModeCenter;
+    [buttonCalendar  mas_makeConstraints:^(MASConstraintMaker * maker){
+        @strongify(self);
+        maker.leading.equalTo(self.mas_leading);
+        maker.centerY.equalTo(self->_labelTitle.mas_centerY);
+        maker.width.equalTo(@64);
+        maker.height.equalTo(buttonCalendar.mas_width);
     }];
     
     // 底部：整体所需时间
@@ -126,6 +143,12 @@
 - (void)showHeartRate:(id)sender{
     HeartRateViewController * vc = [[HeartRateViewController alloc] init];
     [_parentViewController.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)showCalendar:(id)sender{
+    RecordsViewController * vc = [[RecordsViewController alloc] init];
+    [self.parentViewController.navigationController pushViewController:vc animated:YES];
+
 }
 
 @end

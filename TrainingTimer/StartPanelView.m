@@ -51,18 +51,17 @@
     
     _startButton = buttonStart;
     
-    _calendarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self addSubview: _calendarButton];
-    [_calendarButton mas_makeConstraints:^(MASConstraintMaker * maker){
-        @strongify(self);
-        maker.centerY.equalTo(self.mas_centerY);
-        maker.leading.greaterThanOrEqualTo(self.mas_leading).offset(32);
-//        maker.trailing.lessThanOrEqualTo(self->_startButton.mas_leading).offset(-8);
-        maker.width.equalTo(@(36));
-        maker.height.equalTo(_calendarButton.mas_width);
-    }];
-    
-    [_calendarButton setImage:[UIImage imageNamed:@"calendar"] forState:UIControlStateNormal];
+//    _calendarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [self addSubview: _calendarButton];
+//    [_calendarButton mas_makeConstraints:^(MASConstraintMaker * maker){
+//        @strongify(self);
+//        maker.centerY.equalTo(self.mas_centerY);
+//        maker.leading.greaterThanOrEqualTo(self.mas_leading).offset(32);
+//        maker.width.equalTo(@(36));
+//        maker.height.equalTo(_calendarButton.mas_width);
+//    }];
+//    
+//    [_calendarButton setImage:[UIImage imageNamed:@"calendar"] forState:UIControlStateNormal];
 }
 
 - (void)addStartButtonTarget:(id)target selector:(SEL)selector{
