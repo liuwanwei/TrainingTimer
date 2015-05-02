@@ -14,8 +14,6 @@
 @property (nonatomic, strong) MASConstraint * bottomConstraint;
 @property (nonatomic) CGFloat originalBottomOffset;
 
-@property (nonatomic, strong) MASConstraint * heightConstraint;
-
 - (void)makeCircle;
 
 - (void)addConcentricCircle;

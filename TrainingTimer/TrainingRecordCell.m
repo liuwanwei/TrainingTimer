@@ -42,7 +42,7 @@
     }];
     
     _descriptionLabel = [[UILabel alloc] init];
-    _descriptionLabel.font = [UIFont boldSystemFontOfSize:18.0];
+    _descriptionLabel.font = [UIFont systemFontOfSize:17.0];
     [self.contentView addSubview:_descriptionLabel];
     [_descriptionLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);

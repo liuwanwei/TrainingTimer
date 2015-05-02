@@ -18,6 +18,9 @@
 #import "UIColor+TrainingTimer.h"
 #import <NSObject+GLPubSub.h>
 
+static NSString * const LabelFontName = @"HelveticaNeue-Medium";
+static NSString * const TimeFontName= @"Courier"; //@"DIN Alternate";
+
 @implementation StartLineView{
     UIView * _progressView;
     UIImageView * _imageViewArrow;
@@ -188,7 +191,8 @@
     [self addSubview:_LabelValueUnit];
     _LabelValueUnit.alpha = 0.6;
     _LabelValueUnit.textColor = [UIColor blackColor];
-    _LabelValueUnit.font = [UIFont systemFontOfSize:24.0];
+    UIFont * font = [UIFont fontWithName:LabelFontName size:20.0f];
+    _LabelValueUnit.font = font;
     [_LabelValueUnit mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
         maker.centerY.equalTo(self.mas_centerY);
@@ -197,22 +201,18 @@
         maker.width.equalTo(@48);
     }];
     
-    // 时间，如：02：00
+    // 时间，如：120秒
     _valueLabel = [[UILabel alloc] init];
     _valueLabel.textAlignment = NSTextAlignmentCenter;
     _valueLabel.textColor = [UIColor mainColor];
     _valueLabel.userInteractionEnabled = NO;
-//    UIFont * font = [UIFont fontWithName:@"Lao Sangam MN" size:34.0];
-    UIFont * font = [UIFont fontWithName:@"DIN Alternate" size:34.0];
-    _valueLabel.font = font;
     [self addSubview:_valueLabel];
     [_valueLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
-//        maker.centerX.equalTo(self.mas_centerX);
         maker.centerY.equalTo(self.mas_centerY);
         maker.trailing.equalTo(self->_LabelValueUnit.mas_leading);
         maker.width.equalTo(self.mas_width).dividedBy(4.0);
-        maker.height.equalTo(self.mas_height).dividedBy(2);
+        maker.height.equalTo(self.mas_height).dividedBy(3);
         
     }];
     
@@ -220,7 +220,7 @@
     _typeLabel = [[UILabel alloc] init];
     _typeLabel.textAlignment = NSTextAlignmentLeft;
     _typeLabel.textColor = [UIColor blackColor];
-    _typeLabel.font = [UIFont systemFontOfSize:20.0f];
+    _typeLabel.font = [UIFont fontWithName:LabelFontName size:21.0];
     _typeLabel.userInteractionEnabled = NO;
     [self addSubview:_typeLabel];
     [_typeLabel mas_makeConstraints:^(MASConstraintMaker * maker){
@@ -314,7 +314,7 @@
     [label setNeedsLayout];
     [label layoutIfNeeded];
     
-    label.font = [UIFont findAdaptiveFontWithName:nil forUILabelSize:label.frame.size withMinimumSize:0];
+    label.font = [UIFont findAdaptiveFontWithName:TimeFontName forUILabelSize:label.frame.size withMinimumSize:0];
 }
 
 

@@ -13,16 +13,16 @@
 #import "TrainingData.h"
 #import "TrainingRecord.h"
 #import "TrainingRecordCell.h"
-
-@interface RecordsViewController (){
-    NSMutableDictionary *eventsByDate;
-}
-
-@end
+#import "UIColor+TrainingTimer.h"
 
 
 @implementation RecordsViewController{
     NSArray * _records;
+    
+    NSArray * _oneDayRecords;
+    NSString * _selectedDateString;
+    NSMutableDictionary * _eventsByDate;
+    
     JTCalendarMenuView * _calendarMenuView;
     JTCalendarContentView * _calendarContentView;
     JTCalendar * _calendar;
@@ -30,6 +30,8 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    
+    [self setEdgesForExtendedLayout:UIRectEdgeNone];
     
     self.title = @"训练记录";
     
@@ -87,9 +89,14 @@
     // Or you will have to call reloadAppearance
     {
         _calendar.calendarAppearance.calendar.firstWeekday = 2; // Sunday == 1, Saturday == 7
-        _calendar.calendarAppearance.dayCircleRatio = 9. / 10.;
-        _calendar.calendarAppearance.ratioContentMenu = 2.;
-        _calendar.calendarAppearance.focusSelectedDayChangeMode = YES;
+        _calendar.calendarAppearance.dayCircleRatio = 7. / 10.;
+        _calendar.calendarAppearance.dayDotRatio = 1. / 5;
+        _calendar.calendarAppearance.dayDotColor = [UIColor mainColor];
+        _calendar.calendarAppearance.dayCircleColorSelected = [UIColor mainColor];
+        _calendar.calendarAppearance.dayCircleColorToday = [UIColor grayColor];
+        _calendar.calendarAppearance.dayCircleColorTodayOtherMonth = [UIColor grayColor];
+        _calendar.calendarAppearance.ratioContentMenu = 1.;
+        _calendar.calendarAppearance.focusSelectedDayChangeMode = NO;
         
         // Customize the text for each month
         _calendar.calendarAppearance.monthBlock = ^NSString *(NSDate *date, JTCalendar *jt_calendar){
@@ -122,6 +129,19 @@
     [super viewWillAppear:animated];
     
     _records = [[TrainingData defaultInstance] records];
+    
+    [self createTrainingEventsFromRecords:_records];
+    [_calendar reloadData];
+    
+    // 默认列表显示所有的记录，当选择一个日期后，再展示那天的训练记录
+    _oneDayRecords = _records;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    // 在 viewWillAppear 中调用起不到效果，我猜不到原因 TODO:
+    [_calendar setCurrentDate:[NSDate date]];
 }
 
 #pragma mark - JTCalendar 
@@ -129,20 +149,33 @@
 {
     NSString *key = [[self dateFormatter] stringFromDate:date];
     
-    if(eventsByDate[key] && [eventsByDate[key] count] > 0){
-        return YES;
+    if(_eventsByDate[key]){
+        NSArray * events = _eventsByDate[key];
+        if (events.count > 0) {
+            NSLog(@"%@ has events %@", key, @(events.count));
+            return YES;
+        }
     }
     
     return NO;
 }
 
-- (void)calendarDidDateSelected:(JTCalendar *)calendar date:(NSDate *)date
-{
+- (void)calendarDidDateSelected:(JTCalendar *)calendar date:(NSDate *)date{
     NSString *key = [[self dateFormatter] stringFromDate:date];
-    NSArray *events = eventsByDate[key];
+    NSArray *events = _eventsByDate[key];
     
+    _oneDayRecords = events;
+    _selectedDateString = key;
+    [_tableView reloadData];
     NSLog(@"Date: %@ - %zd events", date, [events count]);
 }
+
+//- (BOOL)calendar:(JTCalendar *)calendar canSelectDate:(NSDate *)date{
+//    NSString *key = [[self dateFormatter] stringFromDate:date];
+//    NSArray *events = _eventsByDate[key];
+//    
+//    return events.count > 0;
+//}
 
 - (void)calendarDidLoadPreviousPage
 {
@@ -159,28 +192,28 @@
     static NSDateFormatter *dateFormatter;
     if(!dateFormatter){
         dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"dd-MM-yyyy";
+        dateFormatter.dateFormat = @"yyyy-MM-dd";
     }
     
     return dateFormatter;
 }
 
-- (void)createRandomEvents
-{
-    eventsByDate = [NSMutableDictionary new];
+- (void)createTrainingEventsFromRecords:(NSArray *)records{
+    _eventsByDate = [NSMutableDictionary new];
     
-    for(int i = 0; i < 30; ++i){
-        // Generate 30 random dates between now and 60 days later
-        NSDate *randomDate = [NSDate dateWithTimeInterval:(rand() % (3600 * 24 * 60)) sinceDate:[NSDate date]];
+    NSEnumerator * enumerator = [records objectEnumerator];
+    TrainingRecord * record;
+    while(record = [enumerator nextObject]){
+        NSDate *trainingDate = record.createDate;
         
         // Use the date as key for eventsByDate
-        NSString *key = [[self dateFormatter] stringFromDate:randomDate];
+        NSString *key = [[self dateFormatter] stringFromDate:trainingDate];
         
-        if(!eventsByDate[key]){
-            eventsByDate[key] = [NSMutableArray new];
+        if(!_eventsByDate[key]){
+            _eventsByDate[key] = [NSMutableArray new];
         }
         
-        [eventsByDate[key] addObject:randomDate];
+        [_eventsByDate[key] addObject:record];
     }
 }
 
@@ -188,14 +221,18 @@
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _records.count;
+    return _oneDayRecords.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    if (_records.count <= 0) {
-        return @"暂无数据";
+    if (_oneDayRecords && _oneDayRecords == _records) {
+        return @"全部训练";
+    }
+    
+    if (_oneDayRecords.count <= 0) {
+        return @"该日没有训练";
     }else{
-        return @"";
+        return _selectedDateString;
     }
 }
 
@@ -214,7 +251,7 @@
     
     TrainingRecordCell * recordCell = (TrainingRecordCell *)cell;
     
-    TrainingRecord * record = _records[indexPath.row];
+    TrainingRecord * record = _oneDayRecords[indexPath.row];
     [recordCell setNumberOfSkipping:record.numberOfSkipping.stringValue];
     recordCell.descriptionLabel.text = [record description];
     recordCell.timeLabel.text = [record date];

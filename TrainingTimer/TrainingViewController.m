@@ -27,8 +27,7 @@ static NSString * const kStopTrainingText = @"结束训练";
 static NSInteger const UIAlertViewStopTraining = 10081;
 static NSInteger const UIAlertViewSkippingCount = 10082;
 
-static float const DotViewBottomMargin = 10;
-static NSInteger const DotViewDiameterDividedValue = 15;
+static float const DotViewBottomMargin = 15;
 
 
 @interface TrainingViewController ()
@@ -225,7 +224,7 @@ static NSInteger const DotViewDiameterDividedValue = 15;
         
         [dotView mas_makeConstraints:^(MASConstraintMaker * maker){
             // 共同位置属性
-            dotView.heightConstraint = maker.height.equalTo(_wSuperView.mas_height).dividedBy(DotViewDiameterDividedValue);
+            maker.height.equalTo(@(51.2));
             
             dotView.originalBottomOffset = - DotViewBottomMargin;
             dotView.bottomConstraint = maker.bottom.equalTo(_wSuperView.mas_bottom).with.offset( - DotViewBottomMargin);
@@ -547,7 +546,7 @@ static NSInteger const DotViewDiameterDividedValue = 15;
     CGSize size;
     size = _timeLabel.frame.size;
     size.height /= 2;
-    UIFont * font = [UIFont findAdaptiveFontWithName:nil forUILabelSize:size withMinimumSize:32];
+    UIFont * font = [UIFont findAdaptiveFontWithName:@"Apple SD Gothic Neo" forUILabelSize:size withMinimumSize:32];
     _timeLabel.font = font;
 }
 
