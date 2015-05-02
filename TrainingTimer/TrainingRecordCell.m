@@ -30,44 +30,45 @@
     _numberOfSkippingLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _numberOfSkippingLabel.textColor = [UIColor mainColor];
     _numberOfSkippingLabel.textAlignment = NSTextAlignmentCenter;
-    _numberOfSkippingLabel.font = [UIFont systemFontOfSize:30.];
+    _numberOfSkippingLabel.font = [UIFont systemFontOfSize:20.];
     [self.contentView addSubview:_numberOfSkippingLabel];
     @weakify(self);
     [_numberOfSkippingLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
         maker.centerY.equalTo(self.contentView.mas_centerY);
-        maker.leading.equalTo(self.contentView.mas_left).offset(10.0);
-        maker.top.equalTo(self.contentView.mas_top);
-        maker.width.equalTo(_numberOfSkippingLabel.mas_height);
+        maker.leading.equalTo(self.contentView.mas_left).offset(16.0);
+        maker.width.equalTo(@(140.0));
     }];
     
     _descriptionLabel = [[UILabel alloc] init];
-    _descriptionLabel.font = [UIFont systemFontOfSize:17.0];
+    _descriptionLabel.font = [UIFont systemFontOfSize:18.0];
     [self.contentView addSubview:_descriptionLabel];
     [_descriptionLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
-        maker.leading.equalTo(_numberOfSkippingLabel.mas_right).offset(5.0);
-        maker.centerY.equalTo(self.contentView.mas_centerY).offset(-10.0);
-        maker.trailing.equalTo(self.contentView.mas_right);
+        maker.leading.equalTo(_numberOfSkippingLabel.mas_right).offset(8.0);
+        maker.centerY.equalTo(self.contentView.mas_centerY);
+        maker.width.equalTo(@(200));
         maker.height.equalTo(self.contentView.mas_height).dividedBy(2.0);
     }];
     
     _timeLabel = [[UILabel alloc] init];
     [self.contentView addSubview:_timeLabel];
+    _timeLabel.textAlignment = NSTextAlignmentRight;
+    _timeLabel.alpha = 0.8;
     [_timeLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
-        maker.leading.equalTo(_descriptionLabel.mas_left);
-        maker.trailing.equalTo(self.contentView.mas_right);
-        maker.top.equalTo(_descriptionLabel.mas_bottom);
-        maker.bottom.equalTo(self.contentView.mas_bottom);
+        maker.leading.equalTo(_descriptionLabel.mas_right);
+        maker.trailing.equalTo(self.contentView.mas_right).offset(-16);
+        maker.centerY.equalTo(self.contentView.mas_centerY);
+        maker.height.equalTo(self->_descriptionLabel.mas_height);
     }];
 }
 
 - (void)setNumberOfSkipping:(NSString *)numberString{
     if (numberString.length == 0) {
-        _numberOfSkippingLabel.text = @"无";
+        _numberOfSkippingLabel.text = @"未计数";
     }else{
-        _numberOfSkippingLabel.text = numberString;        
+        _numberOfSkippingLabel.text = [NSString stringWithFormat:@"跳绳 %@ 次", numberString];
     }
 }
 
