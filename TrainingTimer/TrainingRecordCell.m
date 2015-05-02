@@ -29,7 +29,7 @@
 - (void)createSubView{
     _numberOfSkippingLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _numberOfSkippingLabel.textColor = [UIColor mainColor];
-    _numberOfSkippingLabel.textAlignment = NSTextAlignmentCenter;
+    _numberOfSkippingLabel.textAlignment = NSTextAlignmentLeft;
     _numberOfSkippingLabel.font = [UIFont systemFontOfSize:20.];
     [self.contentView addSubview:_numberOfSkippingLabel];
     @weakify(self);
@@ -54,7 +54,7 @@
     _timeLabel = [[UILabel alloc] init];
     [self.contentView addSubview:_timeLabel];
     _timeLabel.textAlignment = NSTextAlignmentRight;
-    _timeLabel.alpha = 0.8;
+    _timeLabel.textColor = [UIColor lightGrayColor];
     [_timeLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
         maker.leading.equalTo(_descriptionLabel.mas_right);

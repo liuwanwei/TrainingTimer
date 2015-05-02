@@ -92,9 +92,9 @@
         _calendar.calendarAppearance.dayCircleRatio = 7. / 10.;
         _calendar.calendarAppearance.dayDotRatio = 1. / 5;
         _calendar.calendarAppearance.dayDotColor = [UIColor mainColor];
+        _calendar.calendarAppearance.dayDotColorOtherMonth = [UIColor mainColor];
         _calendar.calendarAppearance.dayCircleColorSelected = [UIColor mainColor];
-        _calendar.calendarAppearance.dayCircleColorToday = [UIColor grayColor];
-        _calendar.calendarAppearance.dayCircleColorTodayOtherMonth = [UIColor grayColor];
+        _calendar.calendarAppearance.dayCircleColorSelectedOtherMonth = [UIColor mainColor];
         _calendar.calendarAppearance.ratioContentMenu = 1.;
         _calendar.calendarAppearance.focusSelectedDayChangeMode = NO;
         
@@ -226,13 +226,15 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (_oneDayRecords && _oneDayRecords == _records) {
-        return @"全部训练";
+        NSString * sectionTitle = [NSString stringWithFormat:@"全部训练（共 %@ 次）", @(_records.count)];
+        return sectionTitle;
     }
     
     if (_oneDayRecords.count <= 0) {
         return @"该日没有训练";
     }else{
-        return _selectedDateString;
+        NSString * sectionTitle = [NSString stringWithFormat:@"%@（共 %@ 次)", _selectedDateString, @(_oneDayRecords.count)];
+        return sectionTitle;
     }
 }
 

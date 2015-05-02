@@ -63,7 +63,7 @@
     [self initSubViews];
     
     [self.parent addSubview:self];
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.1 animations:^{
         self.alpha = 1.0f;
     } completion:^(BOOL finished) {
         if ([self.delegate respondsToSelector:@selector(menuDidShow)]) {

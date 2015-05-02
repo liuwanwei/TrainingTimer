@@ -158,9 +158,9 @@ typedef enum{
     _warmUpView = [[StartLineView alloc] initWithMaxValue:TTMaxWarmUpTime];
     _warmUpView.tag = BigLineViewWarmUp;
     _warmUpView.parentViewController = self;
-    _warmUpView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(60) displayText:@"1 分钟"],
-                            [XLFormOptionsObject formOptionsObjectWithValue:@(120) displayText:@"2 分钟"],
-                            [XLFormOptionsObject formOptionsObjectWithValue:@(180) displayText:@"3 分钟"]];
+    _warmUpView.options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(60) displayText:@"60 秒"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(120) displayText:@"120 秒"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(180) displayText:@"180 秒"]];
     [self.view addSubview:_warmUpView];
     [_warmUpView mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
