@@ -9,6 +9,7 @@
 #import "TrainingManager.h"
 #import "TrainingProcess.h"
 #import "TrainingUnit.h"
+#import "TrainingSetting.h"
 #import "TrainingVoiceManager.h"
 #import "SoundManager.h"
 
@@ -131,13 +132,16 @@ const NSInteger RushTimeStartSeconds = 10;
         [_delegate performSelector:@selector(trainingBeginForUnit:) withObject:_currentUnit];
     }
     
-    if ([_currentUnit isTrainingUnit]) {
-//        [[SoundManager defaultManager] playSoundWithFileName:@"female_lets_go_by_KendraYoder"];
-        [_voiceSpeaker speech:@"LET'S GO"];
-    }else{
-        [_voiceSpeaker speech:[NSString stringWithFormat:@"%@ 开始 共 %@",
-                               [_currentUnit description],
-                               [Utils readableTimeFromSeconds:[_currentUnit.timeLength integerValue]]]];        
+    if ([TrainingSetting sharedInstance].soundEffect) {
+        if ([_currentUnit isTrainingUnit]) {
+            [[SoundManager defaultManager] playSoundWithFileName:@"female_lets_go_by_KendraYoder"];
+            //        [_voiceSpeaker speech:@"LET'S GO"];
+        }else{
+            // TODO:　用真人语音代替
+            [_voiceSpeaker speech:[NSString stringWithFormat:@"%@ 开始 共 %@",
+                                   [_currentUnit description],
+                                   [Utils readableTimeFromSeconds:[_currentUnit.timeLength integerValue]]]];
+        }
     }
 }
 
@@ -161,14 +165,24 @@ const NSInteger RushTimeStartSeconds = 10;
         });
         
     }else{
-        if (_unitSecondsLeft <= RushTimeStartSeconds) {
-            [_voiceSpeaker speech:[@(_unitSecondsLeft) stringValue] withRate:TrainingVoiceRateFast];
-            [[UIDevice currentDevice] playInputClick];// TODO:模拟器下没有声音，再测
-        }
-
         // 训练单元时间更新
         if (_delegate && [_delegate respondsToSelector:@selector(trainingUnit:unitTimeLeft:)]) {
             [_delegate performSelector:@selector(trainingUnit:unitTimeLeft:) withObject:_currentUnit withObject:@(_unitSecondsLeft)];
+        }
+        
+        if ([TrainingSetting sharedInstance].soundEffect) {
+            if (_unitSecondsLeft == 0){
+                [[SoundManager defaultManager] playSoundWithFileName:@"Timeout"];
+                
+            }else if (_unitSecondsLeft <= RushTimeStartSeconds) {
+                // [_voiceSpeaker speech:[@(_unitSecondsLeft) stringValue] withRate:TrainingVoiceRateFast];
+                // [[UIDevice currentDevice] playInputClick];// TODO:模拟器下没有声音，再测
+                [[SoundManager defaultManager] playSoundWithFileName:@"WatchTick"];
+                
+            }else if([_currentUnit isTrainingUnit]){
+                [[SoundManager defaultManager] playSoundWithFileName:@"WatermelonKickDrum"];
+                
+            }
         }
     }
 }

@@ -18,6 +18,8 @@
 #import "TrainingRecord.h"
 #import "TrainingData.h"
 #import "DotView.h"
+#import "TrainingSetting.h"
+#import <EXTScope.h>
 #import <FBShimmeringView.h>
 
 static NSString * const kDefaultTrainingTimeLeft = @"00:00";
@@ -40,6 +42,7 @@ static float const DotViewBottomMargin = 15;
     BOOL _manualStopped;    // 是否手工关闭
 
     UIButton * _closeButton;
+    UIButton * _soundButton;
     UILabel * _timeLabel;
     UIView * _centeredView;
     UIButton * _centeredButton;
@@ -102,7 +105,7 @@ static float const DotViewBottomMargin = 15;
     _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_wSuperView addSubview:_closeButton];
     [_closeButton mas_makeConstraints:^(MASConstraintMaker * maker){
-        maker.leading.equalTo(_wSuperView.mas_leading).offset(4);
+        maker.leading.equalTo(_wSuperView.mas_leading).offset(16);
         maker.top.equalTo(_wSuperView.mas_top).offset(16.0f);
         maker.width.equalTo(@(CloseButtonWidth));
         maker.height.equalTo(_closeButton.mas_width);
@@ -111,6 +114,21 @@ static float const DotViewBottomMargin = 15;
     image = [image imageWithTintColor:[UIColor whiteColor]];
     [_closeButton setImage:image forState:UIControlStateNormal];
     [_closeButton addTarget:self action:@selector(dismissView:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 声音按钮
+    _soundButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:_soundButton];
+    @weakify(self);
+    [_soundButton mas_makeConstraints:^(MASConstraintMaker * maker){
+        @strongify(self);
+        maker.trailing.equalTo(self.view.mas_trailing).offset(-16.0f);
+        maker.top.equalTo(self.view.mas_top).offset(16.0f);
+        maker.width.equalTo(@(CloseButtonWidth));
+        maker.height.equalTo(_soundButton.mas_width);
+    }];
+    [self updateSoundEffectButton];
+    [_soundButton addTarget:self action:@selector(soundEffect:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     // 中心背景：正圆形
     _centeredView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -193,6 +211,7 @@ static float const DotViewBottomMargin = 15;
     // 将进度指示界面放到按钮下层，其它界面上层
     [_wSuperView bringSubviewToFront:_progressView];
     [_wSuperView bringSubviewToFront:_closeButton];
+    [_wSuperView bringSubviewToFront:_soundButton];
     [_wSuperView bringSubviewToFront:_centeredButton];
 }
 
@@ -323,6 +342,21 @@ static float const DotViewBottomMargin = 15;
     }else{
         [self.navigationController popViewControllerAnimated:YES];        
     }
+}
+
+- (void)soundEffect:(id)sender{
+    TrainingSetting * ts = [TrainingSetting sharedInstance];
+    ts.soundEffect = ! ts.soundEffect;
+    [ts syncToDisk];
+    [self updateSoundEffectButton];
+}
+
+- (void)updateSoundEffectButton{
+    TrainingSetting * ts = [TrainingSetting sharedInstance];
+    NSString * imageName = ts.soundEffect ? @"volume" : @"mute";
+    UIImage * image = [UIImage imageNamed:imageName];
+    image = [image imageWithTintColor:[UIColor whiteColor]];
+    [_soundButton setImage:image forState:UIControlStateNormal];
 }
 
 - (void)stopTraining{

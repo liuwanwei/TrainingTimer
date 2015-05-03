@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSNumber * restTime;
 @property (nonatomic, strong) NSNumber * rounds;
 
+@property (nonatomic) BOOL soundEffect;
+
 + (instancetype)sharedInstance;
 
 - (void)syncToDisk;

@@ -12,6 +12,9 @@
 		FB35DF1F1AD652FB00AF4811 /* female_lets_go_by_KendraYoder.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FB35DF1E1AD652FB00AF4811 /* female_lets_go_by_KendraYoder.mp3 */; };
 		FB35DF221AD653E300AF4811 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB35DF211AD653E300AF4811 /* SoundManager.m */; };
 		FB417A8C1AD40CBF00F4B034 /* TrainingRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB417A8B1AD40CBF00F4B034 /* TrainingRecordCell.m */; };
+		FB71F5261AF6324D00B44A7D /* Timeout.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FB71F5231AF6324D00B44A7D /* Timeout.mp3 */; };
+		FB71F5271AF6324D00B44A7D /* WatchTick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FB71F5241AF6324D00B44A7D /* WatchTick.mp3 */; };
+		FB71F5281AF6324D00B44A7D /* WatermelonKickDrum.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FB71F5251AF6324D00B44A7D /* WatermelonKickDrum.mp3 */; };
 		FB7D15641AD579E300373241 /* KACircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7D15631AD579E300373241 /* KACircleProgressView.m */; };
 		FB87D6121ACFCAD900BCA5CA /* RecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */; };
 		FB87D6151ACFCAF800BCA5CA /* TrainingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */; };
@@ -81,6 +84,9 @@
 		FB417A8B1AD40CBF00F4B034 /* TrainingRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingRecordCell.m; sourceTree = "<group>"; };
 		FB417A8D1AD435CB00F4B034 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		FB417A8E1AD435CC00F4B034 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		FB71F5231AF6324D00B44A7D /* Timeout.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Timeout.mp3; path = "../../../you-get/Timeout.mp3"; sourceTree = "<group>"; };
+		FB71F5241AF6324D00B44A7D /* WatchTick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = WatchTick.mp3; path = "../../../you-get/WatchTick.mp3"; sourceTree = "<group>"; };
+		FB71F5251AF6324D00B44A7D /* WatermelonKickDrum.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = WatermelonKickDrum.mp3; path = "../../../you-get/WatermelonKickDrum.mp3"; sourceTree = "<group>"; };
 		FB7D15621AD579E300373241 /* KACircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KACircleProgressView.h; sourceTree = "<group>"; };
 		FB7D15631AD579E300373241 /* KACircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KACircleProgressView.m; sourceTree = "<group>"; };
 		FB87D6101ACFCAD800BCA5CA /* RecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordsViewController.h; sourceTree = "<group>"; };
@@ -211,6 +217,9 @@
 		FB35DF1D1AD652FB00AF4811 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				FB71F5231AF6324D00B44A7D /* Timeout.mp3 */,
+				FB71F5241AF6324D00B44A7D /* WatchTick.mp3 */,
+				FB71F5251AF6324D00B44A7D /* WatermelonKickDrum.mp3 */,
 				FB35DF1E1AD652FB00AF4811 /* female_lets_go_by_KendraYoder.mp3 */,
 			);
 			path = Audio;
@@ -524,8 +533,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB35DF1F1AD652FB00AF4811 /* female_lets_go_by_KendraYoder.mp3 in Resources */,
+				FB71F5281AF6324D00B44A7D /* WatermelonKickDrum.mp3 in Resources */,
+				FB71F5261AF6324D00B44A7D /* Timeout.mp3 in Resources */,
 				FBF0F73F1ABD321700EBC44C /* Main.storyboard in Resources */,
 				FBF0F7441ABD321700EBC44C /* LaunchScreen.xib in Resources */,
+				FB71F5271AF6324D00B44A7D /* WatchTick.mp3 in Resources */,
 				FBF0F7411ABD321700EBC44C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

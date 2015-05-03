@@ -10,6 +10,8 @@
 	<string>TrainingTimer</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>54F31F0FD9156183CA4BBA2527FA518612402892</key>
+		<string>https://github.com/soimort/you-get.git</string>
 		<key>5FAE1DB82BC8B2AF845EAB5D04146D25B19DD1A3</key>
 		<string>https://github.com/liuwanwei/TrainingTimer.git</string>
 	</dict>
@@ -17,6 +19,8 @@
 	<string>TrainingTimer.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>54F31F0FD9156183CA4BBA2527FA518612402892</key>
+		<string>../../you-get</string>
 		<key>5FAE1DB82BC8B2AF845EAB5D04146D25B19DD1A3</key>
 		<string>..</string>
 	</dict>
@@ -35,6 +39,14 @@
 			<string>5FAE1DB82BC8B2AF845EAB5D04146D25B19DD1A3</string>
 			<key>IDESourceControlWCCName</key>
 			<string>TrainingTimer</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>54F31F0FD9156183CA4BBA2527FA518612402892</string>
+			<key>IDESourceControlWCCName</key>
+			<string>you-get</string>
 		</dict>
 	</array>
 </dict>

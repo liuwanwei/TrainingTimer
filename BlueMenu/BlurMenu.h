@@ -35,6 +35,7 @@
 @property(nonatomic) NSInteger itemHeight;
 @property(nonatomic, strong) UIFont * itemFont;
 @property(nonatomic, strong) UIColor * itemTextColor;
+@property(nonatomic, copy) NSString * title;
 
 - (id)initWithItems:(NSArray*)items parentView:(UIView *)p delegate:(id<BlurMenuDelegate>)d;
 

@@ -35,6 +35,7 @@ static NSString * const kKey = @"trainingSettingKey";
         _skippingTime = @(60);
         _restTime = @(20);
         _rounds = @(4);
+        _soundEffect = YES;
     }
     
     return self;

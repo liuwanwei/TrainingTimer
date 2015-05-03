@@ -36,9 +36,9 @@
         self.itemFont = [UIFont systemFontOfSize:17.0f];
         self.itemTextColor = [UIColor whiteColor];
         
-        [self subscribe:UIApplicationWillChangeStatusBarOrientationNotification handler:^(GLEvent * event){
-            [self setNeedsUpdateConstraints];
-        }];
+//        [self subscribe:UIApplicationWillChangeStatusBarOrientationNotification handler:^(GLEvent * event){
+//            [self setNeedsUpdateConstraints];
+//        }];
     }
     
     return self;
@@ -52,28 +52,25 @@
 }
 
 - (void)remakeConstrainits{
-    CGFloat height = [self calculateCollectionViewHeight];
-    
     @weakify(self);
     
     [_collectionView mas_remakeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
+        CGFloat height = [self calculateCollectionViewHeight];
+        CGFloat offset = (self.frame.size.height - height) / 2;
         maker.leading.equalTo(self.mas_leading);
-        maker.top.equalTo(self.mas_top).offset((self.frame.size.height - height) / 2);
+        maker.top.equalTo(self.mas_top).offset(offset);
         maker.width.equalTo(self.mas_width);
-        maker.bottom.equalTo(self.mas_bottom).offset((self.frame.size.height - height) / 2);
+        maker.bottom.equalTo(self.mas_bottom).offset(-offset);
     }];
     
     [_closeButton mas_remakeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
         maker.leading.equalTo(self.mas_leading);
-        maker.bottom.equalTo(self.mas_bottom).offset(-COLLECTION_VIEW_PADDING);
+        maker.top.equalTo(self->_collectionView.mas_bottom);
+        maker.bottom.equalTo(self.mas_bottom);
         maker.width.equalTo(self.mas_width);
-        maker.height.equalTo(@(COLLECTION_VIEW_PADDING));
     }];
-    
-//    [_collectionView setNeedsLayout];
-//    [_collectionView layoutIfNeeded];
 }
 
 - (void)initSubViews{

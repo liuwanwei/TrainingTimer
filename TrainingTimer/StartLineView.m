@@ -112,8 +112,8 @@ static NSString * const TimeFontName= @"Courier"; //@"DIN Alternate";
         return;
     }
     
-    BOOL test = YES;
-    if (test) {
+    BOOL showBlurMenu = YES;
+    if (showBlurMenu) {
         return [self showTappedMenu];
     }
     
@@ -251,31 +251,12 @@ static NSString * const TimeFontName= @"Courier"; //@"DIN Alternate";
         maker.width.equalTo(self.mas_width);
         maker.height.equalTo(@(1));
     }];
-    
-    // 进度条
-//    _progressView = [[UIView alloc] initWithFrame:CGRectZero];
-//    _progressView.backgroundColor = [UIColor lineFgColor];
-//    [self addSubview:_progressView];
-//    [_progressView mas_makeConstraints:^(MASConstraintMaker * maker){
-//        @strongify(self);
-//        maker.left.equalTo(self.mas_leading);
-//        maker.top.equalTo(self.mas_top);
-//        maker.height.equalTo(self.mas_height);
-//        maker.right.equalTo(@(0.1));
-//    }];
-//
-//    [self sendSubviewToBack:_progressView];
 }
 
 - (void)resetContentSize{
-//    [self setFontAutoFitSizeForLabel:_typeLabel];
     [self setFontAutoFitSizeForLabel:_valueLabel];
     
     [self redrawScaleSplitter];
-    
-//    if (_menu && ! _menu.hidden) {
-//        [_menu setNeedsUpdateConstraints];
-//    }
 }
 
 - (void)setValueUnit:(NSString *)valueUnit{
