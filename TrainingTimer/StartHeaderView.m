@@ -53,6 +53,8 @@
     _textViewBrief.font = [UIFont systemFontOfSize:17.0];
     _textViewBrief.textAlignment = NSTextAlignmentCenter;
     _textViewBrief.textColor = RGB(239,239,244);
+    _textViewBrief.editable = NO;
+    _textViewBrief.selectable = NO;
     _textViewBrief.backgroundColor = [UIColor clearColor];
     
     CGFloat fixedWidth = kScreen_Width - 20;
@@ -94,7 +96,7 @@
         @strongify(self);
         maker.trailing.equalTo(self.mas_trailing);
         maker.centerY.equalTo(self->_labelTitle.mas_centerY);
-        maker.width.equalTo(@(64));
+        maker.width.equalTo(@(40));
         maker.height.equalTo(buttonHeart.mas_width);
     }];
     
@@ -110,7 +112,7 @@
         @strongify(self);
         maker.leading.equalTo(self.mas_leading);
         maker.centerY.equalTo(self->_labelTitle.mas_centerY);
-        maker.width.equalTo(@64);
+        maker.width.equalTo(@40);
         maker.height.equalTo(buttonCalendar.mas_width);
     }];
     

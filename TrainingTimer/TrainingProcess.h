@@ -25,3 +25,5 @@
 + (instancetype)testObject;
 
 @end
+
+extern BOOL TrainingDebug;

@@ -70,7 +70,7 @@
     }
 }
 
-static bool TrainingDebug = true;
+BOOL TrainingDebug = NO;
 
 + (NSArray *)tdataes{
     NSArray * units = @[@{TrainingUnitIndex:@(1),
