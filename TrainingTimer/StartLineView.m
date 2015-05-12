@@ -227,7 +227,7 @@ static NSString * const TimeFontName= @"Courier"; //@"DIN Alternate";
     // 类型，如：热身时间
     _typeLabel = [[UILabel alloc] init];
     _typeLabel.textAlignment = NSTextAlignmentLeft;
-    _typeLabel.textColor = [UIColor blackColor];
+    _typeLabel.textColor = [UIColor darkGrayColor];
     _typeLabel.font = [UIFont fontWithName:LabelFontName size:21.0];
     _typeLabel.userInteractionEnabled = NO;
     [self addSubview:_typeLabel];

@@ -73,7 +73,7 @@
     _labelTitle = [[UILabel alloc] init];
     [self addSubview:_labelTitle];
     _labelTitle.text = _title;
-    _labelTitle.font = [UIFont systemFontOfSize:24];
+    _labelTitle.font = [UIFont systemFontOfSize:18];
     _labelTitle.textColor = [UIColor whiteColor];
     _labelTitle.textAlignment = NSTextAlignmentCenter;
     [_labelTitle mas_makeConstraints:^(MASConstraintMaker * maker){
@@ -120,7 +120,7 @@
     _labelTotalTime = [[UILabel alloc] init];
     [self addSubview:_labelTotalTime];
     _labelTotalTime.text = _totalTime;
-    _labelTotalTime.font = [UIFont systemFontOfSize:22.0];
+    _labelTotalTime.font = [UIFont systemFontOfSize:20.0];
     _labelTotalTime.textColor = [UIColor whiteColor];
     _labelTotalTime.textAlignment = NSTextAlignmentCenter;
     [_labelTotalTime mas_makeConstraints:^(MASConstraintMaker * maker){

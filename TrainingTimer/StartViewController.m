@@ -220,7 +220,7 @@ typedef enum{
         maker.height.equalTo(_restView.mas_height);
     }];
     [_bigLines addObject:_roundView];
-//     [_roundView hideBottomLine];
+     [_roundView hideBottomLine];
     
     _startPanel = [[StartPanelView alloc] init];
     [self.view addSubview:_startPanel];

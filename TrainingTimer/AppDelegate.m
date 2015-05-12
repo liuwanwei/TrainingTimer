@@ -25,7 +25,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // 是否打开测试模式：时间会飞快流逝，走完预设所有训练过程
-    TrainingDebug = NO;
+    TrainingDebug = YES;
     
     [UIColor loadSchema];
     

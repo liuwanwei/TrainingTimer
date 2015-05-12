@@ -101,11 +101,11 @@ static float const DotViewBottomMargin = 15;
 #pragma mark - Private functions
 - (void)createSubViews{
     // 关闭按钮
-    const float CloseButtonWidth = 60.0f;
+    const float CloseButtonWidth = 50.0f;
     _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_wSuperView addSubview:_closeButton];
     [_closeButton mas_makeConstraints:^(MASConstraintMaker * maker){
-        maker.leading.equalTo(_wSuperView.mas_leading).offset(16);
+        maker.leading.equalTo(_wSuperView.mas_leading).offset(0.f);
         maker.top.equalTo(_wSuperView.mas_top).offset(16.0f);
         maker.width.equalTo(@(CloseButtonWidth));
         maker.height.equalTo(_closeButton.mas_width);
@@ -121,7 +121,7 @@ static float const DotViewBottomMargin = 15;
     @weakify(self);
     [_soundButton mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
-        maker.trailing.equalTo(self.view.mas_trailing).offset(-16.0f);
+        maker.trailing.equalTo(self.view.mas_trailing).offset(0.f);
         maker.top.equalTo(self.view.mas_top).offset(16.0f);
         maker.width.equalTo(@(CloseButtonWidth));
         maker.height.equalTo(_soundButton.mas_width);
@@ -188,10 +188,11 @@ static float const DotViewBottomMargin = 15;
     }];
     [_timeLabel setNeedsLayout];
     [_timeLabel layoutIfNeeded];
-    [self resetLeftTimeLabelFont];
+//    [self resetLeftTimeLabelFont];
+    _timeLabel.font = [UIFont fontWithName:@"Courier" size:40.];
     _timeLabel.textColor = [UIColor whiteColor];
     _timeLabel.textAlignment = NSTextAlignmentCenter;
-    _timeLabel.text = @"00:00";
+    _timeLabel.text = [Utils colonSeperatedTime:0];
 
     FBShimmeringView * shimmeringView = [[FBShimmeringView alloc] initWithFrame:CGRectZero];
     shimmeringView.shimmering = NO;
@@ -210,6 +211,8 @@ static float const DotViewBottomMargin = 15;
     
     // 将进度指示界面放到按钮下层，其它界面上层
     [_wSuperView bringSubviewToFront:_progressView];
+    [_wSuperView bringSubviewToFront:_centeredView];
+    [_wSuperView bringSubviewToFront:_centeredLabel];
     [_wSuperView bringSubviewToFront:_closeButton];
     [_wSuperView bringSubviewToFront:_soundButton];
     [_wSuperView bringSubviewToFront:_centeredButton];
@@ -285,7 +288,7 @@ static float const DotViewBottomMargin = 15;
     
     [self resetDotViewLayerMasks];
     
-    [self resetLeftTimeLabelFont];
+//    [self resetLeftTimeLabelFont];
 }
 
 /** 将 UIView 变成一个圆形，直径等于长和宽中较小的那个
@@ -580,7 +583,7 @@ static float const DotViewBottomMargin = 15;
     CGSize size;
     size = _timeLabel.frame.size;
     size.height /= 2;
-    UIFont * font = [UIFont findAdaptiveFontWithName:@"Apple SD Gothic Neo" forUILabelSize:size withMinimumSize:32];
+    UIFont * font = [UIFont findAdaptiveFontWithName:@"Courier" forUILabelSize:size withMinimumSize:20];
     _timeLabel.font = font;
 }
 

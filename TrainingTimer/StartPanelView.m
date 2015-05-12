@@ -39,9 +39,10 @@
     [self addSubview:buttonStart];
     [buttonStart mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
-        maker.center.equalTo(self);
-        maker.height.equalTo(self.mas_height).dividedBy(2.0);
-        maker.width.equalTo(self.mas_width).dividedBy(1.5);
+        maker.edges.equalTo(self);
+//        maker.center.equalTo(self);
+//        maker.height.equalTo(self.mas_height).dividedBy(2.0);
+//        maker.width.equalTo(self.mas_width).dividedBy(1.5);
     }];
     
     UIColor * color = [UIColor mainColor];//RGB(0, 122, 255);
