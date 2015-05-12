@@ -18,7 +18,7 @@
 #import "UIColor+TrainingTimer.h"
 #import <NSObject+GLPubSub.h>
 
-static NSString * const LabelFontName = @"HelveticaNeue-Medium";
+static NSString * const LabelFontName = @"HelveticaNeue";
 static NSString * const TimeFontName= @"Courier"; //@"DIN Alternate";
 
 @implementation StartLineView{
@@ -188,37 +188,37 @@ static NSString * const TimeFontName= @"Courier"; //@"DIN Alternate";
     _imageViewArrow.alpha = 0.4;
     [_imageViewArrow mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
-        maker.trailing.equalTo(self.mas_trailing).offset(-16);
+        maker.trailing.equalTo(self.mas_trailing).offset(-4.0f);
         maker.centerY.equalTo(self.mas_centerY);
-        maker.width.equalTo(@32);
+        maker.width.equalTo(@20);
         maker.height.equalTo(_imageViewArrow.mas_width);
     }];
     
-    // 单位名称
+    // 单位名称：秒、组
     _LabelValueUnit = [[UILabel alloc] init];
     [self addSubview:_LabelValueUnit];
     _LabelValueUnit.alpha = 0.6;
     _LabelValueUnit.textColor = [UIColor blackColor];
-    UIFont * font = [UIFont fontWithName:LabelFontName size:20.0f];
+    UIFont * font = [UIFont fontWithName:LabelFontName size:17.0f];
     _LabelValueUnit.font = font;
     [_LabelValueUnit mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
         maker.centerY.equalTo(self.mas_centerY);
         maker.trailing.equalTo(self->_imageViewArrow.mas_leading);
         maker.height.equalTo(self->_imageViewArrow.mas_height);
-        maker.width.equalTo(@48);
+        maker.width.equalTo(@20);
     }];
     
-    // 时间，如：120秒
+    // 时间，如：120
     _valueLabel = [[UILabel alloc] init];
-    _valueLabel.textAlignment = NSTextAlignmentCenter;
+    _valueLabel.textAlignment = NSTextAlignmentRight;
     _valueLabel.textColor = [UIColor mainColor];
     _valueLabel.userInteractionEnabled = NO;
     [self addSubview:_valueLabel];
     [_valueLabel mas_makeConstraints:^(MASConstraintMaker * maker){
         @strongify(self);
         maker.centerY.equalTo(self.mas_centerY);
-        maker.trailing.equalTo(self->_LabelValueUnit.mas_leading);
+        maker.trailing.equalTo(self->_LabelValueUnit.mas_leading).offset(-8.f);
         maker.width.equalTo(self.mas_width).dividedBy(4.0);
         maker.height.equalTo(self.mas_height).dividedBy(3);
         
@@ -228,7 +228,7 @@ static NSString * const TimeFontName= @"Courier"; //@"DIN Alternate";
     _typeLabel = [[UILabel alloc] init];
     _typeLabel.textAlignment = NSTextAlignmentLeft;
     _typeLabel.textColor = [UIColor darkGrayColor];
-    _typeLabel.font = [UIFont fontWithName:LabelFontName size:21.0];
+    _typeLabel.font = [UIFont fontWithName:LabelFontName size:17.0];
     _typeLabel.userInteractionEnabled = NO;
     [self addSubview:_typeLabel];
     [_typeLabel mas_makeConstraints:^(MASConstraintMaker * maker){

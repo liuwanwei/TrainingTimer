@@ -48,7 +48,7 @@
     UIColor * color = [UIColor mainColor];//RGB(0, 122, 255);
     [buttonStart setTitle:@"开始训练" forState:UIControlStateNormal];
     [buttonStart setTitleColor:color forState:UIControlStateNormal];
-    buttonStart.titleLabel.font = [UIFont systemFontOfSize:30.0];
+    buttonStart.titleLabel.font = [UIFont systemFontOfSize:24.0];
     
     _startButton = buttonStart;
     

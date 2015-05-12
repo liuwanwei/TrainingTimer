@@ -15,6 +15,7 @@
 #import "UIColor+TrainingTimer.h"
 #import "TrainingSetting.h"
 #import "TrainingProcess.h"
+#import "EmptyViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,10 +23,18 @@
 
 @implementation AppDelegate
 
+- (BOOL)launchScreen{
+    EmptyViewController * vc = [[EmptyViewController alloc] initWithNibName:@"EmptyViewController" bundle:nil];
+    self.window.rootViewController = vc;
+    
+    return YES;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // 是否打开测试模式：时间会飞快流逝，走完预设所有训练过程
     TrainingDebug = YES;
+//    return [self launchScreen];
     
     [UIColor loadSchema];
     

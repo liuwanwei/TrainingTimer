@@ -15,6 +15,8 @@
 		FB71F5261AF6324D00B44A7D /* Timeout.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FB71F5231AF6324D00B44A7D /* Timeout.mp3 */; };
 		FB71F5271AF6324D00B44A7D /* WatchTick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FB71F5241AF6324D00B44A7D /* WatchTick.mp3 */; };
 		FB71F5281AF6324D00B44A7D /* WatermelonKickDrum.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FB71F5251AF6324D00B44A7D /* WatermelonKickDrum.mp3 */; };
+		FB71F5311B01D9B300B44A7D /* EmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB71F52F1B01D9B300B44A7D /* EmptyViewController.m */; };
+		FB71F5321B01D9B300B44A7D /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB71F5301B01D9B300B44A7D /* EmptyViewController.xib */; };
 		FB7D15641AD579E300373241 /* KACircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7D15631AD579E300373241 /* KACircleProgressView.m */; };
 		FB87D6121ACFCAD900BCA5CA /* RecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */; };
 		FB87D6151ACFCAF800BCA5CA /* TrainingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */; };
@@ -33,7 +35,6 @@
 		FBF0F7391ABD321700EBC44C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F7381ABD321700EBC44C /* AppDelegate.m */; };
 		FBF0F73F1ABD321700EBC44C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBF0F73D1ABD321700EBC44C /* Main.storyboard */; };
 		FBF0F7411ABD321700EBC44C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBF0F7401ABD321700EBC44C /* Images.xcassets */; };
-		FBF0F7441ABD321700EBC44C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBF0F7421ABD321700EBC44C /* LaunchScreen.xib */; };
 		FBF0F7501ABD321700EBC44C /* TrainingTimerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F74F1ABD321700EBC44C /* TrainingTimerTests.m */; };
 		FBF0F75C1ABD336900EBC44C /* TrainingUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F75B1ABD336900EBC44C /* TrainingUnit.m */; };
 		FBF0F75F1ABD344800EBC44C /* TrainingProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0F75E1ABD344800EBC44C /* TrainingProcess.m */; };
@@ -83,10 +84,12 @@
 		FB417A8A1AD40CBF00F4B034 /* TrainingRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingRecordCell.h; sourceTree = "<group>"; };
 		FB417A8B1AD40CBF00F4B034 /* TrainingRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainingRecordCell.m; sourceTree = "<group>"; };
 		FB417A8D1AD435CB00F4B034 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
-		FB417A8E1AD435CC00F4B034 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		FB71F5231AF6324D00B44A7D /* Timeout.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Timeout.mp3; path = "../../../you-get/Timeout.mp3"; sourceTree = "<group>"; };
 		FB71F5241AF6324D00B44A7D /* WatchTick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = WatchTick.mp3; path = "../../../you-get/WatchTick.mp3"; sourceTree = "<group>"; };
 		FB71F5251AF6324D00B44A7D /* WatermelonKickDrum.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = WatermelonKickDrum.mp3; path = "../../../you-get/WatermelonKickDrum.mp3"; sourceTree = "<group>"; };
+		FB71F52E1B01D9B300B44A7D /* EmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyViewController.h; sourceTree = "<group>"; };
+		FB71F52F1B01D9B300B44A7D /* EmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyViewController.m; sourceTree = "<group>"; };
+		FB71F5301B01D9B300B44A7D /* EmptyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyViewController.xib; sourceTree = "<group>"; };
 		FB7D15621AD579E300373241 /* KACircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KACircleProgressView.h; sourceTree = "<group>"; };
 		FB7D15631AD579E300373241 /* KACircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KACircleProgressView.m; sourceTree = "<group>"; };
 		FB87D6101ACFCAD800BCA5CA /* RecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordsViewController.h; sourceTree = "<group>"; };
@@ -122,7 +125,6 @@
 		FBF0F7381ABD321700EBC44C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FBF0F73E1ABD321700EBC44C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FBF0F7401ABD321700EBC44C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		FBF0F7431ABD321700EBC44C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		FBF0F7491ABD321700EBC44C /* TrainingTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainingTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBF0F74E1ABD321700EBC44C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBF0F74F1ABD321700EBC44C /* TrainingTimerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrainingTimerTests.m; sourceTree = "<group>"; };
@@ -311,7 +313,9 @@
 				FBF0F7381ABD321700EBC44C /* AppDelegate.m */,
 				FBF0F73D1ABD321700EBC44C /* Main.storyboard */,
 				FBF0F7401ABD321700EBC44C /* Images.xcassets */,
-				FBF0F7421ABD321700EBC44C /* LaunchScreen.xib */,
+				FB71F52E1B01D9B300B44A7D /* EmptyViewController.h */,
+				FB71F52F1B01D9B300B44A7D /* EmptyViewController.m */,
+				FB71F5301B01D9B300B44A7D /* EmptyViewController.xib */,
 				FBF0F7331ABD321700EBC44C /* Supporting Files */,
 			);
 			path = TrainingTimer;
@@ -536,8 +540,8 @@
 				FB71F5281AF6324D00B44A7D /* WatermelonKickDrum.mp3 in Resources */,
 				FB71F5261AF6324D00B44A7D /* Timeout.mp3 in Resources */,
 				FBF0F73F1ABD321700EBC44C /* Main.storyboard in Resources */,
-				FBF0F7441ABD321700EBC44C /* LaunchScreen.xib in Resources */,
 				FB71F5271AF6324D00B44A7D /* WatchTick.mp3 in Resources */,
+				FB71F5321B01D9B300B44A7D /* EmptyViewController.xib in Resources */,
 				FBF0F7411ABD321700EBC44C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -611,6 +615,7 @@
 				FBD156DD1AEF8254004B063F /* BlurMenu.m in Sources */,
 				FBF0F7861ABD399C00EBC44C /* BaseOperation.m in Sources */,
 				FBF0F7621ABD362B00EBC44C /* TrainingUnitCell.m in Sources */,
+				FB71F5311B01D9B300B44A7D /* EmptyViewController.m in Sources */,
 				FBF0F7981ABDA5E900EBC44C /* UIColor+TrainingTimer.m in Sources */,
 				FBF0F7391ABD321700EBC44C /* AppDelegate.m in Sources */,
 				FBF0F7901ABD399C00EBC44C /* DomainManager.m in Sources */,
@@ -661,15 +666,6 @@
 				FB417A8D1AD435CB00F4B034 /* zh-Hans */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		FBF0F7421ABD321700EBC44C /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FBF0F7431ABD321700EBC44C /* Base */,
-				FB417A8E1AD435CC00F4B034 /* zh-Hans */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

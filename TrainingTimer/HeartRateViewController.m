@@ -57,9 +57,8 @@ static NSString * const kAgeStorageKey = @"age";
                                                 rowType:XLFormRowDescriptorTypeInfo title:@"低强度运动心率:"];
     [section addFormRow:row];
     NSString * notes = @"运动时，请根据相应的运动强度要求，来保持自己的心率在对应的范围内。遇到心脏不适时请立刻停止运动。\n\n\
-热身期：保持低强度运动心率\n\
-训练期：不要超过高强度运动心率\n\n\
-切记：永远不要超过最大心率！";
+热身期：保持低强度运动心率。\n\
+训练期：不要超过高强度运动心率，永远不要超过最大心率！";
     section.footerTitle = notes;
     
     [self initAge];

@@ -50,13 +50,12 @@
     _textViewBrief = [[UITextView alloc] init];
     [self addSubview:_textViewBrief];
     _textViewBrief.text = _brief;
-    _textViewBrief.font = [UIFont systemFontOfSize:17.0];
+    _textViewBrief.font = [UIFont systemFontOfSize:15.0];
     _textViewBrief.textAlignment = NSTextAlignmentCenter;
     _textViewBrief.textColor = RGB(239,239,244);
     _textViewBrief.editable = NO;
     _textViewBrief.selectable = NO;
     _textViewBrief.backgroundColor = [UIColor clearColor];
-    
     CGFloat fixedWidth = kScreen_Width - 20;
     CGSize newSize = [_textViewBrief sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
     CGFloat newWidth = fmaxf(fixedWidth, newSize.width);
@@ -84,6 +83,7 @@
         maker.bottom.equalTo(_textViewBrief.mas_top);
     }];
     
+    CGFloat IconWidthHeight = 40;
     // 右侧心形图标按钮
     UIButton * buttonHeart = [UIButton buttonWithType:UIButtonTypeCustom];
     [self addSubview:buttonHeart];
@@ -96,7 +96,7 @@
         @strongify(self);
         maker.trailing.equalTo(self.mas_trailing);
         maker.centerY.equalTo(self->_labelTitle.mas_centerY);
-        maker.width.equalTo(@(40));
+        maker.width.equalTo(@(IconWidthHeight));
         maker.height.equalTo(buttonHeart.mas_width);
     }];
     
@@ -112,7 +112,7 @@
         @strongify(self);
         maker.leading.equalTo(self.mas_leading);
         maker.centerY.equalTo(self->_labelTitle.mas_centerY);
-        maker.width.equalTo(@40);
+        maker.width.equalTo(@(IconWidthHeight));
         maker.height.equalTo(buttonCalendar.mas_width);
     }];
     

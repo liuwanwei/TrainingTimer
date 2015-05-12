@@ -89,9 +89,9 @@
     
     _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _closeButton.backgroundColor = [UIColor clearColor];
-    [_closeButton setTitle:@"Close" forState:UIControlStateNormal];
+    [_closeButton setTitle:@"取消" forState:UIControlStateNormal];
     [_closeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    _closeButton.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:26.0f];
+    _closeButton.titleLabel.font = [UIFont fontWithName:@"GillSans-Light" size:17.0f];
     [_closeButton addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchDown];
     [self addSubview:_closeButton];
     

@@ -103,6 +103,7 @@ static float const DotViewBottomMargin = 15;
     // 关闭按钮
     const float CloseButtonWidth = 50.0f;
     _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _closeButton.contentMode = UIViewContentModeCenter;
     [_wSuperView addSubview:_closeButton];
     [_closeButton mas_makeConstraints:^(MASConstraintMaker * maker){
         maker.leading.equalTo(_wSuperView.mas_leading).offset(0.f);
@@ -126,7 +127,7 @@ static float const DotViewBottomMargin = 15;
         maker.width.equalTo(@(CloseButtonWidth));
         maker.height.equalTo(_soundButton.mas_width);
     }];
-    [self updateSoundEffectButton];
+    [self updateSoundEffectButton];// "volume" and "mute" image
     [_soundButton addTarget:self action:@selector(soundEffect:) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -501,7 +502,7 @@ static float const DotViewBottomMargin = 15;
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"这次一共跳了几个？" message:nil delegate:self cancelButtonTitle:@"没记住" otherButtonTitles:@"确定", nil];
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"这次一共跳了几个？" message:nil delegate:self cancelButtonTitle:@"没记住啦" otherButtonTitles:@"确定", nil];
         alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
         alertView.tag = UIAlertViewSkippingCount;
         UITextField * textField = [alertView textFieldAtIndex:0];
