@@ -24,6 +24,7 @@
 @implementation AppDelegate
 
 - (BOOL)launchScreen{
+    // 用来根据 xib 中设计的启动画面，截取不同模拟器下最终图片
     EmptyViewController * vc = [[EmptyViewController alloc] initWithNibName:@"EmptyViewController" bundle:nil];
     self.window.rootViewController = vc;
     

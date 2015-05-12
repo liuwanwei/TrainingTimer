@@ -17,6 +17,7 @@
 		FB71F5281AF6324D00B44A7D /* WatermelonKickDrum.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FB71F5251AF6324D00B44A7D /* WatermelonKickDrum.mp3 */; };
 		FB71F5311B01D9B300B44A7D /* EmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB71F52F1B01D9B300B44A7D /* EmptyViewController.m */; };
 		FB71F5321B01D9B300B44A7D /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB71F5301B01D9B300B44A7D /* EmptyViewController.xib */; };
+		FB71F5381B01F7E500B44A7D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB71F5371B01F7E500B44A7D /* Default-568h@2x.png */; };
 		FB7D15641AD579E300373241 /* KACircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7D15631AD579E300373241 /* KACircleProgressView.m */; };
 		FB87D6121ACFCAD900BCA5CA /* RecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6111ACFCAD800BCA5CA /* RecordsViewController.m */; };
 		FB87D6151ACFCAF800BCA5CA /* TrainingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = FB87D6141ACFCAF800BCA5CA /* TrainingRecord.m */; };
@@ -90,6 +91,7 @@
 		FB71F52E1B01D9B300B44A7D /* EmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyViewController.h; sourceTree = "<group>"; };
 		FB71F52F1B01D9B300B44A7D /* EmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyViewController.m; sourceTree = "<group>"; };
 		FB71F5301B01D9B300B44A7D /* EmptyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyViewController.xib; sourceTree = "<group>"; };
+		FB71F5371B01F7E500B44A7D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
 		FB7D15621AD579E300373241 /* KACircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KACircleProgressView.h; sourceTree = "<group>"; };
 		FB7D15631AD579E300373241 /* KACircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KACircleProgressView.m; sourceTree = "<group>"; };
 		FB87D6101ACFCAD800BCA5CA /* RecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordsViewController.h; sourceTree = "<group>"; };
@@ -227,6 +229,14 @@
 			path = Audio;
 			sourceTree = "<group>";
 		};
+		FB71F5361B01F7D500B44A7D /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				FB71F5371B01F7E500B44A7D /* Default-568h@2x.png */,
+			);
+			name = Image;
+			sourceTree = "<group>";
+		};
 		FB7D15651AD580A300373241 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +334,7 @@
 		FBF0F7331ABD321700EBC44C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FB71F5361B01F7D500B44A7D /* Image */,
 				FB35DF1D1AD652FB00AF4811 /* Audio */,
 				FBF0F7341ABD321700EBC44C /* Info.plist */,
 				FBF0F7351ABD321700EBC44C /* main.m */,
@@ -541,6 +552,7 @@
 				FB71F5261AF6324D00B44A7D /* Timeout.mp3 in Resources */,
 				FBF0F73F1ABD321700EBC44C /* Main.storyboard in Resources */,
 				FB71F5271AF6324D00B44A7D /* WatchTick.mp3 in Resources */,
+				FB71F5381B01F7E500B44A7D /* Default-568h@2x.png in Resources */,
 				FB71F5321B01D9B300B44A7D /* EmptyViewController.xib in Resources */,
 				FBF0F7411ABD321700EBC44C /* Images.xcassets in Resources */,
 			);

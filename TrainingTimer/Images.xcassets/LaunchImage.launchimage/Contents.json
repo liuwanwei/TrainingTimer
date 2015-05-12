@@ -4,7 +4,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "736h",
-      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午3.08.59.png",
+      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午5.04.30.png",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
       "scale" : "3x"
@@ -13,7 +13,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "667h",
-      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午3.06.38.png",
+      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午5.04.07.png",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
       "scale" : "2x"
@@ -23,14 +23,14 @@
       "idiom" : "iphone",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午3.10.11.png",
+      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午5.03.24.png",
       "scale" : "2x"
     },
     {
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "retina4",
-      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午3.17.51.png",
+      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午5.03.48.png",
       "minimum-system-version" : "7.0",
       "orientation" : "portrait",
       "scale" : "2x"
@@ -40,7 +40,7 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午3.12.19@1x.png",
+      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午4.36.49.png",
       "scale" : "1x"
     },
     {
@@ -48,7 +48,7 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午3.12.23@1x.png",
+      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午4.36.52.png",
       "scale" : "1x"
     },
     {
@@ -56,7 +56,7 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午3.12.19.png",
+      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午4.43.42.png",
       "scale" : "2x"
     },
     {
@@ -64,7 +64,7 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午3.12.23.png",
+      "filename" : "iOS Simulator Screen Shot 2015年5月12日 下午4.43.44.png",
       "scale" : "2x"
     }
   ],
