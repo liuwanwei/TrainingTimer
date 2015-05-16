@@ -75,22 +75,32 @@ BOOL TrainingDebug = NO;
 + (NSArray *)tdataes{
     NSArray * units = @[@{TrainingUnitIndex:@(1),
                           TrainingUnitTypeKey:@(TrainingUnitTypeWarmUp),
-                          TrainingUnitTimeLength:@(1)},
+                          TrainingUnitTimeLength:@(2)},
                         
                         @{TrainingUnitIndex:@(2),
                           TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(2)},
+                          TrainingUnitTimeLength:@(60)},
                         
                         @{TrainingUnitIndex:@(3),
                           TrainingUnitTypeKey:@(TrainingUnitTypeRest),
-                          TrainingUnitTimeLength:@(12)},
+                          TrainingUnitTimeLength:@(30)},
                         
                         @{TrainingUnitIndex:@(4),
                           TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
-                          TrainingUnitTimeLength:@(12)},
+                          TrainingUnitTimeLength:@(2)},
                         
                         @{TrainingUnitIndex:@(5),
                           TrainingUnitTypeKey:@(TrainingUnitTypeRest),
+                          TrainingUnitTimeLength:@(2)},
+                        @{TrainingUnitIndex:@(4),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
+                          TrainingUnitTimeLength:@(2)},
+                        
+                        @{TrainingUnitIndex:@(5),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeRest),
+                          TrainingUnitTimeLength:@(2)},
+                        @{TrainingUnitIndex:@(4),
+                          TrainingUnitTypeKey:@(TrainingUnitTypeSkipping),
                           TrainingUnitTimeLength:@(2)},
                         ];
     

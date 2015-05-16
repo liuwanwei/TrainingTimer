@@ -38,7 +38,7 @@ typedef enum{
 - (RequestType)requestType;             // 请求类型
 - (NSDictionary *)requestParam;         // 请求参数
 - (NSString *)requestPath;              // url路径
-- (Class)responseClass;                 // 反馈包解析类原型。
+- (Class)responseClassType;             // 反馈包解析类原型。
 @end
 
 

@@ -220,7 +220,7 @@ static float const DotViewBottomMargin = 15;
 }
 
 - (void)createDottedViews{
-    const float HorizontalMargin = 60.0f;
+    const float HorizontalMargin = 30.0f;
     const float HorizontalInterval = 15.0f;
     
     _dottedViews = [NSMutableArray array];
@@ -247,7 +247,7 @@ static float const DotViewBottomMargin = 15;
         
         [dotView mas_makeConstraints:^(MASConstraintMaker * maker){
             // 共同位置属性
-            maker.height.equalTo(@(51.2));
+            maker.height.equalTo(@(36));
             
             dotView.originalBottomOffset = - DotViewBottomMargin;
             dotView.bottomConstraint = maker.bottom.equalTo(_wSuperView.mas_bottom).with.offset( - DotViewBottomMargin);
@@ -381,6 +381,7 @@ static float const DotViewBottomMargin = 15;
 
 - (void)pauseTraining:(id)sender{
     if (_trainingManager.trainingState == TrainingStateRunning) {
+        // 暂停
         [_trainingManager pause];
         [_centeredButton setTitle:nil forState:UIControlStateNormal];
         UIImage * image = [UIImage imageNamed:@"play"];
@@ -389,6 +390,7 @@ static float const DotViewBottomMargin = 15;
         [_centeredButton setImageEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
         [_centeredButton setImage:image forState:UIControlStateNormal];
     }else{
+        // 继续
         [_trainingManager resume];
         [_centeredButton setTitle:[_currentTrainingUnit description] forState:UIControlStateNormal];
         [_centeredButton setImage:nil forState:UIControlStateNormal];

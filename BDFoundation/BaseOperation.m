@@ -209,14 +209,14 @@ static NSMutableArray * sOperations = nil;
     
     if ([requestMetaData isEqualToString:subUrl]) {
         Class prototype = nil;
-        if ([self respondsToSelector:@selector(responseClass)]) {
+        if ([self respondsToSelector:@selector(responseClassType)]) {
             
             // 获取反馈包class原型（prototype），反馈包必须继承自BaseResponse才能自动解析
-            prototype = [self performSelector:@selector(responseClass)];
+            prototype = [self performSelector:@selector(responseClassType)];
             
             if ([prototype isSubclassOfClass:[BaseResponse class]]) {
                 
-                // 自动解析反馈数据为responseClass
+                // 自动解析反馈数据为responseClassType
                 NSError * error = nil;
                 self.response = [JDJsonDecoder objectForClass:prototype withData:responseData options:0 error:&error];
                 

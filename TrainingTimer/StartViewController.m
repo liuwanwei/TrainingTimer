@@ -50,8 +50,6 @@ typedef enum{
     self.view.backgroundColor = [UIColor whiteColor];
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
     
-    self.title = @"HIIT跳绳训练";
-    
     self.navigationController.navigationBarHidden = YES;
 //    
 //    @weakify(self);

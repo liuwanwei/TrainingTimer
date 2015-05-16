@@ -30,8 +30,8 @@
 - (id)initWithViewController:(UIViewController *)vc{
     if (self = [super init]) {
         _parentViewController = vc;
-        _title = @"HIIT 跳绳训练";
-        _brief = @"高强度间歇性训练，用来练习心肺功能，冲击速度，减脂效果明显";
+        _title = @"HIIT 跳绳";
+        _brief = @"高强度间歇性训练，能够短时间内大量消耗卡路里，增进基础代谢率";
         _totalTime = @"共需 3 分 25 秒";
     }
     

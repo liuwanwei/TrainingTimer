@@ -120,7 +120,7 @@
 		FBDA39E61ACAFE4700DE81FB /* StartLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartLineView.m; sourceTree = "<group>"; };
 		FBDA39EB1ACB736B00DE81FB /* UIFont+Adapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Adapter.h"; sourceTree = "<group>"; };
 		FBDA39EC1ACB736B00DE81FB /* UIFont+Adapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Adapter.m"; sourceTree = "<group>"; };
-		FBF0F7301ABD321700EBC44C /* HIIT跳绳训练.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HIIT跳绳训练.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBF0F7301ABD321700EBC44C /* HIIT跳绳.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HIIT跳绳.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBF0F7341ABD321700EBC44C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBF0F7351ABD321700EBC44C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FBF0F7371ABD321700EBC44C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -306,7 +306,7 @@
 		FBF0F7311ABD321700EBC44C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FBF0F7301ABD321700EBC44C /* HIIT跳绳训练.app */,
+				FBF0F7301ABD321700EBC44C /* HIIT跳绳.app */,
 				FBF0F7491ABD321700EBC44C /* TrainingTimerTests.xctest */,
 			);
 			name = Products;
@@ -484,7 +484,7 @@
 			);
 			name = TrainingTimer;
 			productName = TrainingTimer;
-			productReference = FBF0F7301ABD321700EBC44C /* HIIT跳绳训练.app */;
+			productReference = FBF0F7301ABD321700EBC44C /* HIIT跳绳.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FBF0F7481ABD321700EBC44C /* TrainingTimerTests */ = {
@@ -516,6 +516,7 @@
 				TargetAttributes = {
 					FBF0F72F1ABD321700EBC44C = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = UD8763N3M5;
 					};
 					FBF0F7481ABD321700EBC44C = {
 						CreatedOnToolsVersion = 6.2;
@@ -742,6 +743,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -767,11 +769,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TrainingTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_MODULE_NAME = "HIIT跳绳训练";
-				PRODUCT_NAME = "HIIT跳绳训练";
+				PRODUCT_MODULE_NAME = "HIIT跳绳";
+				PRODUCT_NAME = "HIIT跳绳";
+				PROVISIONING_PROFILE = "13be8ba2-3b32-42af-81cc-dbb295264bd5";
 			};
 			name = Debug;
 		};
@@ -781,11 +785,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Wanwei Liu (UD8763N3M5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Wanwei Liu (UD8763N3M5)";
 				INFOPLIST_FILE = TrainingTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_MODULE_NAME = "HIIT跳绳训练";
-				PRODUCT_NAME = "HIIT跳绳训练";
+				PRODUCT_MODULE_NAME = "HIIT跳绳";
+				PRODUCT_NAME = "HIIT跳绳";
+				PROVISIONING_PROFILE = "13be8ba2-3b32-42af-81cc-dbb295264bd5";
 			};
 			name = Release;
 		};
